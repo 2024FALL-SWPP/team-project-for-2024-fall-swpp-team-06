@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2b164466825b7641a654b3fb2d1ea07, type: 3}
-  m_Name: ResourceGenerationController
+  m_Script: {fileID: 11500000, guid: 970e3c51bba7da74fbfa31e19dd2ba6a, type: 3}
+  m_Name: SettingsSaver_PlayerPrefs
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 6d7483d17c5b4e24ebc5e39da1b99fa8, type: 2}
-  containerFoldoutValue_General: 0
-  containerFoldoutValue_UGUI: 1
-  containerFoldoutValue_UIT: 0
+  appendData: 0
+  playerPrefsKey: Settings
