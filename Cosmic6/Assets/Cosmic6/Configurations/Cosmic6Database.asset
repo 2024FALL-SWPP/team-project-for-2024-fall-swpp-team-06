@@ -14,6 +14,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unstackEvent: 3
   unstackKeyCode: 304
+--- !u!114 &-3997144832455885723
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
+  m_Name: Axe
+  m_EditorClassIdentifier: 
+  m_Id: 5a255cd1-a810-41de-8c38-251ede3b0797
+  m_ItemName: "\uB3C4\uB07C"
+  m_UseItemNameAsDisplayName: 1
+  m_DisplayName: "\uB3C4\uB07C"
+  m_Icon: {fileID: 21300000, guid: 81e9ec1d21e1f8f43a06e7e75c17fc37, type: 3}
+  m_Prefab: {fileID: 1015097996585602898, guid: 656f52de710a7c5458e967bd9fdb47d8, type: 3}
+  m_Description: 
+  m_Category: {fileID: 7744711347407119638}
+  m_IsSellable: 0
+  m_BuyPrice: 0
+  m_CanBuyBack: 1
+  m_BuyCurrency: {fileID: -3665376756583357333}
+  m_SellPrice: 0
+  m_SellCurrency: {fileID: -3665376756583357333}
+  m_Stack: 1
+  m_MaxStack: 1
+  m_IsDroppable: 1
+  m_DropSound: {fileID: 0}
+  m_OverridePrefab: {fileID: 0}
+  m_IsCraftable: 0
+  m_CraftingDuration: 2
+  m_UseCraftingSkill: 0
+  m_SkillWindow: Skills
+  m_CraftingSkill: {fileID: 0}
+  m_RemoveIngredientsWhenFailed: 0
+  m_MinCraftingSkillValue: 0
+  m_CraftingAnimatorState: Blacksmithy
+  m_CraftingModifier:
+    modifiers: []
+  ingredients: []
+  properties: []
 --- !u!114 &-3665376756583357333
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -75,6 +118,49 @@ MonoBehaviour:
   sellPriceTooltipName: Sell Price Tooltip
   stackName: Stack
   notificationName: Notification
+--- !u!114 &-611052847507068018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id: ca64949b-7781-4051-bd29-da202f532c4d
+  m_ItemName: "\uC0B0\uC18C\uD1B5"
+  m_UseItemNameAsDisplayName: 1
+  m_DisplayName: "\uC0B0\uC18C\uD1B5"
+  m_Icon: {fileID: 21300000, guid: 4fb083f2779c6a54b83359c8e1f645ae, type: 3}
+  m_Prefab: {fileID: 8691791808019154518, guid: 271330b2c928f6543a2a366d9f428ca6, type: 3}
+  m_Description: 
+  m_Category: {fileID: 7744711347407119638}
+  m_IsSellable: 0
+  m_BuyPrice: 0
+  m_CanBuyBack: 1
+  m_BuyCurrency: {fileID: -3665376756583357333}
+  m_SellPrice: 0
+  m_SellCurrency: {fileID: -3665376756583357333}
+  m_Stack: 1
+  m_MaxStack: 5
+  m_IsDroppable: 1
+  m_DropSound: {fileID: 0}
+  m_OverridePrefab: {fileID: 0}
+  m_IsCraftable: 0
+  m_CraftingDuration: 2
+  m_UseCraftingSkill: 0
+  m_SkillWindow: Skills
+  m_CraftingSkill: {fileID: 0}
+  m_RemoveIngredientsWhenFailed: 0
+  m_MinCraftingSkillValue: 0
+  m_CraftingAnimatorState: Blacksmithy
+  m_CraftingModifier:
+    modifiers: []
+  ingredients: []
+  properties: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +174,11 @@ MonoBehaviour:
   m_Name: Cosmic6Database
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 6793370627227107289}
+  - {fileID: 5831773847554846298}
+  - {fileID: -3997144832455885723}
+  - {fileID: 4848875442297508990}
+  - {fileID: 3499127886637263571}
+  - {fileID: -611052847507068018}
   currencies:
   - {fileID: -3665376756583357333}
   raritys: []
@@ -119,6 +209,92 @@ MonoBehaviour:
   queriesHitTriggers: 0
   debugMessages: 1
   showAllComponents: 0
+--- !u!114 &3499127886637263571
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
+  m_Name: Shovel
+  m_EditorClassIdentifier: 
+  m_Id: ecdbab10-17ef-405a-89ed-8026ebfcb227
+  m_ItemName: "\uC0BD"
+  m_UseItemNameAsDisplayName: 1
+  m_DisplayName: "\uC0BD"
+  m_Icon: {fileID: 21300000, guid: fdda12142964ac04ca8ac75e9ba9e191, type: 3}
+  m_Prefab: {fileID: 1331191491108408314, guid: 94a2d5e528a1d0448b9e58149057b9d4, type: 3}
+  m_Description: 
+  m_Category: {fileID: 7744711347407119638}
+  m_IsSellable: 0
+  m_BuyPrice: 0
+  m_CanBuyBack: 1
+  m_BuyCurrency: {fileID: -3665376756583357333}
+  m_SellPrice: 0
+  m_SellCurrency: {fileID: -3665376756583357333}
+  m_Stack: 1
+  m_MaxStack: 1
+  m_IsDroppable: 1
+  m_DropSound: {fileID: 0}
+  m_OverridePrefab: {fileID: 0}
+  m_IsCraftable: 0
+  m_CraftingDuration: 2
+  m_UseCraftingSkill: 0
+  m_SkillWindow: Skills
+  m_CraftingSkill: {fileID: 0}
+  m_RemoveIngredientsWhenFailed: 0
+  m_MinCraftingSkillValue: 0
+  m_CraftingAnimatorState: Blacksmithy
+  m_CraftingModifier:
+    modifiers: []
+  ingredients: []
+  properties: []
+--- !u!114 &4848875442297508990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
+  m_Name: Pickaxe
+  m_EditorClassIdentifier: 
+  m_Id: 2234cfca-3050-4a83-a4fa-b6dbe55ab70e
+  m_ItemName: "\uACE1\uAD2D\uC774"
+  m_UseItemNameAsDisplayName: 1
+  m_DisplayName: "\uACE1\uAD2D\uC774"
+  m_Icon: {fileID: 21300000, guid: 575a1e2821f78e24bb70f3ba24d83bde, type: 3}
+  m_Prefab: {fileID: 7587900409439311534, guid: a6c9adeadc355bf4ea21f1e97db84077, type: 3}
+  m_Description: 
+  m_Category: {fileID: 7744711347407119638}
+  m_IsSellable: 0
+  m_BuyPrice: 0
+  m_CanBuyBack: 1
+  m_BuyCurrency: {fileID: -3665376756583357333}
+  m_SellPrice: 0
+  m_SellCurrency: {fileID: -3665376756583357333}
+  m_Stack: 1
+  m_MaxStack: 1
+  m_IsDroppable: 1
+  m_DropSound: {fileID: 0}
+  m_OverridePrefab: {fileID: 0}
+  m_IsCraftable: 0
+  m_CraftingDuration: 2
+  m_UseCraftingSkill: 0
+  m_SkillWindow: Skills
+  m_CraftingSkill: {fileID: 0}
+  m_RemoveIngredientsWhenFailed: 0
+  m_MinCraftingSkillValue: 0
+  m_CraftingAnimatorState: Blacksmithy
+  m_CraftingModifier:
+    modifiers: []
+  ingredients: []
+  properties: []
 --- !u!114 &5806073942032302412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,23 +467,7 @@ MonoBehaviour:
     delay: 2
     duration: 2
     ignoreTimeScale: 1
---- !u!114 &6608837815105306067
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cefcd19cdc9839d449772c4dce1503f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoSave: 1
-  savingKey: Player
-  savingRate: 60
-  provider: 0
---- !u!114 &6793370627227107289
+--- !u!114 &5831773847554846298
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,14 +477,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
-  m_Name: 
+  m_Name: WalkieTalkie
   m_EditorClassIdentifier: 
-  m_Id: 8bcbead9-da7f-45c7-ac35-ca873bddcfa8
-  m_ItemName: "\uD480 (Spindlewit A2)"
+  m_Id: 848b539b-e54a-4988-9b35-cf74a2fe951b
+  m_ItemName: "\uD1B5\uC2E0\uC7A5\uBE44"
   m_UseItemNameAsDisplayName: 1
-  m_DisplayName: New Item
-  m_Icon: {fileID: 21300000, guid: 1da9f2b04608b044eb7f66ef739e8303, type: 3}
-  m_Prefab: {fileID: 3150012718491446919, guid: a294fbcadab11c94ebd224945e8b42c8, type: 3}
+  m_DisplayName: "\uD1B5\uC2E0\uC7A5\uBE44"
+  m_Icon: {fileID: 21300000, guid: db427fab3e94daf4caa704d9314a77a1, type: 3}
+  m_Prefab: {fileID: 1121639784727271727, guid: 0f84b06be8f5c6a40a1e8e0520c04585, type: 3}
   m_Description: 
   m_Category: {fileID: 7744711347407119638}
   m_IsSellable: 0
@@ -350,6 +510,22 @@ MonoBehaviour:
     modifiers: []
   ingredients: []
   properties: []
+--- !u!114 &6608837815105306067
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cefcd19cdc9839d449772c4dce1503f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoSave: 0
+  savingKey: Player
+  savingRate: 60
+  provider: 0
 --- !u!114 &7744711347407119638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -360,7 +536,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4abab319188bac4a8515c585b13ba9d, type: 3}
-  m_Name: 
+  m_Name: "\uC2DD\uB7C9"
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 0}
   name: "\uC2DD\uB7C9"
