@@ -1,45 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class QuestSystem : MonoBehaviour
 {
     public GameObject questPanel;
-
-    public Text title1Text;
-    public Text content1Text;
-    public Text title2Text;
-    public Text content2Text;
+    public GameObject questItemPrefab; 
+    public Transform questListContainer; 
 
     private Queue<Quest> questQueue;
-    private Quest[] activeQuests;
+    private List<Quest> activeQuests;
 
-    // Start is called before the first frame update
+    public GameObject popupPrefab;
+    public Transform popupParent;
+
     void Start()
     {
         questPanel.SetActive(false);
-        activeQuests = new Quest[2];
+        activeQuests = new List<Quest>();
         InitializeQuests();
     }
 
     public void ToggleQuestPanel()
     {
-        if (!questPanel.activeSelf)
+        questPanel.SetActive(!questPanel.activeSelf);
+        if (questPanel.activeSelf)
         {
-            questPanel.SetActive(true);
             UpdateQuestDisplay();
         }
-        else
-        {
-            questPanel.SetActive(false);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void InitializeQuests()
@@ -50,46 +39,69 @@ public class QuestSystem : MonoBehaviour
         questQueue.Enqueue(new Quest("Gather Herbs", "Collect 5 healing herbs from the meadow.", "Herbs", 5));
         questQueue.Enqueue(new Quest("Deliver Message", "Take the letter to the town.", "Deliveries", 1));
 
-        for (int i = 0; i < activeQuests.Length; i++)
+        for (int i = 0; i < 4; i++)
         {
             if (questQueue.Count > 0)
             {
-                activeQuests[i] = questQueue.Dequeue();
+                Quest quest = questQueue.Dequeue();
+                AddQuest(quest);
+                ShowPopup(quest);
             }
         }
     }
 
-    void UpdateQuestDisplay()
+    private void AddQuest(Quest quest)
     {
-        title1Text.text = activeQuests[0] != null ? activeQuests[0].title : "";
-        content1Text.text = activeQuests[0] != null ? $"{activeQuests[0].description} (Progress: {activeQuests[0].currentValue}/{activeQuests[0].targetValue})" : "";
+        activeQuests.Add(quest);
 
-        title2Text.text = activeQuests[1] != null ? activeQuests[1].title : "";
-        content2Text.text = activeQuests[1] != null ? $"{activeQuests[1].description} (Progress: {activeQuests[1].currentValue}/{activeQuests[1].targetValue})" : "";
+        GameObject questItem = Instantiate(questItemPrefab, questListContainer);
+        RectTransform rectTransform = questItem.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(700, 50);
 
-        Debug.Log("Displayed: " + activeQuests[0].title + " / " + activeQuests[1].title);
+        TMP_Text titleText = questItem.transform.Find("Title").Find("Text").GetComponent<TMP_Text>();
+        TMP_Text contentText = questItem.transform.Find("Content").Find("Text").GetComponent<TMP_Text>();
+
+        titleText.text = quest.title;
+        contentText.text = $"{quest.description} (Progress: {quest.currentValue}/{quest.targetValue})";
+
+        questItem.name = $"Quest_{quest.title}";
+    }
+
+    private void UpdateQuestDisplay()
+    {
+        foreach (Transform questItem in questListContainer)
+        {
+            TMP_Text contentText = questItem.Find("Content").Find("Text").GetComponent<TMP_Text>();
+            string questTitle = questItem.Find("Title").Find("Text").GetComponent<TMP_Text>().text;
+
+            Quest quest = activeQuests.Find(q => q.title == questTitle);
+            if (quest != null)
+            {
+                contentText.text = $"{quest.description} (Progress: {quest.currentValue}/{quest.targetValue})";
+            }
+        }
     }
 
     public void UpdateQuestProgress(string variable, int value)
     {
-        for (int i = 0; i < activeQuests.Length; i++)
+        for (int i = activeQuests.Count - 1; i >= 0; i--)
         {
             Quest quest = activeQuests[i];
 
-            if (quest != null && quest.conditionVariable == variable)
+            if (quest.conditionVariable == variable)
             {
                 quest.UpdateProgress(value);
 
                 if (quest.IsComplete())
                 {
                     Debug.Log($"{quest.title} completed!");
+
+                    activeQuests.RemoveAt(i);
+                    Destroy(questListContainer.Find($"Quest_{quest.title}").gameObject);
+
                     if (questQueue.Count > 0)
                     {
-                        activeQuests[i] = questQueue.Dequeue();
-                    }
-                    else
-                    {
-                        activeQuests[i] = null;
+                        AddQuest(questQueue.Dequeue());
                     }
                 }
             }
@@ -97,4 +109,33 @@ public class QuestSystem : MonoBehaviour
         UpdateQuestDisplay();
     }
 
+    public void ShowPopup(Quest quest)
+    {
+        if (popupPrefab != null)
+        {
+            GameObject popupInstance;
+            if (popupParent != null)
+            {
+                popupInstance = Instantiate(popupPrefab, popupParent);
+            }
+            else
+            {
+                popupInstance = Instantiate(popupPrefab);
+            }
+
+            TMP_Text titleText = popupInstance.transform.Find("Title").GetComponent<TMP_Text>();
+            TMP_Text contentText = popupInstance.transform.Find("Content").GetComponent<TMP_Text>();
+
+            titleText.text = quest.title;
+            contentText.text = quest.description;
+
+            popupInstance.name = $"Popup_{quest.title}";
+        }
+    }
+
+    public void GenerateQuest(Quest quest)
+    {
+        AddQuest(quest);
+        ShowPopup(quest);
+    }
 }

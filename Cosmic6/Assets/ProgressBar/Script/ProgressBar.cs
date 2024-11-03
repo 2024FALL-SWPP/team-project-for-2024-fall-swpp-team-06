@@ -16,8 +16,8 @@ public class ProgressBar : MonoBehaviour
     public int TitleFontSize = 10;
 
     [Header("Bar Setting")]
-    public Color BarColor;   
-    public Color BarBackGroundColor;
+    public Color BarColor;
+    private Color BarBackGroundColor = Color.gray;
     public Sprite BarBackGroundSprite;
     [Range(1f, 100f)]
     public int Alert = 20;
@@ -33,6 +33,7 @@ public class ProgressBar : MonoBehaviour
     private AudioSource audiosource;
     private Text txtTitle;
     private float barValue;
+
     public float BarValue
     {
         get { return barValue; }
@@ -73,10 +74,17 @@ public class ProgressBar : MonoBehaviour
 
     }
 
-    void UpdateValue(float val)
+    public void SetValue(float val)
+    {
+        barValue = val;
+        UpdateValue(barValue);
+    }
+
+    private void UpdateValue(float val)
     {
         bar.fillAmount = val / 100;
-        txtTitle.text = Title + " " + val + "%";
+        int intValue = Mathf.RoundToInt(val);
+        txtTitle.text = Title + " " + intValue + "%";
 
         if (Alert >= val)
         {
