@@ -22,12 +22,15 @@ public class QuestSystem : MonoBehaviour
         InitializeQuests();
     }
 
-    public void ToggleQuestPanel()
+    public void Update()
     {
-        questPanel.SetActive(!questPanel.activeSelf);
-        if (questPanel.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            UpdateQuestDisplay();
+            questPanel.SetActive(!questPanel.activeSelf);
+            if (questPanel.activeSelf)
+            {
+                UpdateQuestDisplay();
+            }
         }
     }
 
