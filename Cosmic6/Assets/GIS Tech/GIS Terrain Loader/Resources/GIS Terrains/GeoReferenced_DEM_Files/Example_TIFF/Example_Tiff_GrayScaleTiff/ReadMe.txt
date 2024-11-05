@@ -1,0 +1,1 @@
+This is a GeoTiff file with grayscale color

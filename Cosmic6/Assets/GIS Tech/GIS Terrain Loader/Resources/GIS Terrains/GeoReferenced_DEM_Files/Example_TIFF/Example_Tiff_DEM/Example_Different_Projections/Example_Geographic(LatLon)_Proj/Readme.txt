@@ -1,0 +1,1 @@
+Simple Tiff 16 bit projected in Geographic Lat/Lon

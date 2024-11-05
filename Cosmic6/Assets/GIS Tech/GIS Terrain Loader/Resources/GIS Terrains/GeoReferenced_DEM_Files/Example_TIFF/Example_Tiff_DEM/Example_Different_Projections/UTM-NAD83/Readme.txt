@@ -1,0 +1,1 @@
+This is Tiff 32 bit float point created from lidar data
