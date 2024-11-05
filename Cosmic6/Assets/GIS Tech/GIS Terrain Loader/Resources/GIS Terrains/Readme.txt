@@ -1,0 +1,1 @@
+To Test all examples and supported GIS files, please download "GIS Terrain Loader Examples".
