@@ -1,1 +1,0 @@
-This is Tiff 32 bit float point Based on Tiles

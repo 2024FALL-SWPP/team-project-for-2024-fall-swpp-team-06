@@ -1,1 +1,0 @@
-This is a GeoTiff file with Multi-Bands data which contains elevation in Bands Number 7 

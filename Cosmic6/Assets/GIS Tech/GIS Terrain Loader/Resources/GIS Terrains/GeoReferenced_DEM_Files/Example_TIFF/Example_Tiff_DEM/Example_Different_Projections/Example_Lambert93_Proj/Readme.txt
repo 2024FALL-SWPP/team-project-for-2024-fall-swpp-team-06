@@ -1,1 +1,0 @@
-Simple Tiff 16 bit projected in Lambert93
