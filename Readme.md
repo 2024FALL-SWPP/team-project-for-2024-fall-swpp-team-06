@@ -38,6 +38,16 @@
   - 인벤토리와의 상호작용이 필요한 asset들을 카테고리별로 정리해서 inventory 구축하는 나머지 과정 진행. 우리의 게임기획과 inventory 구현이 충분히 align되어야 함!
   - icon 즉 sprite 만들어서 적절히 배치하기. 인벤토리 상호작용 애셋 개수가 늘어날 경우 어떻게 빠르게 자동화해서 진행할 수 있는지 방법 찾기.
 
+- Inventory 설정 방법
+  - Tools > Devion Games > Inventory system > Editor 눌러서 창 띄우기
+  - 왼쪽 맨 위에서 Cosmic6database 선택
+  - 왼쪽 위에서 + 누르고 Item 선택
+  - Name, Icon(Sprite), Prefab 선택
+  - 그럼 Setup이 뜬다. 그걸 누르고, display되길 원하는 이름을 입력하고, PrefabsforInventory 등 별도의 폴더에 저장한다 (매우 중요)
+  - 그곳에 저장된 (원래것이 아닌) Prefab을 편집한다. Trigger 컴포넌트에서, Use Distance를 -1로 바꾸고 -> Trigger Type에서 Key를 해제해 LeftClick만 남게 만들고, Action Template에서 이중 동그라미를 선택해 Pickup을 선택한다.
+  - Prefabs 등 원래 폴더가 아닌, PrefabsforInventory에서 inventory와 상호작용이 가능하도록 준비된 prefab 중에서 필요한 것을 골라서 scene에 배치한다.
+  - 앞으로 이 scene에서 이 prefab instance와 관련해 무엇인가 편집할 게 있을 경우, inventory에 들어갔다 나온 뒤에도 같은 수정사항이 적용돼있길 원한다면 해당 instance의 inspector에 들어가 Overrides > Apply all을 눌러줘야 한다.
+
 ##### Plant
 
 - 링크
