@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.autodesk.fbx": {
-      "version": "4.1.2",
+      "version": "4.2.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -14,71 +14,14 @@
       "dependencies": {},
       "hash": "5a1fa96bd2d75e8402a66b4e8480105472a9aca7"
     },
-    "com.citrion.common": {
-      "version": "file:com.citrion.common",
+    "com.unity.ai.navigation": {
+      "version": "1.1.5",
       "depth": 0,
-      "source": "embedded",
+      "source": "registry",
       "dependencies": {
-        "com.unity.editorcoroutines": "1.0.0",
-        "com.unity.nuget.newtonsoft-json": "3.2.1"
-      }
-    },
-    "com.citrion.settings-menu-creator": {
-      "version": "file:com.citrion.settings-menu-creator",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.textmeshpro": "3.0.6",
-        "com.citrion.common": "1.3.1",
-        "com.citrion.ui": "1.0.4",
-        "com.citrion.ui.panels": "1.0.4",
-        "com.citrion.ui.images": "1.0.1",
-        "com.citrion.ui.components": "1.1.0",
-        "com.citrion.styleprofile": "1.1.2"
-      }
-    },
-    "com.citrion.styleprofile": {
-      "version": "file:com.citrion.styleprofile",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.textmeshpro": "3.0.6",
-        "com.citrion.common": "1.3.0"
-      }
-    },
-    "com.citrion.ui": {
-      "version": "file:com.citrion.ui",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.citrion.common": "1.3.0",
-        "com.unity.textmeshpro": "3.0.6"
-      }
-    },
-    "com.citrion.ui.components": {
-      "version": "file:com.citrion.ui.components",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.textmeshpro": "3.0.6",
-        "com.citrion.common": "1.3.0",
-        "com.citrion.ui": "1.0.4",
-        "com.citrion.ui.images": "1.0.1"
-      }
-    },
-    "com.citrion.ui.images": {
-      "version": "file:com.citrion.ui.images",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
-    "com.citrion.ui.panels": {
-      "version": "file:com.citrion.ui.panels",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.citrion.common": "1.3.0"
-      }
+        "com.unity.modules.ai": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
       "version": "2.4.4",
@@ -116,12 +59,12 @@
       }
     },
     "com.unity.formats.fbx": {
-      "version": "4.1.3",
+      "version": "4.2.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.autodesk.fbx": "4.1.2",
-        "com.unity.timeline": "1.5.2"
+        "com.autodesk.fbx": "4.2.1",
+        "com.unity.timeline": "1.7.1"
       },
       "url": "https://packages.unity.com"
     },
@@ -150,13 +93,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.nuget.newtonsoft-json": {
-      "version": "3.2.1",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.performance.profile-analyzer": {
       "version": "1.2.2",
       "depth": 1,
@@ -165,7 +101,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.settings-manager": {
-      "version": "1.0.3",
+      "version": "2.0.1",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
@@ -202,7 +138,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.6.5",
+      "version": "1.7.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -363,17 +299,6 @@
     "com.unity.modules.uielements": {
       "version": "1.0.0",
       "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.imgui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.uielementsnative": "1.0.0"
-      }
-    },
-    "com.unity.modules.uielementsnative": {
-      "version": "1.0.0",
-      "depth": 1,
       "source": "builtin",
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
