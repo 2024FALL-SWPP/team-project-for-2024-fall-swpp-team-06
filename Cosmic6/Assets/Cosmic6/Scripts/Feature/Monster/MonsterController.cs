@@ -1,48 +1,56 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 public class MonsterController : MonoBehaviour
 {
-    private enum State { Idle, Patrol, Chase, Attack, Investigate }
-    private State currentState;
+    public enum State { Idle, Patrol, Chase, Attack, Investigate }
+    public State currentState;
 
     public List<GameObject> attackParts;
-    private Dictionary<GameObject, float> _attackDamages;
-    private List<BoxCollider> _attackColliders;
+    private Dictionary<GameObject, float> _attackDamages = new Dictionary<GameObject, float>();
+    private List<BoxCollider> _attackColliders = new List<BoxCollider>();
 
-    public Transform[] patrolPoints;
     private NavMeshAgent agent;
 
     public float handDamage = 10f;
     public float mouthDamage = 20f;
+
+    private Animator animator;
     
     public Transform target;
+
+    public Collider targetCollider;
     // TODO: private PlayerController player;
+    public Transform headTransform;
+    // Local Axis of Head Direction
+    public int headDirectionIdx = 1;
     
-    public float detectionRange = 15f;
-    public float viewRangeinChasing = 25f;
-    private float _detectionRate = 1f;
-    public float fovHorizontal = 180f;
-    public float fovVertical = 150f;
+    public float detectionRange = 25f;
+    public float viewRangeinChasing = 35f;
+    private float _detectionRate = 0.5f;
+    public float fovHorizontal = 160f;
+    public float fovVertical = 1700f;
     public float chaseRange = 20f;
     public float attackRange = 3f;
 
     public Vector3 patrolCenterPoint;
-    public float patrolAreaRadius;
+    public float patrolAreaRadius = 500f;
     public float distanceLowerBound = 5f;
     public float distanceUpperBound = 15f;
     // TODO: synchronize layer index and 1 << idx
-    private LayerMask _targetMask = 1 << 3;
-    private Collider[] _targetsInRange = new Collider[1];
+    private LayerMask _monsterInvertedMask = ~(1 << 3);
     private Vector3 _headPositionOffset;
 
-    private float _attackCoolDown;
-    private float _attackAnimationLength;
+    private float _attackCoolDown = 3f;
+    private float _attackAnimationLength = 0.8f;
 
     public float investigateSpeed = 5f;
     public float chaseSpeed = 8f;
@@ -56,7 +64,19 @@ public class MonsterController : MonoBehaviour
     // TODO: control parameters of navmesh agent
     void Start()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        StartCoroutine(Initialize());
+    }
+
+    void Update()
+    {
+        float currentSpeed = agent.velocity.magnitude;
+        animator.SetFloat("Speed", currentSpeed / chaseSpeed);
+    }
+
+    IEnumerator Initialize()
+    {
         // TODO: player = target.gameObject.GetComponent<PlayerController>();
 
         foreach (GameObject part in attackParts)
@@ -76,9 +96,13 @@ public class MonsterController : MonoBehaviour
             attackCollider.onHit += HandleHit;
         }
         
+        NavMeshHit hit;
+        NavMesh.SamplePosition(transform.position, out hit, 2.0f, NavMesh.AllAreas);
         
+        agent.Warp(hit.position);
         currentState = State.Idle;
         StartCoroutine(StateRoutine());
+        yield return null;
     }
 
     IEnumerator StateRoutine()
@@ -109,6 +133,12 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator Idle(float idleTime)
     {
+        print("Idle");
+
+        if (Random.Range(0, 10) <= 7)
+        {
+            animator.SetBool("LookAround_b", true);
+        }
         StartCoroutine("LookAround");
         
         int numCheck = Mathf.RoundToInt(idleTime / _targetCheckRate);
@@ -119,23 +149,29 @@ public class MonsterController : MonoBehaviour
             {
                 currentState = State.Chase;
                 StopCoroutine("LookAround");
+                animator.SetBool("LookAround_b", false);
                 yield break;
             }
             yield return new WaitForSeconds(_targetCheckRate);
         }
         
+        animator.SetBool("LookAround_b", false);
         currentState = State.Patrol;
     }
 
     IEnumerator Patrol(Vector3 destination, float speed)
     {
+        print("Patrol");
         agent.speed = speed;
-        StartCoroutine("LookAround");
-
-        NavMeshHit hit;
-        NavMesh.SamplePosition(destination, out hit, 0, agent.areaMask);
         
-        agent.SetDestination(hit.position);
+        if (Random.Range(0, 10) <= 7)
+        {
+            animator.SetBool("LookAround_b", true);
+        }
+        
+        StartCoroutine("LookAround");
+        
+        agent.SetDestination(destination);
         
         while (agent.remainingDistance > agent.stoppingDistance)
         {
@@ -143,11 +179,13 @@ public class MonsterController : MonoBehaviour
             {
                 currentState = State.Chase;
                 StopCoroutine("LookAround");
+                animator.SetBool("LookAround_b", false);
                 yield break;
             }
             yield return null;
         }
         
+        animator.SetBool("LookAround_b", false);
         currentState = State.Idle;
     }
 
@@ -156,18 +194,28 @@ public class MonsterController : MonoBehaviour
         // if the gameObject is too far from the patrol Area Center, sample the next orientation in [Orientation to the center] +- 90
         Vector3 distanceToCenter = patrolCenterPoint - transform.position;
         float bound = patrolAreaRadius - distanceToCenter.magnitude < distanceUpperBound ? 90 : 180;
-        float randomAngle = Random.Range(-bound, bound);
+
+        while (true)
+        {
+            
+            float randomAngle = Random.Range(-bound, bound);
         
-        Quaternion angleOffset = Quaternion.Euler(0, randomAngle, 0);
-        Vector3 patrolDirection = angleOffset * distanceToCenter.normalized;
+            Quaternion angleOffset = Quaternion.Euler(0, randomAngle, 0);
+            Vector3 patrolDirection = angleOffset * distanceToCenter.normalized;
         
-        float patrolDistance = Random.Range(distanceLowerBound, distanceUpperBound);
-        
-        return transform.position + patrolDirection * patrolDistance;
+            float patrolDistance = Random.Range(distanceLowerBound, distanceUpperBound);
+
+            if (NavMesh.SamplePosition(transform.position + patrolDirection * patrolDistance, out NavMeshHit hit, 5f,
+                    agent.areaMask))
+            {
+                return hit.position;
+            }
+        }
     }
 
     IEnumerator Chase()
     {
+        print("Chase");
         agent.speed = chaseSpeed;
         
         while (true)
@@ -175,14 +223,28 @@ public class MonsterController : MonoBehaviour
 
             float distanceToTarget = Vector3.Distance(transform.position, target.position);
             
-            if (distanceToTarget < chaseRange && NavMesh.SamplePosition(target.position, out NavMeshHit hit, 0, agent.areaMask))
+            if (distanceToTarget < chaseRange && NavMesh.SamplePosition(target.position, out NavMeshHit hit, 3, agent.areaMask))
             {
                 if (distanceToTarget < attackRange)
                 {
                     currentState = State.Attack;
                     yield break;
                 }
-                if (!IsTargetInView(transform.forward, chaseRange))
+                Vector3 forwardDir = Vector3.zero;
+                switch (headDirectionIdx)
+                {
+                    case 0:
+                        forwardDir = headTransform.right;
+                        break;
+                    case 1:
+                        forwardDir = headTransform.up;
+                        break;
+                    case 2:
+                        forwardDir = headTransform.forward;
+                        break;
+                }
+                
+                if (!IsTargetInView(forwardDir, viewRangeinChasing))
                 {
                     _hasTarget = false;
                     currentState = State.Investigate;
@@ -204,12 +266,25 @@ public class MonsterController : MonoBehaviour
     // Coroutine in Idle & Patrol state
     IEnumerator LookAround()
     {
+        print("LookAround");
         // TODO: add head rotation or animation; forward direction -> head forward direction
         
         while (true)
         {
-            Vector3 forwardDir = transform.forward;
-
+            Vector3 forwardDir = Vector3.zero;
+            switch (headDirectionIdx)
+            {
+                case 0:
+                    forwardDir = headTransform.right;
+                    break;
+                case 1:
+                    forwardDir = headTransform.up;
+                    break;
+                case 2:
+                    forwardDir = headTransform.forward;
+                    break;
+            }
+            
             if (IsTargetInView(forwardDir, detectionRange))
             {
                 _hasTarget = true;
@@ -222,32 +297,53 @@ public class MonsterController : MonoBehaviour
 
     private bool IsTargetInView(Vector3 forwardDirection, float range)
     {
-        int numTargets = Physics.OverlapSphereNonAlloc(transform.position, range, _targetsInRange, _targetMask);
-        
-        for (int i = 0; i < numTargets; i++)
+        if ((target.position - headTransform.position).sqrMagnitude > range * range)
         {
-            Transform targetTransform = _targetsInRange[i].transform;
-            Vector3 directionToTarget = (targetTransform.position - transform.position).normalized;
-            
-            Vector3 directionHorizontal = Vector3.ProjectOnPlane(directionToTarget, transform.up);
+            return false;
+        }
         
-            float angleHorizontal = Vector3.Angle(forwardDirection, directionHorizontal);
-            
-            if (angleHorizontal < fovHorizontal / 2)
-            {
-                Vector3 directionVertical = Vector3.ProjectOnPlane(directionToTarget, transform.right);
-                float angleVertical = Vector3.Angle(forwardDirection, directionVertical);
+        Vector3 directionToTarget = (targetCollider.bounds.center - headTransform.position).normalized;
 
-                if (angleVertical < fovVertical / 2)
+        Vector3 verticalDirection = Vector3.zero;
+        Vector3 horizontalDirection = Vector3.zero;
+
+        // TODO: other models can differ
+        
+        switch (headDirectionIdx)
+        {
+            case 0:
+                verticalDirection = headTransform.forward;
+                horizontalDirection = headTransform.up;
+                break;
+            case 1:
+                verticalDirection = headTransform.right;
+                horizontalDirection = headTransform.forward;
+                break;
+            case 2:
+                verticalDirection = headTransform.up;
+                horizontalDirection = headTransform.right;
+                break;
+        }
+        
+            
+        Vector3 directionHorizontal = Vector3.ProjectOnPlane(directionToTarget, verticalDirection);
+        
+        float angleHorizontal = Vector3.Angle(forwardDirection, directionHorizontal);
+        
+        if (angleHorizontal < fovHorizontal / 2)
+        {
+            Vector3 directionVertical = Vector3.ProjectOnPlane(directionToTarget, horizontalDirection);
+            float angleVertical = Vector3.Angle(forwardDirection, directionVertical);
+
+            if (angleVertical < fovVertical / 2)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(headTransform.position, directionToTarget, out hit, range,
+                        Physics.DefaultRaycastLayers & _monsterInvertedMask, QueryTriggerInteraction.Collide))
                 {
-                    RaycastHit hit;
-                    if (Physics.Raycast(transform.position + _headPositionOffset, directionToTarget, out hit, range))
+                    if (hit.transform.CompareTag("Player"))
                     {
-                        // TODO: tag name synchronization
-                        if (hit.transform.CompareTag("Player"))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
@@ -259,8 +355,10 @@ public class MonsterController : MonoBehaviour
     IEnumerator Attack()
     {
         // TODO: add box colliders to the attacking parts & add several animations & sample attack motion & make lists for animation length and attack cooldown
+        print("Attack");
 
-        float checkRate = 0.1f;
+        float checkRate = 0.5f;
+        
         float waitTime = 0.5f;
         
         while (true)
@@ -283,20 +381,30 @@ public class MonsterController : MonoBehaviour
                     yield break;
                 }
 
+                if (NavMesh.SamplePosition(target.position, out NavMeshHit hit, 3f, agent.areaMask))
+                {
+                    agent.SetDestination(hit.position);
+                }
+                
                 yield return new WaitForSeconds(checkRate);
             }
+            agent.SetDestination(transform.position);
         }
     }
 
     IEnumerator Investigate()
     {
+        print("Investigate");
+        animator.SetBool("LookAroundAggressive_b", true);
+        
         Vector3 destination = agent.destination;
         agent.SetDestination(transform.position);
 
-        yield return Idle(4);
+        yield return Idle(3);
 
         if (currentState == State.Chase)
         {
+            animator.SetBool("LookAroundAggressive_b", false);
             yield break;
         }
 
@@ -304,15 +412,16 @@ public class MonsterController : MonoBehaviour
 
         if (currentState == State.Chase)
         {
+            animator.SetBool("LookAroundAggressive_b", false);
             yield break;
         }
         
+        animator.SetBool("LookAroundAggressive_b", false);
         currentState = State.Idle;
     }
 
     void HandleHit(Collider other, GameObject hitPart)
     {
-        // TODO: tag name synchronization
         if (other.CompareTag("Player"))
         {
             float damage = _attackDamages[hitPart];
