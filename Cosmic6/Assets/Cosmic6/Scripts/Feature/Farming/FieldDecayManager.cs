@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class FieldDecayManager : MonoBehaviour
 {
-    public const float DecayInterval = 30f;
+    public const float DecayInterval = 10f;
     // three textures for tilled grid, 2 -> 1 -> 0
     public const int DecayStages = 3;
     private IEnumerator decayRoutine;
+    private int index = 0;
     
     private FarmingManager farmingManager;
 
-    private float gridSize = 1f;
+    private float gridSize;
     
     private readonly object queueLock = new object();
     
@@ -24,7 +25,7 @@ public class FieldDecayManager : MonoBehaviour
     private SortedDictionary<FieldDecayData, int> decayQueue = new SortedDictionary<FieldDecayData, int>();     // must be saved
     private Dictionary<(int, int), FieldInfo> fieldMap = new Dictionary<(int, int), FieldInfo>();               // must be saved
     
-    private class FieldInfo
+    internal class FieldInfo
     {
         public FieldDecayData decayData;
         public Terrain terrain;
@@ -45,14 +46,12 @@ public class FieldDecayManager : MonoBehaviour
         }
     }
     
-    private class FieldDecayData : IComparable<FieldDecayData>
+    internal class FieldDecayData : IComparable<FieldDecayData>, IComparable
     {
         public float decayTime;
         public int x;
         public int z;
         public int decayStage;
-        private readonly FieldDecayManager fieldDecayManager;
-        private readonly float rollTime;
 
         public FieldDecayData(float decayTime, int x, int z, int decayStage, FieldDecayManager fieldDecayManager)
         {
@@ -60,23 +59,24 @@ public class FieldDecayManager : MonoBehaviour
             this.x = x;
             this.z = z;
             this.decayStage = decayStage;
-            this.fieldDecayManager = fieldDecayManager;
-            this.rollTime = fieldDecayManager.rollTime;
         }
 
         public int CompareTo(FieldDecayData other)
         {
             if (decayTime != other.decayTime)
-            {
-                var currentTime = fieldDecayManager.currentTime;
-
-                return ((decayTime + this.rollTime - currentTime) % this.rollTime).CompareTo(
-                    (other.decayTime + this.rollTime - currentTime) % this.rollTime);
-            }
-                
+                return decayTime.CompareTo(other.decayTime);
             if (x != other.x)
                 return x.CompareTo(other.x);
             return z.CompareTo(other.z);
+        }
+        
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+            if (obj is FieldDecayData other)
+                return CompareTo(other);
+            else
+                throw new ArgumentException("Object is not a FieldDecayData");
         }
     }
 
@@ -126,8 +126,9 @@ public class FieldDecayManager : MonoBehaviour
             var decayData = fieldInfo.decayData;
 
             decayQueue.Remove(decayData);
-        
-            fieldInfo.leftoverTime = decayData.decayStage * DecayInterval + decayData.decayTime;
+
+            fieldInfo.leftoverTime =
+                decayData.decayStage * DecayInterval + decayData.decayTime - currentTime;
             fieldInfo.state = FieldState.Planted;
             
             StopCoroutine(decayRoutine);
@@ -147,16 +148,20 @@ public class FieldDecayManager : MonoBehaviour
 
         int alphaMapWidth = terrainData.alphamapWidth;
         int alphaMapHeight = terrainData.alphamapHeight;
-        
-        int alphaStartX = Mathf.FloorToInt(x * gridSize / terrainSizeX * alphaMapWidth);
-        int alphaStartZ = Mathf.FloorToInt(z * gridSize / terrainSizeZ * alphaMapHeight);
 
-        int alphaWidth = Mathf.CeilToInt(gridSize / terrainSizeX * alphaMapWidth);
-        int alphaHeight = Mathf.CeilToInt(gridSize / terrainSizeZ * alphaMapHeight);
+        var (globalX, globalZ) = farmingManager.IndexToGlobal(x, z);
+        
+        Vector3 terrainPosition = terrain.transform.position;
+        
+        int alphaStartX = Mathf.FloorToInt((globalX - terrainPosition.x) / terrainSizeX * alphaMapWidth);
+        int alphaStartZ = Mathf.FloorToInt((globalZ - terrainPosition.z) / terrainSizeZ * alphaMapHeight);
+
+        int alphaWidth = 1;//Mathf.CeilToInt(gridSize / terrainSizeX * alphaMapWidth);
+        int alphaHeight = 1;//Mathf.CeilToInt(gridSize / terrainSizeZ * alphaMapHeight);
         
         float[,,] originalAlphamaps = terrainData.GetAlphamaps(alphaStartX, alphaStartZ, alphaWidth, alphaHeight);
-        
-        var decayData = new FieldDecayData(DecayInterval, x, z, DecayStages - 1, this);
+
+        var decayData = new FieldDecayData(DecayInterval + currentTime, x, z, DecayStages - 1, this);
         
         lock (queueLock)
         {
@@ -168,11 +173,12 @@ public class FieldDecayManager : MonoBehaviour
             var leftoverTime = DecayStages * DecayInterval;
             
             // TODO: change texture index by Regions
-            var fieldInfo = new FieldInfo(decayData, terrain, leftoverTime, FieldState.Tilled, originalAlphamaps, 3);
+            var fieldInfo = new FieldInfo(decayData, terrain, leftoverTime, FieldState.Tilled, originalAlphamaps, 7);
         
             fieldMap[(x, z)] = fieldInfo;
 
-            decayQueue[decayData] = 0;
+            decayQueue[decayData] = index;
+            index += 1;
             
             StopCoroutine(decayRoutine);
             decayRoutine = DecayRoutine();
@@ -205,74 +211,91 @@ public class FieldDecayManager : MonoBehaviour
     {
         while (true)
         {
+            bool noData = false;
             lock (queueLock)
             {
                 if (decayQueue.Count == 0)
                 {
-                    yield return null;
-                    continue;
+                    currentTime = 0f;
+                    noData = true;
                 }
             }
+
+            if (noData)
+            {
+                yield return null;
+                continue;
+            }
+            
+            float waitTime = 0.2f;
+            FieldDecayData nextDecayData = null;
 
             lock (queueLock)
             {
                 while (true)
                 {
-                    var maxDecayData = decayQueue.Max().Key;
-                    var decayTime = maxDecayData.decayTime;
-
-                    if ((decayTime + rollTime - currentTime) % rollTime > DecayInterval)
+                    if (decayQueue.Count == 0)
                     {
-                        yield return RefineTexture(maxDecayData);
+                        currentTime = 0f;
+                        break;
+                    }
+                    
+                    var minDecayData = decayQueue.First().Key;
+
+                    if (minDecayData.decayTime < currentTime)
+                    {
+                        yield return RefineTexture(minDecayData);
                     }
                     else
                     {
+                        waitTime = Mathf.Max(minDecayData.decayTime - currentTime, 0.1f);
+                        nextDecayData = minDecayData;
                         break;
                     }
                 }
-            }
-
-            float waitTime;
-            FieldDecayData nextDecayData;
-
-            lock (queueLock)
-            {
-                nextDecayData = decayQueue.Min().Key;
-                var nextDecayTime = nextDecayData.decayTime;
-                waitTime = (nextDecayTime + rollTime - currentTime) % rollTime;
             }
             
             yield return new WaitForSeconds(waitTime);
 
             lock (queueLock)
             {
-                yield return RefineTexture(nextDecayData);
+                if (nextDecayData != null && decayQueue.ContainsKey(nextDecayData))
+                {
+                    yield return RefineTexture(nextDecayData);
+                }
             }
+
+            yield return null;
         }
     }
 
     // only called in locking function
     IEnumerator RefineTexture(FieldDecayData targetDecayData)
     {
+        var idx = decayQueue[targetDecayData];
         decayQueue.Remove(targetDecayData);
         targetDecayData.decayStage -= 1;
 
         // if the targetDecayData should be deleted, ChangeTexture without yield return makes inconsistency.
         if (targetDecayData.decayStage == -1)
         {
+            print(idx);
             farmingManager.RemoveFieldState(targetDecayData.x, targetDecayData.z);
             yield return ChangeTexture(targetDecayData);
             fieldMap.Remove((targetDecayData.x, targetDecayData.z));
         }
         else
         {
+            print(idx);
+            targetDecayData.decayTime = DecayInterval + currentTime;
+            decayQueue[targetDecayData] = idx;
             StartCoroutine(ChangeTexture(targetDecayData));
-            targetDecayData.decayTime = DecayInterval;
         }
     }
 
     IEnumerator ChangeTexture(FieldDecayData decayData)
     {
+        print("stage: " + decayData.decayStage);
         var x = decayData.x;
         var z = decayData.z;
         var fieldInfo = fieldMap[(x, z)];
@@ -285,11 +308,16 @@ public class FieldDecayManager : MonoBehaviour
         int alphaMapHeight = terrainData.alphamapHeight;
         
         // TODO: grid index -> alphamap index transform need to be refined (size issue)
-        int alphaStartX = Mathf.FloorToInt(x * gridSize / terrainSizeX * alphaMapWidth);
-        int alphaStartZ = Mathf.FloorToInt(z * gridSize / terrainSizeZ * alphaMapHeight);
         
-        int alphaWidth = Mathf.CeilToInt(gridSize / terrainSizeX * alphaMapWidth);
-        int alphaHeight = Mathf.CeilToInt(gridSize / terrainSizeZ * alphaMapHeight);
+        var (globalX, globalZ) = farmingManager.IndexToGlobal(x, z);
+        
+        Vector3 terrainPosition = fieldInfo.terrain.transform.position;
+        
+        int alphaStartX = Mathf.FloorToInt((globalX - terrainPosition.x) / terrainSizeX * alphaMapWidth);
+        int alphaStartZ = Mathf.FloorToInt((globalZ - terrainPosition.z) / terrainSizeZ * alphaMapHeight);
+
+        int alphaWidth = 1;//Mathf.CeilToInt(gridSize / terrainSizeX * alphaMapWidth);
+        int alphaHeight = 1;//Mathf.CeilToInt(gridSize / terrainSizeZ * alphaMapHeight);
         
         if (decayData.decayStage == -1)
         {
@@ -300,7 +328,7 @@ public class FieldDecayManager : MonoBehaviour
         float[,,] originalAlphamaps = fieldInfo.originalAlphamaps;
         float[,,] newAlphamaps = new float[alphaHeight, alphaWidth, terrainData.alphamapLayers];
 
-        var ratio = (decayData.decayStage + 1f) / DecayStages;
+        var ratio = 0.5f + (decayData.decayStage + 1f) / (2 * DecayStages);
 
         for (int i = 0; i < alphaHeight; i++)
         {
@@ -309,30 +337,57 @@ public class FieldDecayManager : MonoBehaviour
                 for (int k = 0; k < terrainData.alphamapLayers; k++)
                 {
                     newAlphamaps[i, j, k] = (k == fieldInfo.targetTextureIndex) ? ratio : (1 - ratio) * originalAlphamaps[i, j, k];
+                    print("newAlphamaps" + i + ", " + j + ", " + k + ": " + newAlphamaps[i, j, k]);
                 }
             }
         }
         
-        yield return null;
+        
+        terrainData.SetAlphamaps(alphaStartX, alphaStartZ, newAlphamaps);
     }
     
     
     // Start is called before the first frame update
     void Start()
     {
-        rollTime = 4 * DecayInterval;
+        farmingManager = GetComponent<FarmingManager>();
+        gridSize = farmingManager.gridSize;
         decayRoutine = DecayRoutine();
         StartCoroutine(decayRoutine);
-        farmingManager = GetComponent<FarmingManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         currentTime += Time.deltaTime;
-        if (currentTime >= rollTime)
+    }
+    
+    void OnApplicationQuit()
+    {
+        foreach (FieldDecayData decayData in decayQueue.Keys)
         {
-            currentTime -= rollTime;
+            var x = decayData.x;
+            var z = decayData.z;
+            var fieldInfo = fieldMap[(x, z)];
+            TerrainData terrainData = fieldInfo.terrain.terrainData;
+        
+            float terrainSizeX = terrainData.size.x;
+            float terrainSizeZ = terrainData.size.z;
+
+            int alphaMapWidth = terrainData.alphamapWidth;
+            int alphaMapHeight = terrainData.alphamapHeight;
+        
+            // TODO: grid index -> alphamap index transform need to be refined (size issue)
+            
+            var (globalX, globalZ) = farmingManager.IndexToGlobal(x, z);
+        
+            Vector3 terrainPosition = fieldInfo.terrain.transform.position;
+        
+            int alphaStartX = Mathf.FloorToInt((globalX - terrainPosition.x) / terrainSizeX * alphaMapWidth);
+            int alphaStartZ = Mathf.FloorToInt((globalZ - terrainPosition.z) / terrainSizeZ * alphaMapHeight);
+        
+            
+            terrainData.SetAlphamaps(alphaStartX, alphaStartZ, fieldInfo.originalAlphamaps);
         }
     }
 }
