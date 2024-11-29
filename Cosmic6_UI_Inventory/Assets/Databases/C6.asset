@@ -105,7 +105,9 @@ MonoBehaviour:
   m_Cooldown: 1
   actions:
   - rid: 2370104634553139204
-  - rid: 2370104634553139205
+  - rid: 2370104634553139206
+  - rid: 2370104634553139207
+  - rid: 2370104634553139208
   references:
     version: 2
     RefIds:
@@ -114,8 +116,17 @@ MonoBehaviour:
       data:
         m_Type: DevionGames.Log
         m_Enabled: 1
-        m_Message: "Use \uBE75!"
-    - rid: 2370104634553139205
+        m_Message: "Use \uBE75 start!"
+    - rid: 2370104634553139206
+      type: {class: AddItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
+      data:
+        m_Type: DevionGames.InventorySystem.ItemActions.AddItem
+        m_Enabled: 1
+        item: {fileID: -5782770322309757661}
+        m_WindowName: Inventory
+        m_Item: {fileID: 4254185578174609813}
+        m_Amount: 7
+    - rid: 2370104634553139207
       type: {class: RemoveItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
       data:
         m_Type: DevionGames.InventorySystem.ItemActions.RemoveItem
@@ -124,6 +135,12 @@ MonoBehaviour:
         m_WindowName: Inventory
         m_Item: {fileID: -5782770322309757661}
         m_Amount: 1
+    - rid: 2370104634553139208
+      type: {class: Log, ns: DevionGames, asm: DevionGames.Triggers}
+      data:
+        m_Type: DevionGames.Log
+        m_Enabled: 1
+        m_Message: "Use \uBE75 end!"
 --- !u!114 &-5175169064339565797
 MonoBehaviour:
   m_ObjectHideFlags: 1
