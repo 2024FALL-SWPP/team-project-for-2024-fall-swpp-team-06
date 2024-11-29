@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 19390235}
   - component: {fileID: 19390234}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,10 +239,6 @@ PrefabInstance:
       value: "\uB3C4\uB07C"
       objectReference: {fileID: 0}
     - target: {fileID: 2606698339907637758, guid: 656f52de710a7c5458e967bd9fdb47d8, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2606698339907637758, guid: 656f52de710a7c5458e967bd9fdb47d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.4
       objectReference: {fileID: 0}
@@ -282,18 +278,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3009656676606179432, guid: 656f52de710a7c5458e967bd9fdb47d8, type: 3}
-      propertyPath: key
-      value: 102
-      objectReference: {fileID: 0}
-    - target: {fileID: 3009656676606179432, guid: 656f52de710a7c5458e967bd9fdb47d8, type: 3}
-      propertyPath: triggerType
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3009656676606179432, guid: 656f52de710a7c5458e967bd9fdb47d8, type: 3}
-      propertyPath: useDistance
-      value: 1.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -307,10 +291,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2231820045832233457, guid: 271330b2c928f6543a2a366d9f428ca6, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 2231820045832233457, guid: 271330b2c928f6543a2a366d9f428ca6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.93
@@ -350,18 +330,6 @@ PrefabInstance:
     - target: {fileID: 2231820045832233457, guid: 271330b2c928f6543a2a366d9f428ca6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8445990831887337605, guid: 271330b2c928f6543a2a366d9f428ca6, type: 3}
-      propertyPath: key
-      value: 102
-      objectReference: {fileID: 0}
-    - target: {fileID: 8445990831887337605, guid: 271330b2c928f6543a2a366d9f428ca6, type: 3}
-      propertyPath: triggerType
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8445990831887337605, guid: 271330b2c928f6543a2a366d9f428ca6, type: 3}
-      propertyPath: useDistance
-      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8691791808019154518, guid: 271330b2c928f6543a2a366d9f428ca6, type: 3}
       propertyPath: m_Name
@@ -683,22 +651,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uD1B5\uC2E0\uC7A5\uBE44"
       objectReference: {fileID: 0}
-    - target: {fileID: 6880364367259605009, guid: 0f84b06be8f5c6a40a1e8e0520c04585, type: 3}
-      propertyPath: key
-      value: 102
-      objectReference: {fileID: 0}
-    - target: {fileID: 6880364367259605009, guid: 0f84b06be8f5c6a40a1e8e0520c04585, type: 3}
-      propertyPath: triggerType
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6880364367259605009, guid: 0f84b06be8f5c6a40a1e8e0520c04585, type: 3}
-      propertyPath: useDistance
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7034061123289203221, guid: 0f84b06be8f5c6a40a1e8e0520c04585, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 7034061123289203221, guid: 0f84b06be8f5c6a40a1e8e0520c04585, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.47
@@ -867,10 +819,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5221501236383599750, guid: a6c9adeadc355bf4ea21f1e97db84077, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5221501236383599750, guid: a6c9adeadc355bf4ea21f1e97db84077, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.3327104
       objectReference: {fileID: 0}
@@ -910,18 +858,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6889480568706057988, guid: a6c9adeadc355bf4ea21f1e97db84077, type: 3}
-      propertyPath: key
-      value: 102
-      objectReference: {fileID: 0}
-    - target: {fileID: 6889480568706057988, guid: a6c9adeadc355bf4ea21f1e97db84077, type: 3}
-      propertyPath: triggerType
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6889480568706057988, guid: a6c9adeadc355bf4ea21f1e97db84077, type: 3}
-      propertyPath: useDistance
-      value: 1.2
-      objectReference: {fileID: 0}
     - target: {fileID: 7587900409439311534, guid: a6c9adeadc355bf4ea21f1e97db84077, type: 3}
       propertyPath: m_Name
       value: "\uACE1\uAD2D\uC774"
@@ -939,25 +875,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 860214671340680460, guid: 94a2d5e528a1d0448b9e58149057b9d4, type: 3}
-      propertyPath: key
-      value: 102
-      objectReference: {fileID: 0}
-    - target: {fileID: 860214671340680460, guid: 94a2d5e528a1d0448b9e58149057b9d4, type: 3}
-      propertyPath: triggerType
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 860214671340680460, guid: 94a2d5e528a1d0448b9e58149057b9d4, type: 3}
-      propertyPath: useDistance
-      value: 1.2
-      objectReference: {fileID: 0}
     - target: {fileID: 1331191491108408314, guid: 94a2d5e528a1d0448b9e58149057b9d4, type: 3}
       propertyPath: m_Name
       value: "\uC0BD"
-      objectReference: {fileID: 0}
-    - target: {fileID: 4323442395636495472, guid: 94a2d5e528a1d0448b9e58149057b9d4, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4323442395636495472, guid: 94a2d5e528a1d0448b9e58149057b9d4, type: 3}
       propertyPath: m_LocalPosition.x
