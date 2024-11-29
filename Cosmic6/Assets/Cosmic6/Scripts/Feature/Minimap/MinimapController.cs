@@ -12,6 +12,11 @@ public class MinimapController : MonoBehaviour
 
     public SpriteRenderer playerIcon;
     public SpriteRenderer[] baseIcons;
+    public SpriteRenderer[] regionSprites;
+
+    public PlayerState playerState;
+
+    public Transform playerTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -25,21 +30,58 @@ public class MinimapController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !isFullMap)
+
+        UpdateRegionVisibility();
+
+        if (playerTransform != null)
         {
-            RaycastHit hit;
+            playerIcon.transform.position = playerIcon.transform.parent.position;
+        }
+
+        if (isFullMap)
+        {
+            playerIcon.transform.rotation = Quaternion.Euler(90, 30, 30);
+        }
+        else
+        {
+            playerIcon.transform.localRotation = Quaternion.Euler(90, 30, 120);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (isFullMap)
+            {
+                CloseFullMap();
+            }
+            else
+            {
+                ShowFullMap();
+            }
+            /*RaycastHit hit;
             Ray ray = minimapCamera.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
             {
-                ShowFullMap();
-            }
+                if (hit.collider.CompareTag("Minimap"))
+                {
+                    ShowFullMap();
+                }
+            }*/
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && isFullMap)
         {
             CloseFullMap();
         }
+    }
+
+    void UpdateRegionVisibility()
+    {
+        if (playerState == null || regionSprites == null || regionSprites.Length < 3) return;
+
+        regionSprites[0].enabled = playerState.isRegistered1;   // Region1
+        regionSprites[1].enabled = playerState.isRegistered2;   // Region2
+        regionSprites[2].enabled = playerState.isRegistered3;   // Region3
     }
 
     void ShowFullMap()
