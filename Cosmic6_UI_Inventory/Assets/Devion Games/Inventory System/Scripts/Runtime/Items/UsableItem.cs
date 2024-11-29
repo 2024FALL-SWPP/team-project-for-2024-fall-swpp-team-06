@@ -41,6 +41,9 @@ namespace DevionGames.InventorySystem
 
         public override void Use()
         {
+            if (InventoryManager.current.PlayerInfo.gameObject == null) {
+                Debug.Log("PlayerInfo gameObject is null");
+            }
             if(this.m_ActionSequence == null)
                 this.m_ActionSequence = new Sequence(InventoryManager.current.PlayerInfo.gameObject, InventoryManager.current.PlayerInfo, InventoryManager.current.PlayerInfo.gameObject.GetComponent<Blackboard>(), actions.Cast<IAction>().ToArray());
 
