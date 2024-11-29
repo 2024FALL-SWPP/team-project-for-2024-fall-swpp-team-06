@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4400559462091321201}
   - component: {fileID: 7900074129952092498}
   - component: {fileID: 8668909010717397346}
+  - component: {fileID: 1905240501161814090}
   m_Layer: 0
   m_Name: "\uB3C4\uB07C"
   m_TagString: Untagged
@@ -195,3 +196,17 @@ MonoBehaviour:
   m_DisplayType: 8
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Offset: {x: 0, y: 0, z: 0}
+--- !u!114 &1905240501161814090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015097996585602898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ff8949b55037043a6183d61fd8dcff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Title: "\uB3C4\uB07C"
+  m_Instruction: Pickup

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4691955162103680550}
   - component: {fileID: 408188605846966389}
   - component: {fileID: 1352510162966342155}
+  - component: {fileID: 5188535630178246413}
   m_Layer: 0
   m_Name: "\uC0BD"
   m_TagString: Untagged
@@ -195,3 +196,17 @@ MonoBehaviour:
   m_DisplayType: 8
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Offset: {x: 0, y: 0, z: 0}
+--- !u!114 &5188535630178246413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331191491108408314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ff8949b55037043a6183d61fd8dcff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Title: "\uC0BD"
+  m_Instruction: Pickup
