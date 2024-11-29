@@ -1746,7 +1746,6 @@ GameObject:
   - component: {fileID: 33213934}
   - component: {fileID: 33213931}
   - component: {fileID: 33213933}
-  - component: {fileID: 33213932}
   m_Layer: 5
   m_Name: Teleporter
   m_TagString: Untagged
@@ -1820,19 +1819,6 @@ MonoBehaviour:
   m_MoveUsedItem: 0
   moveItemConditions: []
   restrictions: []
---- !u!114 &33213932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33213929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e29feedc1ae74594585d58b82bbc4bab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ItemGroup: {fileID: 7990749027154876597, guid: 1ae57b994efcab048a1bb130d4e11d83, type: 2}
 --- !u!114 &33213933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78148,7 +78134,6 @@ GameObject:
   - component: {fileID: 1439775667}
   - component: {fileID: 1439775664}
   - component: {fileID: 1439775666}
-  - component: {fileID: 1439775665}
   m_Layer: 5
   m_Name: Cooking
   m_TagString: Untagged
@@ -78230,19 +78215,6 @@ MonoBehaviour:
   - window: Cooking Selection
     requiresVisibility: 0
   restrictions: []
---- !u!114 &1439775665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439775662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e29feedc1ae74594585d58b82bbc4bab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ItemGroup: {fileID: -6792406410246170895, guid: 1ae57b994efcab048a1bb130d4e11d83, type: 2}
 --- !u!114 &1439775666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87515,7 +87487,6 @@ GameObject:
   - component: {fileID: 1647968138}
   - component: {fileID: 1647968135}
   - component: {fileID: 1647968137}
-  - component: {fileID: 1647968136}
   m_Layer: 5
   m_Name: Spells
   m_TagString: Untagged
@@ -87589,19 +87560,6 @@ MonoBehaviour:
   m_MoveUsedItem: 0
   moveItemConditions: []
   restrictions: []
---- !u!114 &1647968136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647968133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e29feedc1ae74594585d58b82bbc4bab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ItemGroup: {fileID: 6066131165606410366, guid: 0049234d696d6d54cbdfa5d0775e5081, type: 2}
 --- !u!114 &1647968137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94427,7 +94385,6 @@ GameObject:
   - component: {fileID: 1776186317}
   - component: {fileID: 1776186314}
   - component: {fileID: 1776186316}
-  - component: {fileID: 1776186315}
   m_Layer: 5
   m_Name: Skills
   m_TagString: Untagged
@@ -94478,19 +94435,6 @@ MonoBehaviour:
   m_MoveUsedItem: 0
   moveItemConditions: []
   restrictions: []
---- !u!114 &1776186315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776186313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e29feedc1ae74594585d58b82bbc4bab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ItemGroup: {fileID: -7544555359425583367, guid: e1f045c49e197e3439b99da9edbc5ba3, type: 2}
 --- !u!114 &1776186316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98062,7 +98006,6 @@ GameObject:
   - component: {fileID: 1862036373}
   - component: {fileID: 1862036370}
   - component: {fileID: 1862036372}
-  - component: {fileID: 1862036371}
   m_Layer: 5
   m_Name: Crafting
   m_TagString: Untagged
@@ -98144,19 +98087,6 @@ MonoBehaviour:
   - window: Crafting Selection
     requiresVisibility: 0
   restrictions: []
---- !u!114 &1862036371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862036368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e29feedc1ae74594585d58b82bbc4bab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ItemGroup: {fileID: 8981082385679816718, guid: 1ae57b994efcab048a1bb130d4e11d83, type: 2}
 --- !u!114 &1862036372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103427,7 +103357,6 @@ GameObject:
   - component: {fileID: 1970436776}
   - component: {fileID: 1970436773}
   - component: {fileID: 1970436775}
-  - component: {fileID: 1970436774}
   - component: {fileID: 1970436772}
   m_Layer: 5
   m_Name: Alchemy
@@ -103534,19 +103463,6 @@ MonoBehaviour:
   - window: Alchemy Selection
     requiresVisibility: 0
   restrictions: []
---- !u!114 &1970436774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1970436770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e29feedc1ae74594585d58b82bbc4bab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ItemGroup: {fileID: -4213577332647146612, guid: 1ae57b994efcab048a1bb130d4e11d83, type: 2}
 --- !u!114 &1970436775
 MonoBehaviour:
   m_ObjectHideFlags: 0
