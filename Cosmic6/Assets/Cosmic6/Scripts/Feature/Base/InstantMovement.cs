@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InstantMovement : MonoBehaviour
 {
-    public PlayerState playerState;
+    /*public PlayerState playerState;
     public FlagState flagState;
     public Transform playerTransform;
 
@@ -20,7 +21,7 @@ public class InstantMovement : MonoBehaviour
 
     private const float teleportRange = 5.0f;
 
-    /*public void TeleportToBase(int fromBase, int toBase)
+    public void TeleportToBase(int fromBase, int toBase)
     {
         if (fromBase < 1 || fromBase > 3 || toBase < 1 || toBase > 3)
         {
@@ -67,7 +68,7 @@ public class InstantMovement : MonoBehaviour
                (fromBase == 3 && toBase == 2) ||
                (fromBase == 1 && toBase == 3) ||
                (fromBase == 3 && toBase == 1);
-    }*/
+    }
 
     private void TeleportPlayer(int toBase)
     {
@@ -93,10 +94,10 @@ public class InstantMovement : MonoBehaviour
         Vector3 finalPosition = AdjustToGround(closestPoint + Vector3.up * 1.0f);
 
         playerTransform.position = finalPosition + Vector3.left * 10.0f;
-        Debug.Log($"Player teleported to Base{toBase} at position {finalPosition}.");*/
+        Debug.Log($"Player teleported to Base{toBase} at position {finalPosition}.");
     }
 
-    /*private Vector3 GetSafeClosestPoint(Collider baseCollider)
+    private Vector3 GetSafeClosestPoint(Collider baseCollider)
     {
         Vector3 closestPoint = baseCollider.ClosestPoint(playerTransform.position);
 
@@ -119,7 +120,7 @@ public class InstantMovement : MonoBehaviour
 
         Debug.LogWarning("Failed to adjust to ground, Returning origianl position");
         return position;
-    }*/
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -230,5 +231,189 @@ public class InstantMovement : MonoBehaviour
 
             yield return null;
         }
+    }*/
+    /*
+    public Transform playerTransform;
+    public BaseManager baseManager;
+
+    public Collider[] baseColliders;
+    public Transform[] basePositions;
+
+    private const float teleportRange = 5.0f;
+    private int currentBaseIndex = -1;
+
+    private void Update()
+    {
+        UpdateCurrentBase();
+
+        if (Input.GetKeyDown(KeyCode.T) && currentBaseIndex != -1)
+        {
+            ShowTeleportOptions();
+        }
+    }
+
+    private void UpdateCurrentBase()
+    {
+        currentBaseIndex = -1;
+
+        for (int i = 0; i < baseManager.safeZoneOverlays.Length; i++)
+        {
+            if (!baseManager.isBaseRegistered[i]) continue;
+
+            Vector3 basePosition = basePositions[i].position;
+            float distance = Vector3.Distance(playerTransform.position, basePosition);
+
+            if (distance <= teleportRange)
+            {
+                currentBaseIndex = i;
+                break;
+            }
+        }
+    }
+
+    private void ShowTeleportOptions()
+    {
+        Debug.Log($"Currently near base {currentBaseIndex + 1}. Choose a teleport destination.");
+
+        for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
+        {
+            if (i == currentBaseIndex) continue;
+            if (baseManager.isBaseRegistered[i])
+            {
+                Debug.Log($"Press {i + 1} to teleport to Base {i + 1}.");
+            }
+        }
+
+        StartCoroutine(WaitForTeleportInput());
+    }
+
+    private IEnumerator WaitForTeleportInput()
+    {
+        bool teleportDone = false;
+
+        while (!teleportDone)
+        {
+            for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1 + i) && baseManager.isBaseRegistered[i] && i != currentBaseIndex)
+                {
+                    TeleportPlayer(i);
+                    teleportDone = true;
+                    break;
+                }
+            }
+
+            yield return null;
+        }
+    }
+
+    private void TeleportPlayer(int toBaseIndex)
+    {
+        Vector3 targetPosition = basePositions[toBaseIndex].position;
+        playerTransform.position = targetPosition;
+        Debug.Log($"Teleported to Base {toBaseIndex + 1} at position {targetPosition}.");
+    }*/
+
+    public Transform playerTransform;
+    public BaseManager baseManager;
+    public bool teleportPossible = false;
+
+    public GameObject[] basePositions;
+
+    private const float teleportRange = 5.0f;
+    private int currentBaseIndex = -1;
+    private bool isTeleporting = false;
+    private void Start()
+    {
+        for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
+        {
+            basePositions[i].SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        if (teleportPossible)
+        {
+            print("teleport is possible");
+            UpdateMapMarkers();
+            UpdateCurrentBase();
+
+            if (Input.GetKeyDown(KeyCode.T) && currentBaseIndex != -1)
+            {
+                ShowTeleportOptions();
+            }
+        }
+    }
+
+    private void UpdateMapMarkers()
+    {
+        for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
+        {
+            print(baseManager.isBaseRegistered[i]);
+            basePositions[i].SetActive(baseManager.isBaseRegistered[i]);
+        }
+    }
+
+    private void UpdateCurrentBase()
+    {
+        currentBaseIndex = -1;
+
+        for (int i = 0; i < baseManager.safeZoneOverlays.Length; i++)
+        {
+            if (!baseManager.isBaseRegistered[i]) continue;
+
+            Vector3 basePosition = basePositions[i].transform.position;
+            float distance = Vector3.Distance(playerTransform.position, basePosition);
+
+            if (distance <= teleportRange)
+            {
+                currentBaseIndex = i;
+                break;
+            }
+        }
+    }
+
+    private void ShowTeleportOptions()
+    {
+        Debug.Log($"Currently near base {currentBaseIndex + 1}. Choose a teleport destination.");
+
+        for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
+        {
+            if (i == currentBaseIndex) continue;
+            if (baseManager.isBaseRegistered[i])
+            {
+                Debug.Log($"Press {i + 1} to teleport to Base {i + 1}.");
+            }
+        }
+
+        StartCoroutine(WaitForTeleportInput());
+    }
+
+    private IEnumerator WaitForTeleportInput()
+    {
+        while (!isTeleporting)
+        {
+            for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1 + i) && baseManager.isBaseRegistered[i] && i != currentBaseIndex)
+                {
+                    TeleportPlayer(i);
+                    yield break;
+                }
+            }
+
+            yield return null;
+        }
+    }
+
+    private void TeleportPlayer(int toBaseIndex)
+    {
+        Vector3 targetPosition = basePositions[toBaseIndex].transform.position;
+        playerTransform.position = targetPosition;
+        Debug.Log($"Teleported to Base {toBaseIndex + 1} at position {targetPosition}.");
+
+        isTeleporting = false;
+        currentBaseIndex = -1;
     }
 }

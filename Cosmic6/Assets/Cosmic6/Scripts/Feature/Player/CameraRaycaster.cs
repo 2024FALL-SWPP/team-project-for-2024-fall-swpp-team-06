@@ -7,9 +7,9 @@ using System;
 public class CameraRaycaster : MonoBehaviour
 {
     private float raycastPeriod = 0.1f;
-    private float raycastDistance = 150f;
+    private float raycastDistance = 15f;
     
-    public FarmingManager farmingManager;
+    //public FarmingManager farmingManager;
     public bool isClicked { get; private set; } = false;
     public RaycastHit raycastHit { get; private set; }
     
