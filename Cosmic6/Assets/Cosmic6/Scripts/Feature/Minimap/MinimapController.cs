@@ -12,9 +12,9 @@ public class MinimapController : MonoBehaviour
 
     public SpriteRenderer playerIcon;
     public SpriteRenderer[] baseIcons;
-    public SpriteRenderer[] regionSprites;
+    //public SpriteRenderer[] regionSprites;
 
-    public PlayerState playerState;
+    //public PlayerState playerState;
 
     public Transform playerTransform;
 
@@ -31,7 +31,7 @@ public class MinimapController : MonoBehaviour
     void Update()
     {
 
-        UpdateRegionVisibility();
+        //UpdateRegionVisibility();
 
         if (playerTransform != null)
         {
@@ -75,14 +75,14 @@ public class MinimapController : MonoBehaviour
         }
     }
 
-    void UpdateRegionVisibility()
+    /*void UpdateRegionVisibility()
     {
         if (playerState == null || regionSprites == null || regionSprites.Length < 3) return;
 
         regionSprites[0].enabled = playerState.isRegistered1;   // Region1
         regionSprites[1].enabled = playerState.isRegistered2;   // Region2
         regionSprites[2].enabled = playerState.isRegistered3;   // Region3
-    }
+    }*/
 
     void ShowFullMap()
     {
