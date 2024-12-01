@@ -30,14 +30,20 @@ public class FarmingManager : MonoBehaviour
     private Dictionary<(int, int), FieldState> fieldStates = new Dictionary<(int, int), FieldState>();
     private OverlayManager overlayManager;
     private FieldDecayManager fieldDecayManager;
+    public CameraRaycaster cameraRaycaster;
 
-    public float gridSize = 1f;
+    public float gridSize { get; private set; } = 1000 / 1024f;
     public bool isFarmingMode = false;
     private bool isStop = true;
+
+    private const float xOffset = -4000f;
+    private const float zOffset = -5000f;
     
     // currently detect default only
     private LayerMask collisionMask = 1 << 0;
     private LayerMask terrainMask = 1 << 8;
+
+    private int terrainLayerIndex = 8;
 
     private bool isOverlayInvisible = false;
     
@@ -51,6 +57,13 @@ public class FarmingManager : MonoBehaviour
     private float checkRate = 0.15f;
 
     private bool isClicked = false;
+    private (int, int) clickedIndices;
+
+    // equip seed
+    public bool isPlantingMode = true;
+    
+    // equip shovel
+    public bool isTilingMode = true;
     
     
     
@@ -64,8 +77,9 @@ public class FarmingManager : MonoBehaviour
         normalThreshold = Mathf.Cos(Mathf.Deg2Rad * angleThresholdDeg);
         overlayManager = GetComponent<OverlayManager>();
         fieldDecayManager = GetComponent<FieldDecayManager>();
+        cameraRaycaster.OnRaycastHit += ProcessRaycast;
     }
-
+    /*
     void Update()
     {
         if (!isFarmingMode && !isStop)
@@ -82,7 +96,20 @@ public class FarmingManager : MonoBehaviour
 
         if (!isClicked && Input.GetMouseButtonDown(0))
         {
-            isClicked = true;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit,
+                    overlayManager.overlayRange, terrainMask | collisionMask))
+            {
+                if (hit.collider.tag.StartsWith("Terrain"))
+                {
+                    var (x, z) = GlobalToIdx(hit.point.x, hit.point.z);
+                    if (GetFieldState(x, z) == FieldState.NotTilled)
+                    {
+                        isClicked = true;
+                        clickedIndices = (x, z);
+                    }
+                        
+                }
+            }
         }
     }
 
@@ -93,32 +120,39 @@ public class FarmingManager : MonoBehaviour
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit,
                     overlayManager.overlayRange, terrainMask | collisionMask))
             {
-                if (hit.collider.CompareTag("Terrain"))
+                if (hit.collider.tag.StartsWith("Terrain"))
                 {
                     Vector3 hitPoint = hit.point;
                     Terrain hitTerrain = hit.collider.GetComponent<Terrain>();
-                
-                    int x = Mathf.FloorToInt(hitPoint.x / gridSize);
-                    int z = Mathf.FloorToInt(hitPoint.z / gridSize);
+                    
+                    var (x, z) = GlobalToIdx(hitPoint.x, hitPoint.z);
 
                     FieldState state = GetFieldState(x, z);
 
                     if (state == FieldState.NotTilled)
                     {
+                        OverlayData overlayData = GetOverlayData(x, z, hitTerrain);
+                        
                         if (isOverlayInvisible || x != currentX || z != currentZ)
                         {
-                            OverlayData overlayData = GetOverlayData(x, z, hitTerrain);
-
-                            // TODO: check if equipping shovel
-                            if (overlayData.canFarm && isClicked)
-                            {
-                                fieldDecayManager.Tile(x, z, hitTerrain);
-                            }
-                            
                             overlayManager.ChangeOverlay(overlayData);
                             currentX = x;
                             currentZ = z;
                             isOverlayInvisible = false;
+                        }
+                        
+                        // TODO: check if equipping shovel
+                        if (overlayData.canFarm && isClicked)
+                        {
+                            if (GetFieldState(clickedIndices.Item1, clickedIndices.Item2) == FieldState.NotTilled)
+                            {
+                                if (fieldDecayManager.Tile(x, z, hitTerrain))
+                                {
+                                    print("tiling");
+                                    AddTilledField(x, z);
+                                }
+                            }
+                            isClicked = false;
                         }
                     }
                     else
@@ -150,6 +184,75 @@ public class FarmingManager : MonoBehaviour
 
             yield return new WaitForSeconds(checkRate);
         }
+    }*/
+
+    public void ProcessRaycast(bool isHit, RaycastHit hit, bool isClicked)
+    {
+        if (!isHit || (!isTilingMode && !isPlantingMode))
+        {
+            if (!isOverlayInvisible)
+            {
+                isOverlayInvisible = true;
+                overlayManager.SetOverlayInvisible();
+            }
+            
+            return;
+        }
+        
+        if (hit.collider.gameObject.layer == terrainLayerIndex)
+        {
+            print("Terrain hit");
+            Vector3 hitPoint = hit.point;
+            Terrain hitTerrain = hit.collider.GetComponent<Terrain>();
+        
+            var (x, z) = GlobalToIdx(hitPoint.x, hitPoint.z);
+
+            FieldState state = GetFieldState(x, z);
+
+            if (isTilingMode && state == FieldState.NotTilled)
+            {
+                OverlayData overlayData = GetOverlayData(x, z, hitTerrain);
+            
+                if (isOverlayInvisible || x != currentX || z != currentZ)
+                {
+                    overlayManager.ChangeOverlay(overlayData);
+                    currentX = x;
+                    currentZ = z;
+                    isOverlayInvisible = false;
+                }
+            
+                if (overlayData.canFarm && isClicked)
+                {
+                    if (GetFieldState(clickedIndices.Item1, clickedIndices.Item2) == FieldState.NotTilled)
+                    {
+                        if (fieldDecayManager.Tile(x, z, hitTerrain))
+                        {
+                            print("tiling");
+                            AddTilledField(x, z);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                isOverlayInvisible = true;
+                overlayManager.SetOverlayInvisible();
+
+                if (isPlantingMode && state == FieldState.Tilled && isClicked)
+                {
+                    if (fieldDecayManager.Plant(x, z))
+                    {
+                        print("planting");
+                        SetFieldState(x, z, true);
+                    }
+                }
+            }
+        }
+        else
+        {
+            isOverlayInvisible = true;
+            overlayManager.SetOverlayInvisible();
+        }
     }
 
     OverlayData GetOverlayData(int x, int z, Terrain terrain)
@@ -160,30 +263,21 @@ public class FarmingManager : MonoBehaviour
         Vector3 centerNormal = Vector3.zero;
             
         bool canFarming = true;
-
-        float centerHeight = 0;
-
-        int centerIdx = checkNumSqrt / 2;
+        
+        var (startX, startZ) = IndexToGlobal(x, z);
         
         float checkInterval = gridSize / (checkNumSqrt - 1);
 
         for (int i = 0; i < checkNumSqrt; i++)
         {
-            float curX = x + i * checkInterval;
+            float curX = startX + i * checkInterval;
 
             for (int j = 0; j < checkNumSqrt; j++)
             {
-                float curZ = z + j * checkInterval;
+                float curZ = startZ + j * checkInterval;
                 
                 float localX = curX - terrain.transform.position.x;
                 float localZ = curZ - terrain.transform.position.z;
-
-                float height = GetHeightGlobal(localX, localZ, terrain);
-
-                if (i == centerIdx && j == centerIdx)
-                {
-                    centerHeight = height;
-                }
                 
                 Vector3 normal = terrain.terrainData.GetInterpolatedNormal(localX / terrainSizeX, localZ / terrainSizeZ);
 
@@ -193,8 +287,16 @@ public class FarmingManager : MonoBehaviour
                 }
             }
         }
+
+        float centerX = startX + gridSize / 2;
+        float centerZ = startZ + gridSize / 2;
+
+        float localCenterX = centerX - terrain.transform.position.x;
+        float localCenterZ = centerZ - terrain.transform.position.z;
         
-        Vector3 center = new Vector3(x + gridSize / 2, centerHeight + 1f, z + gridSize / 2);
+        float centerHeight = GetHeightGlobal(localCenterX, localCenterZ, terrain);
+        
+        Vector3 center = new Vector3(centerX, centerHeight + 1f, centerZ);
         
         if (Physics.Raycast(center, Vector3.down, out RaycastHit hit, 2, terrainMask))
         {
@@ -273,6 +375,25 @@ public class FarmingManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public (int, int) GlobalToIdx(float x, float z)
+    {
+        float relativeX = x - xOffset;
+        float relativeZ = z - zOffset;
+
+        int xIndex = Mathf.FloorToInt(relativeX / gridSize);
+        int zIndex = Mathf.FloorToInt(relativeZ / gridSize);
+        
+        return (xIndex, zIndex);
+    }
+
+    public (float, float) IndexToGlobal(int x, int z)
+    {
+        float startX = gridSize * x;
+        float startZ = gridSize * z;
+        
+        return (startX + xOffset, startZ + zOffset);
     }
     
     public List<(int, int)> GetTilledFields()

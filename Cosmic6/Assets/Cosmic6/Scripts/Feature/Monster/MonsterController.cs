@@ -37,7 +37,7 @@ public class MonsterController : MonoBehaviour
     public float viewRangeinChasing = 35f;
     private float _detectionRate = 0.5f;
     public float fovHorizontal = 160f;
-    public float fovVertical = 1700f;
+    public float fovVertical = 170f;
     public float chaseRange = 20f;
     public float attackRange = 3f;
 
@@ -46,7 +46,8 @@ public class MonsterController : MonoBehaviour
     public float distanceLowerBound = 5f;
     public float distanceUpperBound = 15f;
     // TODO: synchronize layer index and 1 << idx
-    private LayerMask _monsterInvertedMask = ~(1 << 3);
+    private LayerMask _monsterInvertedMask = ~(1 << 9);
+    private int playerLayerIndex = 10;
     private Vector3 _headPositionOffset;
 
     private float _attackCoolDown = 3f;
@@ -341,7 +342,7 @@ public class MonsterController : MonoBehaviour
                 if (Physics.Raycast(headTransform.position, directionToTarget, out hit, range,
                         Physics.DefaultRaycastLayers & _monsterInvertedMask, QueryTriggerInteraction.Collide))
                 {
-                    if (hit.transform.CompareTag("Player"))
+                    if (hit.transform.gameObject.layer == playerLayerIndex)
                     {
                         return true;
                     }
@@ -422,7 +423,7 @@ public class MonsterController : MonoBehaviour
 
     void HandleHit(Collider other, GameObject hitPart)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.layer == playerLayerIndex)
         {
             float damage = _attackDamages[hitPart];
             // TODO: player.TakeDamage(damage);
