@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DevionGames.UIWidgets;
+using UnityEditor;
+using UnityEngine.Events;
 
 namespace DevionGames.InventorySystem
 {
@@ -20,6 +22,8 @@ namespace DevionGames.InventorySystem
 
         private ItemCollection m_ItemCollection;
 
+        private UnityEvent onTriggered; // 다른 Pickup 트리거용 이벤트
+
         public override void OnStart()
         {
             this.m_ItemCollection = gameObject.GetComponent<ItemCollection>();
@@ -31,13 +35,21 @@ namespace DevionGames.InventorySystem
             });
 
         }
-
+        
         public override ActionStatus OnUpdate()
         {
-            return PickupItems() ;
+            ActionStatus status = PickupItems();
+
+            onTriggered?.Invoke();
+            return status;
         }
 
-        private ActionStatus  PickupItems()
+        public void TriggerPickup()
+        {
+            OnUpdate();
+        }
+
+        public ActionStatus  PickupItems()
         {
             if (this.m_ItemCollection.Count == 0) {
                 InventoryManager.Notifications.empty.Show(gameObject.name.Replace("(Clone)", "").ToLower());
@@ -47,6 +59,8 @@ namespace DevionGames.InventorySystem
             List<Item> items = new List<Item>();
             if (this.m_Amount < 0)
             {
+                Debug.Log("m_Amount < 0 Case");
+
                 items.AddRange(this.m_ItemCollection);
             }
             else
@@ -66,10 +80,20 @@ namespace DevionGames.InventorySystem
                     for (int j = 0; j < windows.Length; j++)
                     {
                         ItemContainer current = windows[j];
+                        string itemName = item.Name;
 
                         if (current.StackOrAdd(item))
                         {
+                            Debug.Log("windows.Length > 0 case" + "item: "+i+" window: "+j);
                             this.m_ItemCollection.Remove(item);
+
+                            List<Item> extraItems = GetItemsFromJSON(itemName);
+                            foreach (Item extraItem in extraItems){
+                                if (current.StackOrAdd(extraItem))
+                                {
+                                    this.m_ItemCollection.Remove(extraItem);
+                                }
+                            }
                             break;
                         }
                     }
@@ -77,6 +101,8 @@ namespace DevionGames.InventorySystem
                 else
                 {
                     //Drop items to ground
+                    Debug.Log("Drop items to the ground (windows.Length < 0 Case");
+
                     DropItem(item);
                     this.m_ItemCollection.Remove(item);
                 }
@@ -85,8 +111,73 @@ namespace DevionGames.InventorySystem
             return ActionStatus.Success;
         }
 
+        private List<Item> GetItemsFromJSON(string itemName)
+        {
+            List<Item> items = new List<Item>();
+
+            // JSON 데이터를 로드
+            PlantItemData plantItemData = PlantItemLoader.Instance.GetPlantItemData(itemName);
+            if (plantItemData == null)
+            {
+                Debug.Log($"No data found for item: {itemName}");
+                return items;
+            }
+
+            // Seed 처리
+            if (!string.IsNullOrEmpty(plantItemData.seed.prefab_path))
+            {
+                Debug.Log("Seed Path: " + plantItemData.seed.prefab_path);
+                items.AddRange(
+                    GetPrefabsAsItems(
+                        plantItemData.seed.prefab_path,
+                        plantItemData.seed.cnt)
+                );
+            }
+
+            // Fruit 처리
+            if (!string.IsNullOrEmpty(plantItemData.fruit.prefab_path))
+            {
+                Debug.Log("Fruit Path: " + plantItemData.fruit.prefab_path);
+                items.AddRange(
+                    GetPrefabsAsItems(
+                        plantItemData.fruit.prefab_path,
+                        plantItemData.fruit.cnt
+                    )
+                );
+            }
+
+            return items;
+        }
+
+        private List<Item> GetPrefabsAsItems(string prefabPath, int count)
+        {
+            List<Item> items = new List<Item>();
+
+            // Prefab 로드
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath); // UnityEditor.AssetDatabase 사용
+            if (prefab == null)
+            {
+                Debug.LogError($"Prefab not found at path: {prefabPath}");
+                return items;
+            }
+
+            // 지정된 개수만큼 생성 및 컬렉션에 추가
+            for (int i = 0; i < count; i++)
+            {
+                GameObject instance = ObjectManager.Instance.SpawnObject(prefab, Vector3.zero, Quaternion.identity);
+                Debug.Log($"Instantiating prefab: {prefab.name} Num: {count}");
+
+                // Items 추가 실패
+            }
+
+            return items;
+        }
+
+
         private void DropItem(Item item)
         {
+            Debug.Log("Start Drop Item");
+
             GameObject prefab = item.OverridePrefab != null ? item.OverridePrefab : item.Prefab;
             float angle = Random.Range(0f, 360f);
             float x = (float)(InventoryManager.DefaultSettings.maxDropDistance * Mathf.Cos(angle * Mathf.PI / 180f)) + gameObject.transform.position.x;

@@ -13,7 +13,7 @@ namespace DevionGames.InventorySystem
 		[ItemPicker (true)]
 		[SerializeField]
         [FormerlySerializedAs("items")]
-        protected List<Item> m_Items = new List<Item> ();
+        public List<Item> m_Items = new List<Item> ();
         [FormerlySerializedAs("amounts")]
         [SerializeField]
         protected List<int> m_Amounts = new List<int>();
@@ -145,7 +145,7 @@ namespace DevionGames.InventorySystem
         public bool Remove (Item item)
 		{
             int index = m_Items.IndexOf(item);
-            
+
             bool result = this.m_Items.Remove (item);
             if (result) {
                 this.m_Amounts.RemoveAt(index);

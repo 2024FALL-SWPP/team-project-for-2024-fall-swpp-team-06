@@ -62,6 +62,9 @@ namespace DevionGames.InventorySystem
         protected float cooldownDuration;
         protected float cooldownInitTime;
 
+        //public GameObject itemHandManagerObject;
+        //protected ItemHandManager itemHandManager;
+
         private static DragObject m_DragObject;
         public static DragObject dragObject {
             get {return m_DragObject;}
@@ -87,6 +90,9 @@ namespace DevionGames.InventorySystem
         protected override void Start()
         {
             base.Start();
+
+            //itemHandManager = itemHandManagerObject.GetComponent<ItemHandManager>();
+
             if (this.m_CooldownOverlay != null)
                 this.m_CooldownOverlay.raycastTarget = false;
 
@@ -345,6 +351,9 @@ namespace DevionGames.InventorySystem
         //Try to drop the item to ground
         private void DropItem()
         {
+
+            Debug.Log("ItemSlot - DropItem");
+
             if (Container.IsLocked)
             {
                 InventoryManager.Notifications.inUse.Show();
@@ -395,7 +404,7 @@ namespace DevionGames.InventorySystem
 
                 //Instantiate the prefab at position
                 GameObject go = InventoryManager.Instantiate(prefab, position + Vector3.up * 0.3f, Quaternion.identity);
-                go.name = go.name.Replace("(Clone)","");
+                go.name = go.name.Replace("(Clone)", "");
                 //Reset the item collection of the prefab with this item
                 ItemCollection collection = go.GetComponent<ItemCollection>();
                 if (collection != null)
