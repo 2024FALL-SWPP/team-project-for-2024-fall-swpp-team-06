@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 3862646566450914764}
   - component: {fileID: 3862646566450914765}
   - component: {fileID: 3862646566450914761}
+  - component: {fileID: 991281094}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -414,14 +415,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3862646566450914766}
-  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.17, z: -0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7071077510349036127}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!20 &3862646566450914764
 Camera:
   m_ObjectHideFlags: 0
@@ -485,9 +486,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047f0ddf8f9064287b43774b53be1020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   horizontalSensitivity: 150
   verticalSensitivity: 100
   xRotationLimit: 89
+  player: {fileID: 4133048025268015180}
+  headRigTransform: {fileID: 4092653868371543084}
+  headTransform: {fileID: 7071077510349036127}
+--- !u!114 &991281094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862646566450914766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e6bc27a295a4bc082f9b5493a6dc85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  farmingManager: {fileID: 0}
 --- !u!1 &3978058140448460555
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,7 +582,9 @@ GameObject:
   - component: {fileID: 4944787061461572022}
   - component: {fileID: 3862646566595437556}
   - component: {fileID: 3862646566595437555}
-  m_Layer: 9
+  - component: {fileID: 2529928267110338124}
+  - component: {fileID: 2118718152}
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -606,13 +626,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Bip001 Spine1'\n\tTransform 'Bip001 Neck'\n\tTransform
-    'Bip001 Spine'\n\tTransform 'Bip001 R Thigh'\n\tTransform 'Bip001 L Foot'\n\tTransform
-    'Bip001'\n\tTransform 'Bip001 L Thigh'\n\tTransform 'Bip001 Spine2'\n\tTransform
-    'Bip001 L Calf'\n\tTransform 'Bip001 R Foot'\n\tand more ...\n\tFrom animation
-    clip 'Rifle_Walk_F'\n\tFrom animation clip 'Rifle_Walk_F'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -661,10 +675,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ce95b9d3e5f4110832f2ef4ca35c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   groundedSpeed: 5
   jumpHeight: 2.5
   gravity: -4.9
   airMovementFactor: 0.5
+--- !u!114 &2529928267110338124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133048025268015180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9772969138b944dba8270a080286e57a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBase: 0
+  baseManager: {fileID: 0}
+--- !u!114 &2118718152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133048025268015180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dca1232e653d471ab0047527c92ed2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  locationTracker: {fileID: 2529928267110338124}
+  timeManager: {fileID: 0}
 --- !u!1 &4253589831382602490
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
-
+    public float maxValue;
+    
     [Header("Title Setting")]
     public string Title;
     public Color TitleColor;
@@ -17,7 +18,7 @@ public class ProgressBar : MonoBehaviour
 
     [Header("Bar Setting")]
     public Color BarColor;
-    private Color BarBackGroundColor = Color.gray;
+    private Color BarBackGroundColor = new Color(0.7f, 0.7f, 0.7f, 0.3f);
     public Sprite BarBackGroundSprite;
     [Range(1f, 100f)]
     public int Alert = 20;
@@ -82,9 +83,9 @@ public class ProgressBar : MonoBehaviour
 
     private void UpdateValue(float val)
     {
-        bar.fillAmount = val / 100;
+        bar.fillAmount = val / maxValue;
         int intValue = Mathf.RoundToInt(val);
-        txtTitle.text = Title + " " + intValue + "%";
+        txtTitle.text = Title + "" + intValue;
 
         if (Alert >= val)
         {
