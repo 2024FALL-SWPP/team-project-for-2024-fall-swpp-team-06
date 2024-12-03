@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class AttackCollisionController : MonoBehaviour
 {
-    public delegate void OnHitDelegate(Collider other, GameObject hitPart);
-    public OnHitDelegate onHit;
+    //public delegate void OnHitDelegate(Collider other, GameObject hitPart);
+    public event Action<Collider, GameObject> OnHit;
     
     // Start is called before the first frame update
     void Start()
@@ -21,9 +23,6 @@ public class AttackCollisionController : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        if (onHit != null)
-        {
-            onHit.Invoke(other, gameObject);
-        }
+        OnHit?.Invoke(other, gameObject);
     }
 }

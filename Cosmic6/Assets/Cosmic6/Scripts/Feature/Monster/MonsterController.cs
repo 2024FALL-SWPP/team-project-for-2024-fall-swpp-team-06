@@ -12,62 +12,74 @@ using Vector3 = UnityEngine.Vector3;
 public class MonsterController : MonoBehaviour
 {
     public enum State { Idle, Patrol, Chase, Attack, Investigate }
+    
+    [Header("State Settings")]
     public State currentState;
 
+    [Header("Attack Settings")]
     public List<GameObject> attackParts;
-    private Dictionary<GameObject, float> _attackDamages = new Dictionary<GameObject, float>();
+    public List<float> attackDamages;
+    private Dictionary<GameObject, int> _attackIndexDictionary = new Dictionary<GameObject, int>();
     private List<BoxCollider> _attackColliders = new List<BoxCollider>();
-
-    private NavMeshAgent agent;
-
-    public float handDamage = 10f;
-    public float mouthDamage = 20f;
-
-    private Animator animator;
+    private float _attackCoolDown = 3f;
+    public List<float> attackAnimationLengths;
+    private bool isAttackHit = false;
     
-    public Transform target;
+    [Header("Player Settings")]
+    public GameObject player;
+    private Transform target;
+    private Collider targetCollider;
+    private PlayerStatusController playerStatusController;
+    private int playerLayerIndex = 10;
 
-    public Collider targetCollider;
+    [Header("Self Settings")]
+    private NavMeshAgent agent;
+    private Animator animator;
     // TODO: private PlayerController player;
     public Transform headTransform;
     // Local Axis of Head Direction
     public int headDirectionIdx = 1;
+    public bool headDirectionInverted = false;
+    private LayerMask _monsterInvertedMask = ~(1 << 9);
+    private Vector3 _headPositionOffset;
     
+    [Header("Detect Settings")]
     public float detectionRange = 25f;
     public float viewRangeinChasing = 35f;
     private float _detectionRate = 0.5f;
-    public float fovHorizontal = 160f;
-    public float fovVertical = 170f;
+    public float fovHorizontalNormal = 100f;
+    public float fovVerticalNormal = 120f;
+    public float fovHorizontalAttacking = 240f;
+    public float fovVerticalAttacking = 240f;
+    private float fovHorizontal;
+    private float fovVertical;
     public float chaseRange = 20f;
     public float attackRange = 3f;
+    private float _targetCheckRate = 0.5f;
+    private bool _hasTarget = false;
 
+    [Header("Movement Range Settings")]
     public Vector3 patrolCenterPoint;
     public float patrolAreaRadius = 500f;
     public float distanceLowerBound = 5f;
     public float distanceUpperBound = 15f;
-    // TODO: synchronize layer index and 1 << idx
-    private LayerMask _monsterInvertedMask = ~(1 << 9);
-    private int playerLayerIndex = 10;
-    private Vector3 _headPositionOffset;
-
-    private float _attackCoolDown = 3f;
-    private float _attackAnimationLength = 0.8f;
-
+    
+    [Header("Movement Speed Settings")]
     public float investigateSpeed = 5f;
     public float chaseSpeed = 8f;
     public float patrolSpeed = 3f;
-
-    private float _targetCheckRate = 0.5f;
-
-    private bool _hasTarget = false;
-    
     
     // TODO: control parameters of navmesh agent
     void Start()
     {
+        target = player.transform;
+        targetCollider = player.GetComponent<CapsuleCollider>();
+        playerStatusController = player.GetComponent<PlayerStatusController>();
+
+        ChangeFov(true);
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        StartCoroutine(Initialize());
+        Initialize();
     }
 
     void Update()
@@ -76,25 +88,19 @@ public class MonsterController : MonoBehaviour
         animator.SetFloat("Speed", currentSpeed / chaseSpeed);
     }
 
-    IEnumerator Initialize()
+    void Initialize()
     {
         // TODO: player = target.gameObject.GetComponent<PlayerController>();
 
-        foreach (GameObject part in attackParts)
+        for (int i = 0; i < attackParts.Count; i++)
         {
+            var part = attackParts[i];
             _attackColliders.Add(part.GetComponent<BoxCollider>());
             AttackCollisionController attackCollider = part.GetComponent<AttackCollisionController>();
+
+            _attackIndexDictionary[part] = i;
             
-            if (part.CompareTag("Hand"))
-            {
-                _attackDamages[part] = handDamage;
-            }
-            else if (part.CompareTag("Mouth"))
-            {
-                _attackDamages[part] = mouthDamage;
-            }
-            
-            attackCollider.onHit += HandleHit;
+            attackCollider.OnHit += HandleHit;
         }
         
         NavMeshHit hit;
@@ -103,7 +109,6 @@ public class MonsterController : MonoBehaviour
         agent.Warp(hit.position);
         currentState = State.Idle;
         StartCoroutine(StateRoutine());
-        yield return null;
     }
 
     IEnumerator StateRoutine()
@@ -217,11 +222,11 @@ public class MonsterController : MonoBehaviour
     IEnumerator Chase()
     {
         print("Chase");
+        ChangeFov(false);
         agent.speed = chaseSpeed;
         
         while (true)
         {
-
             float distanceToTarget = Vector3.Distance(transform.position, target.position);
             
             if (distanceToTarget < chaseRange && NavMesh.SamplePosition(target.position, out NavMeshHit hit, 3, agent.areaMask))
@@ -229,26 +234,18 @@ public class MonsterController : MonoBehaviour
                 if (distanceToTarget < attackRange)
                 {
                     currentState = State.Attack;
+                    
+                    ChangeFov(true);
                     yield break;
                 }
-                Vector3 forwardDir = Vector3.zero;
-                switch (headDirectionIdx)
-                {
-                    case 0:
-                        forwardDir = headTransform.right;
-                        break;
-                    case 1:
-                        forwardDir = headTransform.up;
-                        break;
-                    case 2:
-                        forwardDir = headTransform.forward;
-                        break;
-                }
+
+                Vector3 forwardDir = GetHeadDirection(0);
                 
                 if (!IsTargetInView(forwardDir, viewRangeinChasing))
                 {
                     _hasTarget = false;
                     currentState = State.Investigate;
+                    ChangeFov(true);
                     yield break;
                 }
                 
@@ -258,6 +255,7 @@ public class MonsterController : MonoBehaviour
             {
                 _hasTarget = false;
                 currentState = State.Patrol;
+                ChangeFov(true);
                 yield break;
             }
             yield return new WaitForSeconds(_detectionRate);
@@ -272,19 +270,7 @@ public class MonsterController : MonoBehaviour
         
         while (true)
         {
-            Vector3 forwardDir = Vector3.zero;
-            switch (headDirectionIdx)
-            {
-                case 0:
-                    forwardDir = headTransform.right;
-                    break;
-                case 1:
-                    forwardDir = headTransform.up;
-                    break;
-                case 2:
-                    forwardDir = headTransform.forward;
-                    break;
-            }
+            Vector3 forwardDir = GetHeadDirection(0);
             
             if (IsTargetInView(forwardDir, detectionRange))
             {
@@ -304,28 +290,9 @@ public class MonsterController : MonoBehaviour
         }
         
         Vector3 directionToTarget = (targetCollider.bounds.center - headTransform.position).normalized;
-
-        Vector3 verticalDirection = Vector3.zero;
-        Vector3 horizontalDirection = Vector3.zero;
-
-        // TODO: other models can differ
         
-        switch (headDirectionIdx)
-        {
-            case 0:
-                verticalDirection = headTransform.forward;
-                horizontalDirection = headTransform.up;
-                break;
-            case 1:
-                verticalDirection = headTransform.right;
-                horizontalDirection = headTransform.forward;
-                break;
-            case 2:
-                verticalDirection = headTransform.up;
-                horizontalDirection = headTransform.right;
-                break;
-        }
-        
+        Vector3 horizontalDirection = GetHeadDirection(1);
+        Vector3 verticalDirection = GetHeadDirection(2);
             
         Vector3 directionHorizontal = Vector3.ProjectOnPlane(directionToTarget, verticalDirection);
         
@@ -368,10 +335,16 @@ public class MonsterController : MonoBehaviour
             // sample attack motion
             // activate attacking part collider
             // set animation trigger for attack
-            yield return new WaitForSeconds(_attackAnimationLength);
+            var attackIndex = Random.Range(0, attackParts.Count);
+            isAttackHit = false;
+            _attackColliders[attackIndex].enabled = true;
+            animator.SetTrigger("Attack" + attackIndex);
+            yield return new WaitForSeconds(attackAnimationLengths[attackIndex]);
             // deactivate attacking part collider
+            _attackColliders[attackIndex].enabled = false;
+            isAttackHit = false;
 
-            int numCheck = Mathf.RoundToInt((_attackCoolDown - _attackAnimationLength) / checkRate);
+            int numCheck = Mathf.RoundToInt((_attackCoolDown - attackAnimationLengths[attackIndex]) / checkRate);
 
             for (int i = 0; i < numCheck; i++)
             {
@@ -396,6 +369,8 @@ public class MonsterController : MonoBehaviour
     IEnumerator Investigate()
     {
         print("Investigate");
+        ChangeFov(false);
+        
         animator.SetBool("LookAroundAggressive_b", true);
         
         Vector3 destination = agent.destination;
@@ -406,6 +381,7 @@ public class MonsterController : MonoBehaviour
         if (currentState == State.Chase)
         {
             animator.SetBool("LookAroundAggressive_b", false);
+            ChangeFov(true);
             yield break;
         }
 
@@ -414,19 +390,58 @@ public class MonsterController : MonoBehaviour
         if (currentState == State.Chase)
         {
             animator.SetBool("LookAroundAggressive_b", false);
+            ChangeFov(true);
             yield break;
         }
         
         animator.SetBool("LookAroundAggressive_b", false);
+        ChangeFov(true);
         currentState = State.Idle;
+    }
+    
+    
+    // TODO: other models can differ
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="idx">0: head direction, 1: horizontal direction, 2: vertical direction</param>
+    /// <returns></returns>
+    Vector3 GetHeadDirection(int idx)
+    {
+        int multiplier = headDirectionInverted ? -1 : 1;
+        var resIdx = (headDirectionIdx + idx * multiplier + 3) % 3;
+        switch (resIdx)
+        {
+            case 0:
+                return headTransform.right * multiplier;
+            case 1:
+                return headTransform.up * multiplier;
+            default:
+                return headTransform.forward * multiplier;
+        }
+    }
+
+    void ChangeFov(bool isNormal)
+    {
+        if (isNormal)
+        {
+            fovHorizontal = fovHorizontalNormal;
+            fovVertical = fovVerticalNormal;
+        }
+        else
+        {
+            fovHorizontal = fovHorizontalAttacking;
+            fovVertical = fovVerticalAttacking;
+        }
     }
 
     void HandleHit(Collider other, GameObject hitPart)
     {
-        if (other.gameObject.layer == playerLayerIndex)
+        if (!isAttackHit && other.gameObject.layer == playerLayerIndex)
         {
-            float damage = _attackDamages[hitPart];
-            // TODO: player.TakeDamage(damage);
+            var idx = _attackIndexDictionary[hitPart];
+            playerStatusController.UpdateHP(-attackDamages[idx]);
+            isAttackHit = true;
         }
     }
 }

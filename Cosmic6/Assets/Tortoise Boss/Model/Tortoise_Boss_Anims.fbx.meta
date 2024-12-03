@@ -1,0 +1,905 @@
+fileFormatVersion: 2
+guid: 312893f539145244eb941380e62dd9e8
+timeCreated: 1489253542
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: MasterController
+    100002: Tortoise
+    100004: //RootNode
+    100006: Tortoise_rig_0002:belly1
+    100008: Tortoise_rig_0002:chest
+    100010: Tortoise_rig_0002:chin
+    100012: Tortoise_rig_0002:hip
+    100014: Tortoise_rig_0002:l_back_foot
+    100016: Tortoise_rig_0002:l_back_foot2
+    100018: Tortoise_rig_0002:l_back_lowerleg
+    100020: Tortoise_rig_0002:l_back_thight
+    100022: Tortoise_rig_0002:l_back_upperleg
+    100024: Tortoise_rig_0002:l_front_forearm
+    100026: Tortoise_rig_0002:l_front_hand
+    100028: Tortoise_rig_0002:l_front_hand2
+    100030: Tortoise_rig_0002:l_front_shoulder
+    100032: Tortoise_rig_0002:l_front_upperarm
+    100034: Tortoise_rig_0002:lip1
+    100036: Tortoise_rig_0002:lip2
+    100038: Tortoise_rig_0002:lip3
+    100040: Tortoise_rig_0002:lip4
+    100042: Tortoise_rig_0002:neck
+    100044: Tortoise_rig_0002:r_back_foot
+    100046: Tortoise_rig_0002:r_back_foot2
+    100048: Tortoise_rig_0002:r_back_lowerleg
+    100050: Tortoise_rig_0002:r_back_thight
+    100052: Tortoise_rig_0002:r_back_upperleg
+    100054: Tortoise_rig_0002:r_front_forearm
+    100056: Tortoise_rig_0002:r_front_hand
+    100058: Tortoise_rig_0002:r_front_hand2
+    100060: Tortoise_rig_0002:r_front_shoulder
+    100062: Tortoise_rig_0002:r_front_upperarm
+    100064: Tortoise_rig_0002:Root
+    100066: Tortoise_rig_0002:shell1
+    100068: Tortoise_rig_0002:shell2
+    100070: Tortoise_rig_0002:shell3
+    100072: Tortoise_rig_0002:tail
+    100074: Tortoise_rig_0002:tail1
+    100076: Tortoise_rig_0002:tail2
+    400000: MasterController
+    400002: Tortoise
+    400004: //RootNode
+    400006: Tortoise_rig_0002:belly1
+    400008: Tortoise_rig_0002:chest
+    400010: Tortoise_rig_0002:chin
+    400012: Tortoise_rig_0002:hip
+    400014: Tortoise_rig_0002:l_back_foot
+    400016: Tortoise_rig_0002:l_back_foot2
+    400018: Tortoise_rig_0002:l_back_lowerleg
+    400020: Tortoise_rig_0002:l_back_thight
+    400022: Tortoise_rig_0002:l_back_upperleg
+    400024: Tortoise_rig_0002:l_front_forearm
+    400026: Tortoise_rig_0002:l_front_hand
+    400028: Tortoise_rig_0002:l_front_hand2
+    400030: Tortoise_rig_0002:l_front_shoulder
+    400032: Tortoise_rig_0002:l_front_upperarm
+    400034: Tortoise_rig_0002:lip1
+    400036: Tortoise_rig_0002:lip2
+    400038: Tortoise_rig_0002:lip3
+    400040: Tortoise_rig_0002:lip4
+    400042: Tortoise_rig_0002:neck
+    400044: Tortoise_rig_0002:r_back_foot
+    400046: Tortoise_rig_0002:r_back_foot2
+    400048: Tortoise_rig_0002:r_back_lowerleg
+    400050: Tortoise_rig_0002:r_back_thight
+    400052: Tortoise_rig_0002:r_back_upperleg
+    400054: Tortoise_rig_0002:r_front_forearm
+    400056: Tortoise_rig_0002:r_front_hand
+    400058: Tortoise_rig_0002:r_front_hand2
+    400060: Tortoise_rig_0002:r_front_shoulder
+    400062: Tortoise_rig_0002:r_front_upperarm
+    400064: Tortoise_rig_0002:Root
+    400066: Tortoise_rig_0002:shell1
+    400068: Tortoise_rig_0002:shell2
+    400070: Tortoise_rig_0002:shell3
+    400072: Tortoise_rig_0002:tail
+    400074: Tortoise_rig_0002:tail1
+    400076: Tortoise_rig_0002:tail2
+    4300000: Tortoise
+    7400000: Walk
+    7400002: Idle
+    7400004: GetDamage
+    7400006: Attack1
+    7400008: Attack2
+    7400010: Attack3
+    7400012: Death
+    9500000: //RootNode
+    13700000: Tortoise
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Walk
+      firstFrame: 1
+      lastFrame: 54
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 5
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterController
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand/Tortoise_rig_0002:l_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2/Tortoise_rig_0002:lip1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3/Tortoise_rig_0002:lip4
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand/Tortoise_rig_0002:r_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2/Tortoise_rig_0002:shell3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot/Tortoise_rig_0002:l_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot/Tortoise_rig_0002:r_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1/Tortoise_rig_0002:tail2
+        weight: 1
+      - path: Tortoise
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Idle
+      firstFrame: 55
+      lastFrame: 114
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 5
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterController
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand/Tortoise_rig_0002:l_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2/Tortoise_rig_0002:lip1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3/Tortoise_rig_0002:lip4
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand/Tortoise_rig_0002:r_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2/Tortoise_rig_0002:shell3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot/Tortoise_rig_0002:l_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot/Tortoise_rig_0002:r_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1/Tortoise_rig_0002:tail2
+        weight: 1
+      - path: Tortoise
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GetDamage
+      takeName: GetDamage
+      firstFrame: 115
+      lastFrame: 145
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterController
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand/Tortoise_rig_0002:l_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2/Tortoise_rig_0002:lip1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3/Tortoise_rig_0002:lip4
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand/Tortoise_rig_0002:r_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2/Tortoise_rig_0002:shell3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot/Tortoise_rig_0002:l_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot/Tortoise_rig_0002:r_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1/Tortoise_rig_0002:tail2
+        weight: 1
+      - path: Tortoise
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack1
+      takeName: Attack1
+      firstFrame: 146
+      lastFrame: 235
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterController
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand/Tortoise_rig_0002:l_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2/Tortoise_rig_0002:lip1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3/Tortoise_rig_0002:lip4
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand/Tortoise_rig_0002:r_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2/Tortoise_rig_0002:shell3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot/Tortoise_rig_0002:l_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot/Tortoise_rig_0002:r_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1/Tortoise_rig_0002:tail2
+        weight: 1
+      - path: Tortoise
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack2
+      takeName: Attack2
+      firstFrame: 236
+      lastFrame: 355
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterController
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand/Tortoise_rig_0002:l_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2/Tortoise_rig_0002:lip1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3/Tortoise_rig_0002:lip4
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand/Tortoise_rig_0002:r_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2/Tortoise_rig_0002:shell3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot/Tortoise_rig_0002:l_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot/Tortoise_rig_0002:r_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1/Tortoise_rig_0002:tail2
+        weight: 1
+      - path: Tortoise
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack3
+      takeName: Attack3
+      firstFrame: 356
+      lastFrame: 485
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterController
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand/Tortoise_rig_0002:l_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2/Tortoise_rig_0002:lip1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3/Tortoise_rig_0002:lip4
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand/Tortoise_rig_0002:r_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2/Tortoise_rig_0002:shell3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot/Tortoise_rig_0002:l_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot/Tortoise_rig_0002:r_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1/Tortoise_rig_0002:tail2
+        weight: 1
+      - path: Tortoise
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death
+      takeName: Death
+      firstFrame: 486
+      lastFrame: 616
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterController
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:l_front_shoulder/Tortoise_rig_0002:l_front_upperarm/Tortoise_rig_0002:l_front_forearm/Tortoise_rig_0002:l_front_hand/Tortoise_rig_0002:l_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip2/Tortoise_rig_0002:lip1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:neck/Tortoise_rig_0002:chin/Tortoise_rig_0002:lip3/Tortoise_rig_0002:lip4
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:chest/Tortoise_rig_0002:r_front_shoulder/Tortoise_rig_0002:r_front_upperarm/Tortoise_rig_0002:r_front_forearm/Tortoise_rig_0002:r_front_hand/Tortoise_rig_0002:r_front_hand2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:belly1/Tortoise_rig_0002:shell1/Tortoise_rig_0002:shell2/Tortoise_rig_0002:shell3
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:l_back_thight/Tortoise_rig_0002:l_back_upperleg/Tortoise_rig_0002:l_back_lowerleg/Tortoise_rig_0002:l_back_foot/Tortoise_rig_0002:l_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:r_back_thight/Tortoise_rig_0002:r_back_upperleg/Tortoise_rig_0002:r_back_lowerleg/Tortoise_rig_0002:r_back_foot/Tortoise_rig_0002:r_back_foot2
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1
+        weight: 1
+      - path: MasterController/Tortoise_rig_0002:Root/Tortoise_rig_0002:hip/Tortoise_rig_0002:tail/Tortoise_rig_0002:tail1/Tortoise_rig_0002:tail2
+        weight: 1
+      - path: Tortoise
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

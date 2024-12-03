@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerStatusController : MonoBehaviour
 {
+    public GameManager gameManager;
     public LocationTracker locationTracker;
     public TimeManager timeManager;
     
@@ -13,7 +14,7 @@ public class PlayerStatusController : MonoBehaviour
     public float energy { get; private set; }
 
     public float maxHP { get; private set; } = 100f;
-    public float maxOxygen { get; private set; } = 300f;
+    public float maxOxygen { get; private set; } = 500f;
     public float maxEnergy { get; private set; } = 100f;
 
     private float hpUpdatePeriod = 6f; // in Region 3
@@ -37,12 +38,14 @@ public class PlayerStatusController : MonoBehaviour
         hp = maxHP;
         oxygen = maxOxygen;
         energy = maxEnergy;
-        
-        
+        gameManager.OnGameOver += GameOver;
+
     }
 
     private void Update()
     {
+        if (gameManager.isGameOver) return;
+        
         if (locationTracker.currentRegionIndex == 2 && !timeManager.isNight)
         {
             hpUpdateTimer += Time.deltaTime;
@@ -73,10 +76,10 @@ public class PlayerStatusController : MonoBehaviour
 
         if (energyUpdateTimer > energyUpdatePeriod)
         {
+            energyUpdateTimer -= energyUpdatePeriod;
             UpdateEnergy(-energyUpdateAmount);
         }
     }
-
 
     public void UpdateHP(float hpChange)
     {
@@ -86,7 +89,7 @@ public class PlayerStatusController : MonoBehaviour
 
             if (hp == 0)
             {
-                // gameManager.GameOver();
+                gameManager.GameOver();
             }
         }
     }
@@ -97,7 +100,7 @@ public class PlayerStatusController : MonoBehaviour
 
         if (energy == 0)
         {
-            // gameManager.GameOver();
+            gameManager.GameOver();
         }
     }
 
@@ -107,7 +110,21 @@ public class PlayerStatusController : MonoBehaviour
 
         if (oxygen == 0)
         {
-            // gameManager.GameOver();
+            gameManager.GameOver();
         }
+    }
+
+    void GameOver()
+    {
+        StartCoroutine(GameOverCoroutine());
+    }
+
+    IEnumerator GameOverCoroutine()
+    {
+        yield return new WaitForSeconds(gameManager.gameOverAnimationDuration);
+
+        hp = maxHP / 2;
+        oxygen = maxOxygen;
+        energy = maxEnergy / 2;
     }
 }
