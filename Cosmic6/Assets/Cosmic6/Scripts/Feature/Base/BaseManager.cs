@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BaseManager : MonoBehaviour
 {
-    public bool[] isBaseRegistered { get; private set; } = { true, false, false };
+    public bool[] isBaseRegistered { get; private set; } = { false, false, false };
     public GameObject[] safeZoneOverlays;
+    string[] validTags = { "Base1", "Base2", "Base3" };
 
     private int currentBase = 0;
-
-    private bool isOverlaying = false;
     
     // clickable
     private int baseLayerIndex = 3;
@@ -43,7 +43,8 @@ public class BaseManager : MonoBehaviour
             return;
         }
 
-        if (hit.collider.gameObject.layer == baseLayerIndex)
+        if (hit.collider.gameObject.layer == baseLayerIndex && 
+                System.Array.Exists(validTags, tag => tag == hit.collider.gameObject.tag))
         {
             
             if (locationTracker.currentRegionIndex != currentBase)
@@ -57,7 +58,7 @@ public class BaseManager : MonoBehaviour
             {
                 safeZoneOverlays[currentBase].SetActive(true);
             }*/
-            
+
             if (isClicked && !isBaseRegistered[currentBase])
             {
                 isBaseRegistered[currentBase] = true;
