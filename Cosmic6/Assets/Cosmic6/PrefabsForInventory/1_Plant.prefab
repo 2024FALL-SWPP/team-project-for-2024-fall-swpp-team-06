@@ -351,14 +351,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2448484629611950651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473589f18dea84c16b33b39559cb7311, type: 3}
+  m_Script: {fileID: 11500000, guid: 78de2a065f88f4c968c0cf5d71cb3b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TimeInterval: 5
-  SeedPrefab: {fileID: 2448484629611950651}
-  FruitPrefab: {fileID: 4053981631449677726, guid: ddd7abedf0755405c9fc26a9e60097b1, type: 3}
-  SeedCount: 2
-  FruitCount: 3
+  plantStatus: Sprout
 --- !u!114 &5689554574014276730
 MonoBehaviour:
   m_ObjectHideFlags: 0

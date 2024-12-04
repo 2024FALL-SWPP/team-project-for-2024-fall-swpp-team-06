@@ -645,7 +645,5 @@ namespace DevionGames.InventorySystem
                 }
             }
         }
-
-
     }
 }

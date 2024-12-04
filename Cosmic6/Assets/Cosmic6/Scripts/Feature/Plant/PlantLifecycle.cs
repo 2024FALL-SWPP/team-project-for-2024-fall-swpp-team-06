@@ -8,11 +8,6 @@ public class PlantLifecycle : MonoBehaviour
     public float TimeInterval = 5f; // 시간 간격
 
     [Header("Seed and Fruit Spawning")]
-    public GameObject SeedPrefab; // Seed 프리팹
-    public GameObject FruitPrefab; // Fruit 프리팹
-    public int SeedCount = 3; // Seed 개수
-    public int FruitCount = 2; // Fruit 개수
-
     private List<Transform> childInstances = new List<Transform>();
 
     private void Start()
@@ -41,67 +36,43 @@ public class PlantLifecycle : MonoBehaviour
         }
     }
 
+    public string plantStatus = "Sprout";
+
     private IEnumerator ActivatePlantStages()
     {
         Transform lastActive = null;
 
         foreach (Transform child in childInstances)
         {
-            if (child.name.Contains("Plant") || child.name.Contains("Sprout"))
+            string validStatus = GetValidPlantStatus(child.name);
+
+            if (!string.IsNullOrEmpty(validStatus))
             {
-                // 이전 활성화된 오브젝트 비활성화
                 if (lastActive != null)
                 {
                     lastActive.gameObject.SetActive(false);
                 }
 
-                // 현재 오브젝트 활성화
                 child.gameObject.SetActive(true);
                 lastActive = child;
 
-                // TimeInterval 만큼 대기
+                plantStatus = validStatus;
+
                 yield return new WaitForSeconds(TimeInterval);
             }
         }
-
-        // 모든 Plant 단계 완료 후 Seed와 Fruit 스폰
-        //yield return new WaitForSeconds(TimeInterval);
-        //SpawnSeedsAndFruits();
     }
 
-    private void SpawnSeedsAndFruits()
+    private string GetValidPlantStatus(string name)
     {
-        Transform lastPlant = null;
-
-        // 마지막 Plant_3을 찾아 위치 참조
-        foreach (Transform child in childInstances)
+        string[] possibleStatuses = { "Sprout", "Plant_1", "Plant_2", "Plant_3" };
+        foreach (string status in possibleStatuses)
         {
-            if (child.name.Contains("Plant_3"))
+            if (name.EndsWith(status))
             {
-                lastPlant = child;
-                break;
+                return status;
             }
         }
-
-        if (lastPlant != null)
-        {
-            // Seed 스폰
-            for (int i = 0; i < SeedCount; i++)
-            {
-                Vector3 offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
-                Instantiate(SeedPrefab, lastPlant.position + offset, Quaternion.identity);
-            }
-
-            // Fruit 스폰
-            for (int i = 0; i < FruitCount; i++)
-            {
-                Vector3 offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
-                Instantiate(FruitPrefab, lastPlant.position + offset, Quaternion.identity);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("No Plant_3 found to spawn seeds and fruits.");
-        }
+        return null;
     }
 }

@@ -24,8 +24,13 @@ namespace DevionGames.InventorySystem
 
         private UnityEvent onTriggered; // 다른 Pickup 트리거용 이벤트
 
+        private PlantLifecycle plantLifeCycle;
+
         public override void OnStart()
         {
+            this.plantLifeCycle = gameObject.GetComponent<PlantLifecycle>();
+            Debug.Log("Plant Life Cycle: " + this.plantLifeCycle);
+
             this.m_ItemCollection = gameObject.GetComponent<ItemCollection>();
             this.m_ItemCollection.onChange.AddListener(delegate () {
                 if (this.m_ItemCollection.IsEmpty && this.m_DestroyWhenEmpty)
@@ -59,8 +64,7 @@ namespace DevionGames.InventorySystem
             List<Item> items = new List<Item>();
             if (this.m_Amount < 0)
             {
-                Debug.Log("m_Amount < 0 Case");
-
+                // Pickup
                 items.AddRange(this.m_ItemCollection);
             }
             else
@@ -84,7 +88,7 @@ namespace DevionGames.InventorySystem
 
                         if (current.StackOrAdd(item))
                         {
-                            Debug.Log("windows.Length > 0 case" + "item: "+i+" window: "+j);
+                            // Pickup
                             this.m_ItemCollection.Remove(item);
 
                             List<Item> extraItems = GetItemsFromJSON(itemName);
