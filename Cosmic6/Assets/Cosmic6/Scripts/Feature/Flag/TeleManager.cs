@@ -8,6 +8,8 @@ public class TeleManager : MonoBehaviour
     public GameObject escapeFlag;
     string[] validNames = { "Tele1", "Tele2", "Tele3", "Tele4", "Tele5", "Tele6", "Tele7" };
 
+    public bool[] isTeleFound { get; private set; } = { false, false, false, false, false, false, false };
+
     private int teleNum = 0;
 
     // clickable
@@ -47,6 +49,7 @@ public class TeleManager : MonoBehaviour
                 var idxChar = hit.collider.gameObject.name[collisionName.Length - 1];
                 int idx = int.Parse(idxChar.ToString());
                 teleFlags[idx - 1].SetActive(false);
+                isTeleFound[idx-1]=true;
                 Debug.Log($"tele{idx} is deleted. {7 - teleNum} teles remain.");
             }
         }
