@@ -9,9 +9,11 @@ public class TeleDetector : MonoBehaviour
     public TeleManager teleManager;
     public float detectionRange = 150.0f;
     public float detectionInterval = 1.0f;
+    public bool detected;
 
     private void Start()
     {
+        detected=false;
         StartCoroutine(DetectNearbyTeleportCoroutine());
     }
 
@@ -48,10 +50,12 @@ public class TeleDetector : MonoBehaviour
 
         if (nearbyTeleport != null)
         {
+            detected=true;
             Debug.Log($"Nearby Tele: {nearbyTeleport.name}");
         }
         else
         {
+            detected=false;
             Debug.Log("No Tele nearby");
         }
     }

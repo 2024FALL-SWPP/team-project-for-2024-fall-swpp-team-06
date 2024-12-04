@@ -15,6 +15,8 @@ public class FlagManager : MonoBehaviour
     public InstantMovement instantMovement;
     public CameraRaycaster cameraRaycaster;
 
+    public QuestSystem questSystem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +65,13 @@ public class FlagManager : MonoBehaviour
                 flagIndex = int.Parse(idxChar.ToString());
                 Debug.Log($"Flag {flagIndex} detected");
                 flags[flagIndex - 1].SetActive(false);
+
+                if (questSystem != null)
+                {
+                    string variableName = validNames[flagIndex-1];
+                    questSystem.UpdateQuestProgress(variableName, 1);
+                    Debug.Log($"Quest progress updated for {variableName}");
+                }
             }   
         }
     }

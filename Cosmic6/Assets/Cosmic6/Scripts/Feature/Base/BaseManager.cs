@@ -14,9 +14,12 @@ public class BaseManager : MonoBehaviour
     // clickable
     private int baseLayerIndex = 3;
     
+
     public CameraRaycaster cameraRaycaster;
     public LocationTracker locationTracker;
     
+    public QuestSystem questSystem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +67,15 @@ public class BaseManager : MonoBehaviour
                 isBaseRegistered[currentBase] = true;
                 print("Base" + currentBase + "registered");
                 safeZoneOverlays[currentBase].SetActive(true);
+
+
+                if (questSystem != null)
+                {
+                    string variableName = validTags[currentBase];
+                    questSystem.UpdateQuest(variableName, 1);
+                    Debug.Log($"Quest updated for {variableName}");
+                }
+
             }
             
         }

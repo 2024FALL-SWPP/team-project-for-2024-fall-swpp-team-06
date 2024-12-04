@@ -15,6 +15,31 @@ public class QuestSystem : MonoBehaviour
     public GameObject popupPrefab;
     public Transform popupParent;
 
+    private Dictionary<string, List<Quest>> baseQuests = new Dictionary<string, List<Quest>>()
+    {
+        {
+            "Base1", new List<Quest>
+            {
+                new Quest("Flag Exploration 1", "Find the first flag", "Flag1", 1)
+            }
+        },
+        {
+            "Base2", new List<Quest>
+            {
+                new Quest("Flag Exploration 2", "Find the second flag", "Flag2", 1),
+                new Quest("Flag Exploration 3", "Find the third flag", "Flag3", 1)
+            }
+        },
+        {
+            "Base3", new List<Quest>
+            {
+                new Quest("Flag Exploration 4", "Find the fourth flag", "Flag4", 1),
+                new Quest("Flag Exploration 5", "Find the fifth flag", "Flag5", 1)
+            }
+        }
+    };
+
+
     void Start()
     {
         questPanel.SetActive(false);
@@ -37,12 +62,10 @@ public class QuestSystem : MonoBehaviour
     void InitializeQuests()
     {
         questQueue = new Queue<Quest>();
-        questQueue.Enqueue(new Quest("Collect Gold", "Gather at least 100 gold coins.", "Gold", 100));
-        questQueue.Enqueue(new Quest("Defeat Enemies", "Eliminate 5 enemies in the field.", "Enemies", 5));
-        questQueue.Enqueue(new Quest("Gather Herbs", "Collect 5 healing herbs from the meadow.", "Herbs", 5));
-        questQueue.Enqueue(new Quest("Deliver Message", "Take the letter to the town.", "Deliveries", 1));
 
-        for (int i = 0; i < 4; i++)
+        //questQueue.Enqueue(new Quest("Flag Exploration", "Find the first flag", "Flag1", 1));
+
+        for (int i = 0; i < 1; i++)
         {
             if (questQueue.Count > 0)
             {
@@ -52,6 +75,8 @@ public class QuestSystem : MonoBehaviour
             }
         }
     }
+
+
 
     private void AddQuest(Quest quest)
     {
@@ -112,6 +137,55 @@ public class QuestSystem : MonoBehaviour
         UpdateQuestDisplay();
     }
 
+    public void UpdateQuest(string baseName, int progressValue)
+    {
+        if (!baseQuests.ContainsKey(baseName))
+        {
+            Debug.LogWarning($"No quests found for {baseName}");
+            return;
+        }
+
+        foreach (var quest in baseQuests[baseName])
+        {
+
+            if (!activeQuests.Exists(q => q.title == quest.title))
+            {
+                AddQuest(quest);
+                ShowPopup(quest);
+            }
+        }
+
+        Debug.Log($"Quests updated for {baseName}");
+        UpdateQuestDisplay();
+    }
+
+    /*public void UpdateQuest(string variable)
+    {
+
+        for (int i = activeQuests.Count - 1; i >= 0; i--)
+        {
+            Quest quest = activeQuests[i];
+
+            if (quest.conditionVariable == variable)
+            {
+                quest.UpdateProgress(value);
+
+                if (quest.IsComplete())
+                {
+                    Debug.Log($"{quest.title} completed!");
+
+                    activeQuests.RemoveAt(i);
+                    Destroy(questListContainer.Find($"Quest_{quest.title}").gameObject);
+
+                    if (questQueue.Count > 0)
+                    {
+                        AddQuest(questQueue.Dequeue());
+                    }
+                }
+            }
+        }
+    }*/
+
     public void ShowPopup(Quest quest)
     {
         if (popupPrefab != null)
@@ -133,12 +207,8 @@ public class QuestSystem : MonoBehaviour
             contentText.text = quest.description;
 
             popupInstance.name = $"Popup_{quest.title}";
-        }
-    }
 
-    public void GenerateQuest(Quest quest)
-    {
-        AddQuest(quest);
-        ShowPopup(quest);
+            Destroy(popupInstance, 5f);
+        }
     }
 }
