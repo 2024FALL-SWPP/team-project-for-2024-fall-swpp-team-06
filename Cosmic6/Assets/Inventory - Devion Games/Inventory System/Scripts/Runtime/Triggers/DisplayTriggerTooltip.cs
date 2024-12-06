@@ -27,6 +27,7 @@ namespace DevionGames.InventorySystem
             if (!this.m_Trigger.InUse && this.m_Trigger.InRange && this.m_Trigger.IsBestTrigger())
             {
                 DoDisplayTooltip(true);
+                Debug.Log("Display Tooltip: " + this.m_Title);
             }
         }
 

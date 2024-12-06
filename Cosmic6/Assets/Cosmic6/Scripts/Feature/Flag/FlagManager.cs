@@ -12,12 +12,19 @@ public class FlagManager : MonoBehaviour
     private int flagLayerIndex = 3;
     private int flagIndex = 0;
 
+    public BaseManager baseManager;
     public InstantMovement instantMovement;
     public CameraRaycaster cameraRaycaster;
+
+    public QuestSystem questSystem;
 
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < flags.Length; i++)
+        {
+            flags[i].SetActive(false);
+        }
         cameraRaycaster.OnRaycastHit += ProcessRaycast;
     }
 
@@ -46,6 +53,30 @@ public class FlagManager : MonoBehaviour
         }
     }
 
+    public void UpdateMinimap()
+    {
+        for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
+        {
+            if (baseManager.isBaseRegistered[i])
+            {
+                if (i == 0)
+                {
+                    flags[0].SetActive(true);
+                }
+                if (i == 0)
+                {
+                    flags[1].SetActive(true);
+                    flags[4].SetActive(true);
+                }
+                else
+                {
+                    flags[2].SetActive(true);
+                    flags[3].SetActive(true);
+                }
+            }
+        }
+    }
+
     public void ProcessRaycast(bool isHit, RaycastHit hit, bool isClicked)
     {
         if (!isHit)
@@ -63,6 +94,13 @@ public class FlagManager : MonoBehaviour
                 flagIndex = int.Parse(idxChar.ToString());
                 Debug.Log($"Flag {flagIndex} detected");
                 flags[flagIndex - 1].SetActive(false);
+
+                if (questSystem != null)
+                {
+                    string variableName = validNames[flagIndex-1];
+                    questSystem.UpdateQuestProgress(variableName, 1);
+                    Debug.Log($"Quest progress updated for {variableName}");
+                }
             }   
         }
     }
