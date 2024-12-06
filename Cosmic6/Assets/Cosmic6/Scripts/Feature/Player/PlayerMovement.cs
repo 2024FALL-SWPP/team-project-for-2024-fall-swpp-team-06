@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
     public GameManager gameManager;
+    public InstantMovement instantMovement;
     public float groundedSpeed = 8f;
     public float jumpHeight = 2f;
     public float gravity = -4.9f;
@@ -25,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     {
         locationTracker = GetComponent<LocationTracker>();
         gameManager.OnGameOver += GameOver;
+        instantMovement.OnTeleport += Teleport;
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }
@@ -102,6 +105,21 @@ public class PlayerMovement : MonoBehaviour
         characterController.height = characterControllerHeight;
         characterController.enabled = false;
         transform.position = locationTracker.respawnLocations[locationTracker.lastRespawnIndex];
+        characterController.enabled = true;
+    }
+
+    void Teleport()
+    {
+        Vector3 teleportPosition = instantMovement.basePositions[instantMovement.targetBaseIndex].transform.position;
+        StartCoroutine(TeleportCoroutine(teleportPosition));
+    }
+
+    IEnumerator TeleportCoroutine(Vector3 teleportPosition)
+    {
+        yield return new WaitForSeconds(gameManager.gameOverAnimationDuration / 2);
+        characterController.enabled = false;
+        transform.position = teleportPosition;
+        Debug.Log($"Teleported to Base {instantMovement.targetBaseIndex + 1} at position {teleportPosition}.");
         characterController.enabled = true;
     }
 }

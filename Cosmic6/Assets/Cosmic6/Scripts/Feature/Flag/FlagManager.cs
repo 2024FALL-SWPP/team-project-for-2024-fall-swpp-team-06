@@ -12,6 +12,7 @@ public class FlagManager : MonoBehaviour
     private int flagLayerIndex = 3;
     private int flagIndex = 0;
 
+    public BaseManager baseManager;
     public InstantMovement instantMovement;
     public CameraRaycaster cameraRaycaster;
 
@@ -20,6 +21,10 @@ public class FlagManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < flags.Length; i++)
+        {
+            flags[i].SetActive(false);
+        }
         cameraRaycaster.OnRaycastHit += ProcessRaycast;
     }
 
@@ -45,6 +50,30 @@ public class FlagManager : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    public void UpdateMinimap()
+    {
+        for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
+        {
+            if (baseManager.isBaseRegistered[i])
+            {
+                if (i == 0)
+                {
+                    flags[0].SetActive(true);
+                }
+                if (i == 0)
+                {
+                    flags[1].SetActive(true);
+                    flags[4].SetActive(true);
+                }
+                else
+                {
+                    flags[2].SetActive(true);
+                    flags[3].SetActive(true);
+                }
+            }
         }
     }
 
