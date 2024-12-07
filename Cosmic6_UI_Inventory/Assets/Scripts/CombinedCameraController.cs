@@ -8,6 +8,7 @@ public class CombinedCameraController : MonoBehaviour
     public Vector3 offset = new Vector3(0, 1.5f, -3f); // 카메라 오프셋
     public float rotationSpeed = 5f; // 회전 속도
     public float followSpeed = 10f; // 따라가는 속도
+    public float verticalRotationLimit = 45f; // Y축 회전 제한 (상하 제한)
 
     [Header("Game Over Settings")]
     public GameManager gameManager; // GameManager와 연동
@@ -17,6 +18,7 @@ public class CombinedCameraController : MonoBehaviour
     public Vector3 headPosition = new Vector3(0, -0.17f, -0.03f); // 게임 오버 후 카메라 위치 오프셋
 
     private bool isGameOver = false;
+    private float currentVerticalRotation = 0f; // 현재 Y축 회전
 
     private void Start()
     {
@@ -66,11 +68,15 @@ public class CombinedCameraController : MonoBehaviour
 
     private void RotateCamera()
     {
-        float horizontal = Input.GetAxis("Mouse X") * rotationSpeed;
-        float vertical = -Input.GetAxis("Mouse Y") * rotationSpeed;
+        float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
+        float mouseY = Input.GetAxis("Mouse Y") * rotationSpeed;
 
-        Quaternion rotation = Quaternion.Euler(vertical, horizontal, 0);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+        // 현재 Y축 회전값 갱신
+        currentVerticalRotation = Mathf.Clamp(currentVerticalRotation - mouseY, -verticalRotationLimit, verticalRotationLimit);
+
+        // 카메라 회전 적용
+        Quaternion targetRotation = Quaternion.Euler(currentVerticalRotation, transform.eulerAngles.y + mouseX, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void HandleGameOver()
