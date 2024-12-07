@@ -14,9 +14,9 @@ public class BaseManager : MonoBehaviour
     // clickable
     private int baseLayerIndex = 3;
     
-
     public CameraRaycaster cameraRaycaster;
     public LocationTracker locationTracker;
+    public FlagManager flagManager;
     
     public QuestSystem questSystem;
 
@@ -67,7 +67,7 @@ public class BaseManager : MonoBehaviour
                 isBaseRegistered[currentBase] = true;
                 print("Base" + currentBase + "registered");
                 safeZoneOverlays[currentBase].SetActive(true);
-
+                flagManager.UpdateMinimap();
 
                 if (questSystem != null)
                 {
