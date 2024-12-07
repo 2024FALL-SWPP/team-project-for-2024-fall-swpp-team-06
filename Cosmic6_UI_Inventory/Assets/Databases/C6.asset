@@ -184,12 +184,20 @@ MonoBehaviour:
   actions:
   - rid: 2370104634553139204
   - rid: 2370104634553139206
-  - rid: 2370104634553139207
   - rid: 2370104634553139208
-  - rid: 2370104634553139209
+  - rid: 2197559975518142464
   references:
     version: 2
     RefIds:
+    - rid: 2197559975518142464
+      type: {class: RemoveItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
+      data:
+        m_Type: DevionGames.InventorySystem.ItemActions.RemoveItem
+        m_Enabled: 1
+        item: {fileID: -5782770322309757661}
+        m_WindowName: Inventory
+        m_Item: {fileID: -5782770322309757661}
+        m_Amount: 1
     - rid: 2370104634553139204
       type: {class: Log, ns: DevionGames, asm: DevionGames.Triggers}
       data:
@@ -205,29 +213,12 @@ MonoBehaviour:
         m_WindowName: Inventory
         m_Item: {fileID: 4254185578174609813}
         m_Amount: 7
-    - rid: 2370104634553139207
-      type: {class: RemoveItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
-      data:
-        m_Type: DevionGames.InventorySystem.ItemActions.RemoveItem
-        m_Enabled: 1
-        item: {fileID: -5782770322309757661}
-        m_WindowName: Inventory
-        m_Item: {fileID: -5782770322309757661}
-        m_Amount: 1
     - rid: 2370104634553139208
       type: {class: Log, ns: DevionGames, asm: DevionGames.Triggers}
       data:
         m_Type: DevionGames.Log
         m_Enabled: 1
         m_Message: "Use \uBE75 end!"
-    - rid: 2370104634553139209
-      type: {class: Play, ns: DevionGames, asm: DevionGames.Triggers}
-      data:
-        m_Type: DevionGames.Play
-        m_Enabled: 1
-        m_Clip: {fileID: 8300000, guid: b8b48c4d6a98902478cd81dc8e386cee, type: 3}
-        m_AudioMixerGroup: {fileID: 0}
-        m_Volume: 0.4
 --- !u!114 &-5175169064339565797
 MonoBehaviour:
   m_ObjectHideFlags: 1
