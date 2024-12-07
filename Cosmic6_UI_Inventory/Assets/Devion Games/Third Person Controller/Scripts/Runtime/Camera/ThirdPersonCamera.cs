@@ -144,6 +144,27 @@ namespace DevionGames
         }
 
         private void UpdateInput() {
+
+            Debug.Log("ThirdPersonCamera UpdateInput() called");
+
+            if (this.Target == null)
+            {
+                Debug.LogError("Target is null!");
+                return;
+            }
+
+            if (this.m_ActivePreset == null)
+            {
+                Debug.LogError("ActivePreset is null!");
+                return;
+            }
+
+            if (this.m_Transform == null)
+            {
+                Debug.LogError("Transform is null!");
+                return;
+            }
+
             this.m_ConsumeTurn = false;
             this.m_ConsumeZoom = this.m_ActivePreset.ConsumeInputOverUI?UnityTools.IsPointerOverUI():false;
 
