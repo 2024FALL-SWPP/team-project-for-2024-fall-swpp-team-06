@@ -133,18 +133,18 @@ MonoBehaviour:
   - rid: 2370104634553139204
   - rid: 2370104634553139206
   - rid: 2370104634553139208
-  - rid: 2197559975518142464
+  - rid: 2197559976404451328
   references:
     version: 2
     RefIds:
-    - rid: 2197559975518142464
+    - rid: 2197559976404451328
       type: {class: RemoveItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
       data:
         m_Type: DevionGames.InventorySystem.ItemActions.RemoveItem
         m_Enabled: 1
         item: {fileID: -5782770322309757661}
         m_WindowName: Inventory
-        m_Item: {fileID: -5782770322309757661}
+        m_Item: {fileID: 0}
         m_Amount: 1
     - rid: 2370104634553139204
       type: {class: Log, ns: DevionGames, asm: DevionGames.Triggers}
