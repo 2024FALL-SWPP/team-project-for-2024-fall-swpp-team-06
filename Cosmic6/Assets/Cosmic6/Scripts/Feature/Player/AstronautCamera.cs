@@ -46,10 +46,6 @@ public class AstronautCamera : MonoBehaviour
     private GraphicRaycaster graphicRaycaster;
     private PointerEventData pointerData;
 
-    // 마우스 움직임에 따른 Lock/Unlock 제거
-    // Cursor 상태는 인벤토리/퀘스트 상태만으로 결정
-    // Crosshair 상태도 인벤토리/퀘스트 상태만으로 결정
-
     private void Start()
     {
         if (gameManager != null)
@@ -78,8 +74,6 @@ public class AstronautCamera : MonoBehaviour
         originalOffset = initialCameraOffset;
         transform.rotation = Quaternion.Euler(initialCameraEulerAngles);
 
-        ApplyInventoryState(false);
-
         eventSystem = FindObjectOfType<EventSystem>();
         if (eventSystem == null)
         {
@@ -92,14 +86,17 @@ public class AstronautCamera : MonoBehaviour
         }
 
         pointerData = new PointerEventData(EventSystem.current);
+
+        // 게임 시작 시 인벤토리/퀘스트 상태에 따라 Cursor/Crosshair 상태 결정
+        // inventoryActive, questActive가 초기값 false라면 Cursor는 Off, Crosshair On
+        // 만약 시작부터 인벤토리 UI를 켜고 싶다면 inventoryActive = true로 세팅
+        UpdateUIState();
     }
 
     private void LateUpdate()
     {
         if (gameManager != null && gameManager.IsGameOver) return;
 
-        // 마우스 움직임에 따른 Cursor Lock/Unlock 제거
-        // Zoom은 마우스 ScrollWheel로만
         HandleZoom();
         if (target != null)
         {
@@ -107,14 +104,12 @@ public class AstronautCamera : MonoBehaviour
             RotateCamera();
         }
 
-        // Crosshair UI 상호작용 유지
         HandleCrosshairUIInteraction();
     }
 
     private void HandleZoom()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        // 마우스 휠로만 줌 변경
         currentZoom -= scroll * zoomSpeed;
         currentZoom = Mathf.Clamp(currentZoom, minZoomDistance - originalOffset.magnitude, maxZoomDistance - originalOffset.magnitude);
     }
@@ -210,6 +205,7 @@ public class AstronautCamera : MonoBehaviour
         }
         else
         {
+            // crosshair를 null로 적용하면 gameobject를 비활성화
             crosshairImage.gameObject.SetActive(false);
         }
     }
@@ -234,8 +230,6 @@ public class AstronautCamera : MonoBehaviour
     private void HandleCrosshairUIInteraction()
     {
         // Crosshair 활성 & Cursor 비활성 상태에서만 동작
-        // UI가 비활성 상태일 때 Crosshair On, Cursor Off
-        // 이때 화면 중앙을 기준으로 UI Raycast
         if (crosshairImage != null && crosshairImage.gameObject.activeSelf && !Cursor.visible)
         {
             if (graphicRaycaster == null || eventSystem == null) return;
@@ -244,13 +238,11 @@ public class AstronautCamera : MonoBehaviour
             List<RaycastResult> results = new List<RaycastResult>();
             graphicRaycaster.Raycast(pointerData, results);
 
-            // UI Hover
             if (results.Count > 0)
             {
                 GameObject hovered = results[0].gameObject;
                 eventSystem.SetSelectedGameObject(hovered);
 
-                // 클릭 처리
                 if (Input.GetMouseButtonDown(0))
                 {
                     ExecuteEvents.Execute(hovered, pointerData, ExecuteEvents.pointerClickHandler);
