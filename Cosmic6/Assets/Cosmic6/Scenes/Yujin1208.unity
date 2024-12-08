@@ -10089,6 +10089,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!4 &195043976 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 483138, guid: 4045ab46594095b41ad7a0f08cfd554c, type: 3}
+  m_PrefabInstance: {fileID: 195043972}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &195043977 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 430814, guid: 4045ab46594095b41ad7a0f08cfd554c, type: 3}
@@ -41403,6 +41408,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752477135}
   m_CullTransparentMesh: 0
+--- !u!4 &753050612 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 462040, guid: 4045ab46594095b41ad7a0f08cfd554c, type: 3}
+  m_PrefabInstance: {fileID: 195043972}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &753086642
 GameObject:
   m_ObjectHideFlags: 0
@@ -105393,9 +105403,9 @@ MonoBehaviour:
   yawLimit: {x: -45, y: 45}
   pitchLimit: {x: -45, y: 15}
   gameManager: {fileID: 1807090715}
-  headRigTransform: {fileID: 0}
+  headRigTransform: {fileID: 753050612}
   headRigRotation: {x: -0.51714516, y: 0.48224565, z: 0.51714516, w: 0.48224565}
-  headTransform: {fileID: 0}
+  headTransform: {fileID: 195043976}
   headPosition: {x: 0, y: -0.17, z: -0.03}
   zoomSpeed: 5
   minZoomDistance: 1.5
