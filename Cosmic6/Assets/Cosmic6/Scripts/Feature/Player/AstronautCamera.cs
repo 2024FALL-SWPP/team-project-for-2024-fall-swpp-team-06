@@ -10,11 +10,14 @@ public class AstronautCamera : MonoBehaviour
     public Transform target;
 
     public Vector3 initialCameraOffset = new Vector3(0f, 3f, -4f);
-    public Vector3 initialCameraEulerAngles = new Vector3(15f, 0f, 0f);
-
-    public float rotationSpeed = 5f;
+    public float rotationSpeed = 1f;
+    public float turnSmoothing = 0.1f;
     public float followSpeed = 10f;
     public float verticalRotationLimit = 45f;
+
+    [Header("Rotation Limits")]
+    public Vector2 yawLimit = new Vector2(-45f, 45f);
+    public Vector2 pitchLimit = new Vector2(-45f, 15f);
 
     [Header("Game Over Settings")]
     public GameManager gameManager;
@@ -31,11 +34,17 @@ public class AstronautCamera : MonoBehaviour
     [Header("Crosshair Settings")]
     public Sprite crosshairSprite;
 
-    // 인벤토리/퀘스트 UI 상태
+    [Header("UI States")]
+    public GameObject inventoryGameObject;
+    public GameObject questGameObject;
+
+    // Auto recentre parameters
+    public float idleTimeBeforeRecentering = 0f; // 입력 없을 때 몇 초 후 재중심 시작
+    public float recenterSpeed = 1f;          // 재중심 속도(0으로 돌아가는 속도)
+
     private bool inventoryActive = false;
     private bool questActive = false;
 
-    private float currentVerticalRotation = 0f;
     private float currentZoom = 0f;
     private Vector3 originalOffset;
 
@@ -46,7 +55,18 @@ public class AstronautCamera : MonoBehaviour
     private GraphicRaycaster graphicRaycaster;
     private PointerEventData pointerData;
 
-    private void Start()
+    // ThirdPersonCamera 유사 마우스/회전 변수
+    private float mouseX;
+    private float mouseY;
+    private float smoothX;
+    private float smoothY;
+    private float smoothXVelocity;
+    private float smoothYVelocity;
+
+    private float idleTimer = 0f;
+    private bool hasInputThisFrame = false;
+
+    void Start()
     {
         if (gameManager != null)
         {
@@ -60,51 +80,81 @@ public class AstronautCamera : MonoBehaviour
         if (target == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                target = player.transform;
-            }
+            if (player != null) target = player.transform;
         }
 
         if (target == null)
-        {
             Debug.LogError("Target is null! Make sure the Player has the 'Player' tag.");
-        }
 
         originalOffset = initialCameraOffset;
-        transform.rotation = Quaternion.Euler(initialCameraEulerAngles);
+
+        // 플레이어 각도로 초기 세팅
+        if (target != null)
+        {
+            mouseY = target.eulerAngles.x;
+            mouseX = target.eulerAngles.y;
+        }
 
         eventSystem = FindObjectOfType<EventSystem>();
-        if (eventSystem == null)
-        {
-            Debug.LogWarning("EventSystem not found. UI Interaction won't work.");
-        }
+        if (eventSystem == null) Debug.LogWarning("EventSystem not found!");
         graphicRaycaster = FindObjectOfType<GraphicRaycaster>();
-        if (graphicRaycaster == null)
-        {
-            Debug.LogWarning("GraphicRaycaster not found. UI Interaction won't work.");
-        }
+        if (graphicRaycaster == null) Debug.LogWarning("GraphicRaycaster not found!");
 
         pointerData = new PointerEventData(EventSystem.current);
 
-        // 게임 시작 시 인벤토리/퀘스트 상태에 따라 Cursor/Crosshair 상태 결정
-        // inventoryActive, questActive가 초기값 false라면 Cursor는 Off, Crosshair On
-        // 만약 시작부터 인벤토리 UI를 켜고 싶다면 inventoryActive = true로 세팅
         UpdateUIState();
     }
 
-    private void LateUpdate()
+    void LateUpdate()
     {
         if (gameManager != null && gameManager.IsGameOver) return;
 
+        bool newInventoryActive = (inventoryGameObject != null && inventoryGameObject.activeSelf);
+        bool newQuestActive = (questGameObject != null && questGameObject.activeSelf);
+
+        if (newInventoryActive != inventoryActive || newQuestActive != questActive)
+        {
+            inventoryActive = newInventoryActive;
+            questActive = newQuestActive;
+            UpdateUIState();
+        }
+
+        UpdateInput();
         HandleZoom();
         if (target != null)
         {
-            FollowTarget();
-            RotateCamera();
+            UpdateTransform();
         }
 
         HandleCrosshairUIInteraction();
+    }
+
+    private void UpdateInput()
+    {
+        hasInputThisFrame = false;
+
+        // UI 활성 시 회전 불가
+        if (inventoryActive || questActive) return;
+
+        float x = Input.GetAxis("Mouse X");
+        float y = Input.GetAxis("Mouse Y");
+
+        if (Mathf.Abs(x) > 0.01f || Mathf.Abs(y) > 0.01f)
+        {
+            // 마우스 입력 있을 때 yaw, pitch 갱신
+            mouseX += x * rotationSpeed;
+            mouseY -= y * rotationSpeed;
+            mouseX = ClampAngle(mouseX, yawLimit.x, yawLimit.y);
+            mouseY = ClampAngle(mouseY, pitchLimit.x, pitchLimit.y);
+
+            hasInputThisFrame = true;
+            idleTimer = 0f; // 입력 있으면 idleTimer 리셋
+        }
+        else
+        {
+            // 입력 없음
+            idleTimer += Time.deltaTime;
+        }
     }
 
     private void HandleZoom()
@@ -114,26 +164,28 @@ public class AstronautCamera : MonoBehaviour
         currentZoom = Mathf.Clamp(currentZoom, minZoomDistance - originalOffset.magnitude, maxZoomDistance - originalOffset.magnitude);
     }
 
-    private void FollowTarget()
+    private void UpdateTransform()
     {
+        // UI 활성 시 회전 반영 안 함
+        if (!(inventoryActive || questActive))
+        {
+            // 입력 없으면 일정시간 후 yaw=0으로 복귀
+            if (!hasInputThisFrame && idleTimer > idleTimeBeforeRecentering)
+            {
+                // mouseX를 0으로 서서히 이동
+                mouseX = Mathf.MoveTowards(mouseX, 0f, recenterSpeed * Time.deltaTime * Mathf.Abs(mouseX));
+            }
+
+            smoothX = Mathf.SmoothDamp(smoothX, mouseX, ref smoothXVelocity, turnSmoothing);
+            smoothY = Mathf.SmoothDamp(smoothY, mouseY, ref smoothYVelocity, turnSmoothing);
+
+            Quaternion targetRotation = Quaternion.Euler(smoothY, smoothX, 0);
+            transform.rotation = targetRotation;
+        }
+
         Vector3 zoomedOffset = originalOffset.normalized * (originalOffset.magnitude + currentZoom);
         Vector3 desiredPosition = target.position + zoomedOffset;
         transform.position = Vector3.Lerp(transform.position, desiredPosition, followSpeed * Time.deltaTime);
-    }
-
-    private void RotateCamera()
-    {
-        if (inventoryActive || questActive)
-        {
-            return; // UI 활성 시 회전 불가
-        }
-
-        float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
-        float mouseY = Input.GetAxis("Mouse Y") * rotationSpeed;
-
-        currentVerticalRotation = Mathf.Clamp(currentVerticalRotation - mouseY, -verticalRotationLimit, verticalRotationLimit);
-        Quaternion targetRotation = Quaternion.Euler(currentVerticalRotation, transform.eulerAngles.y + mouseX, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void HandleGameOver()
@@ -153,41 +205,23 @@ public class AstronautCamera : MonoBehaviour
         transform.localRotation = Quaternion.Euler(90 + headRigRotation.eulerAngles.x, 0, 0);
     }
 
-    public void OnInventoryToggle(bool active)
-    {
-        inventoryActive = active;
-        UpdateUIState();
-    }
-
-    public void OnQuestToggle(bool active)
-    {
-        questActive = active;
-        UpdateUIState();
-    }
-
     private void UpdateUIState()
     {
-        // 인벤토리나 퀘스트 UI 상태만으로 Cursor/Crosshair 결정
-        if (inventoryActive || questActive)
+        bool uiActive = inventoryActive || questActive;
+        if (uiActive)
         {
-            // UI 활성: Cursor On, Crosshair Off
+            // UI 활성: Cursor On, Crosshair Off, 회전 불가
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             ApplyCrosshair(null);
         }
         else
         {
-            // UI 비활성: Cursor Off, Crosshair On
+            // UI 비활성: Cursor Off, Crosshair On, 회전 가능
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             ApplyCrosshair(crosshairSprite);
         }
-    }
-
-    private void ApplyInventoryState(bool active)
-    {
-        inventoryActive = active;
-        UpdateUIState();
     }
 
     private void ApplyCrosshair(Sprite crosshair)
@@ -205,7 +239,6 @@ public class AstronautCamera : MonoBehaviour
         }
         else
         {
-            // crosshair를 null로 적용하면 gameobject를 비활성화
             crosshairImage.gameObject.SetActive(false);
         }
     }
@@ -229,7 +262,13 @@ public class AstronautCamera : MonoBehaviour
 
     private void HandleCrosshairUIInteraction()
     {
-        // Crosshair 활성 & Cursor 비활성 상태에서만 동작
+        // UI 활성 시 crosshair 상호작용 X
+        if (inventoryActive || questActive) return;
+
+        // Cursor visible이면 crosshair 상호작용 X
+        if (Cursor.visible) return;
+
+        // Crosshair 활성 & Cursor 비활성 상태에서만 작동
         if (crosshairImage != null && crosshairImage.gameObject.activeSelf && !Cursor.visible)
         {
             if (graphicRaycaster == null || eventSystem == null) return;
@@ -253,5 +292,18 @@ public class AstronautCamera : MonoBehaviour
                 eventSystem.SetSelectedGameObject(null);
             }
         }
+    }
+
+    private float ClampAngle(float angle, float min, float max)
+    {
+        do
+        {
+            if (angle < -360f)
+                angle += 360f;
+            if (angle > 360f)
+                angle -= 360f;
+        } while (angle < -360f || angle > 360f);
+
+        return Mathf.Clamp(angle, min, max);
     }
 }

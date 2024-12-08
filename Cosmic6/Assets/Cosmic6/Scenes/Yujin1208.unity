@@ -2767,7 +2767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &35223671
 RectTransform:
   m_ObjectHideFlags: 0
@@ -78672,6 +78672,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1481573449}
   m_CullTransparentMesh: 0
+--- !u!1 &1483117571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2740522862135884625, guid: 73000691bb97ca545a8d09fd0c6f5865, type: 3}
+  m_PrefabInstance: {fileID: 1892729188}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1483464994
 GameObject:
   m_ObjectHideFlags: 0
@@ -100576,7 +100581,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2740522862135884627, guid: 73000691bb97ca545a8d09fd0c6f5865, type: 3}
   m_PrefabInstance: {fileID: 1892729188}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1483117571}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb22b138ec68f14884edf560442aaf5, type: 3}
@@ -105416,10 +105421,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 195043977}
   initialCameraOffset: {x: 0, y: 3, z: -4}
-  initialCameraEulerAngles: {x: 15, y: 0, z: 0}
-  rotationSpeed: 5
+  rotationSpeed: 3
+  turnSmoothing: 0.1
   followSpeed: 10
   verticalRotationLimit: 45
+  yawLimit: {x: -45, y: 45}
+  pitchLimit: {x: -45, y: 15}
   gameManager: {fileID: 1807090715}
   headRigTransform: {fileID: 0}
   headRigRotation: {x: -0.51714516, y: 0.48224565, z: 0.51714516, w: 0.48224565}
@@ -105429,6 +105436,10 @@ MonoBehaviour:
   minZoomDistance: 1.5
   maxZoomDistance: 6
   crosshairSprite: {fileID: 21300000, guid: 576e7db613e9d024fb1ac68e765255bf, type: 3}
+  inventoryGameObject: {fileID: 1483117571}
+  questGameObject: {fileID: 1483117571}
+  idleTimeBeforeRecentering: 0.5
+  recenterSpeed: 1
 --- !u!1 &1986145350
 GameObject:
   m_ObjectHideFlags: 0
