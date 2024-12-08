@@ -1042,15 +1042,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a911686dabaa7a41a73f4baf613d5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 360529871}
   offset: {x: 0, y: 1.5, z: -3}
   rotationSpeed: 5
   followSpeed: 10
+  verticalRotationLimit: 45
   gameManager: {fileID: 2136520503}
-  headRigTransform: {fileID: 360529872}
+  headRigTransform: {fileID: 0}
   headRigRotation: {x: -0.51714516, y: 0.48224565, z: 0.51714516, w: 0.48224565}
-  headTransform: {fileID: 360529871}
+  headTransform: {fileID: 0}
   headPosition: {x: 0, y: -0.17, z: -0.03}
+  zoomSpeed: 2
+  minZoomDistance: 1
+  maxZoomDistance: 10
+  crosshairSprite: {fileID: 21300000, guid: 576e7db613e9d024fb1ac68e765255bf, type: 3}
 --- !u!1 &22664327
 GameObject:
   m_ObjectHideFlags: 0
@@ -16662,9 +16667,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcba5044e2a1459468373d0b30357ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 2
-  speedIncreaseRate: 1
+  maxAnimatorSpeed: 1
+  maxMoveSpeed: 5
+  speedIncreaseRate: 0.5
+  speedDecreaseRate: 0.5
   rotationSpeed: 10
+  rotationThreshold: 0.001
 --- !u!136 &360529869
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16717,12 +16725,7 @@ Rigidbody:
   m_CollisionDetection: 0
 --- !u!4 &360529871 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 483138, guid: 4045ab46594095b41ad7a0f08cfd554c, type: 3}
-  m_PrefabInstance: {fileID: 360529866}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &360529872 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 462040, guid: 4045ab46594095b41ad7a0f08cfd554c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 430814, guid: 4045ab46594095b41ad7a0f08cfd554c, type: 3}
   m_PrefabInstance: {fileID: 360529866}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &361715335
