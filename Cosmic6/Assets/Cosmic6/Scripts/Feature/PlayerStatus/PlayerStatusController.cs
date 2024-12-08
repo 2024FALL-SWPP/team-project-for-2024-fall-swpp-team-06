@@ -44,7 +44,7 @@ public class PlayerStatusController : MonoBehaviour
 
     private void Update()
     {
-        if (gameManager.isGameOver) return;
+        if (gameManager.IsGameOver) return;
         
         if (locationTracker.currentRegionIndex == 2 && !timeManager.isNight)
         {

@@ -9,7 +9,6 @@ public class InstantMovement : MonoBehaviour
 
     public Transform playerTransform;
     public BaseManager baseManager;
-    public PlayerMovement playerMovement;
     public bool teleportPossible = false;
     public int targetBaseIndex = -1;
 
