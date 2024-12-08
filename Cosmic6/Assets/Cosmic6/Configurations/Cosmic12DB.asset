@@ -58,6 +58,91 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unstackEvent: 3
   unstackKeyCode: 304
+--- !u!114 &-6304872122063856682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6132cc3558d117f4bbad4651b2dbdba7, type: 3}
+  m_Name: "\uBE75"
+  m_EditorClassIdentifier: 
+  m_Id: 84df2994-c906-4ad0-bd1b-6c8a1c4ccba1
+  m_ItemName: "\uBE75"
+  m_UseItemNameAsDisplayName: 1
+  m_DisplayName: New Item
+  m_Icon: {fileID: 21300000, guid: 9d9a63f0c431ee549ae20aeda3236658, type: 3}
+  m_Prefab: {fileID: 6292690118167923490, guid: ae6f027685e1f194c86dcf5e822c1472, type: 3}
+  m_Description: 
+  m_Category: {fileID: 7691753795492579254}
+  m_IsSellable: 1
+  m_BuyPrice: 0
+  m_CanBuyBack: 1
+  m_BuyCurrency: {fileID: 1100484727990703582}
+  m_SellPrice: 0
+  m_SellCurrency: {fileID: 1100484727990703582}
+  m_Stack: 1
+  m_MaxStack: 1
+  m_IsDroppable: 1
+  m_DropSound: {fileID: 0}
+  m_OverridePrefab: {fileID: 0}
+  m_IsCraftable: 0
+  m_CraftingDuration: 2
+  m_UseCraftingSkill: 0
+  m_SkillWindow: Skills
+  m_CraftingSkill: {fileID: 0}
+  m_RemoveIngredientsWhenFailed: 0
+  m_MinCraftingSkillValue: 0
+  m_CraftingAnimatorState: Blacksmithy
+  m_CraftingModifier:
+    modifiers: []
+  ingredients: []
+  properties: []
+  m_UseCategoryCooldown: 1
+  m_Cooldown: 1
+  actions:
+  - rid: 2197560000291799048
+  - rid: 2197560000291799049
+  - rid: 2197560000291799050
+  - rid: 2197560000291799051
+  m_OverrideEquipPrefab: {fileID: 0}
+  m_Region: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2197560000291799048
+      type: {class: StatActionEnergy, ns: DevionGames.InventorySystem.ItemActions, asm: Assembly-CSharp}
+      data:
+        m_Type: DevionGames.InventorySystem.ItemActions.StatActionEnergy
+        m_Enabled: 1
+        item: {fileID: -6304872122063856682}
+        m_Amount: 10
+    - rid: 2197560000291799049
+      type: {class: StatActionHP, ns: DevionGames.InventorySystem.ItemActions, asm: Assembly-CSharp}
+      data:
+        m_Type: DevionGames.InventorySystem.ItemActions.StatActionHP
+        m_Enabled: 1
+        item: {fileID: -6304872122063856682}
+        m_Amount: 10
+    - rid: 2197560000291799050
+      type: {class: StatActionOxygen, ns: DevionGames.InventorySystem.ItemActions, asm: Assembly-CSharp}
+      data:
+        m_Type: DevionGames.InventorySystem.ItemActions.StatActionOxygen
+        m_Enabled: 1
+        item: {fileID: -6304872122063856682}
+        m_Amount: 10
+    - rid: 2197560000291799051
+      type: {class: RemoveItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
+      data:
+        m_Type: DevionGames.InventorySystem.ItemActions.RemoveItem
+        m_Enabled: 1
+        item: {fileID: -6304872122063856682}
+        m_WindowName: Inventory
+        m_Item: {fileID: -6304872122063856682}
+        m_Amount: 1
 --- !u!114 &-4801672553525306074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,7 +344,7 @@ MonoBehaviour:
   m_Name: Cosmic12DB
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 3470470047144872708}
+  - {fileID: -6304872122063856682}
   currencies:
   - {fileID: 1100484727990703582}
   - {fileID: 3848445611472300504}
@@ -353,75 +438,6 @@ MonoBehaviour:
   sellPriceTooltipName: Sell Price Tooltip
   stackName: Stack
   notificationName: Notification
---- !u!114 &3470470047144872708
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a78acd5557204d499bcf3420fd4ee78, type: 3}
-  m_Name: "\uBE75"
-  m_EditorClassIdentifier: 
-  m_Id: d8cb2b9c-d255-437e-a4a6-6ba46b227635
-  m_ItemName: "\uBE75"
-  m_UseItemNameAsDisplayName: 1
-  m_DisplayName: New Item
-  m_Icon: {fileID: 21300000, guid: 9d9a63f0c431ee549ae20aeda3236658, type: 3}
-  m_Prefab: {fileID: 6292690118167923490, guid: ae6f027685e1f194c86dcf5e822c1472, type: 3}
-  m_Description: 
-  m_Category: {fileID: 7691753795492579254}
-  m_IsSellable: 1
-  m_BuyPrice: 0
-  m_CanBuyBack: 1
-  m_BuyCurrency: {fileID: 1100484727990703582}
-  m_SellPrice: 0
-  m_SellCurrency: {fileID: 1100484727990703582}
-  m_Stack: 1
-  m_MaxStack: 1
-  m_IsDroppable: 1
-  m_DropSound: {fileID: 0}
-  m_OverridePrefab: {fileID: 0}
-  m_IsCraftable: 0
-  m_CraftingDuration: 2
-  m_UseCraftingSkill: 0
-  m_SkillWindow: Skills
-  m_CraftingSkill: {fileID: 0}
-  m_RemoveIngredientsWhenFailed: 0
-  m_MinCraftingSkillValue: 0
-  m_CraftingAnimatorState: Blacksmithy
-  m_CraftingModifier:
-    modifiers: []
-  ingredients: []
-  properties: []
-  m_UseCategoryCooldown: 1
-  m_Cooldown: 1
-  actions:
-  - rid: 2197560000291799044
-  - rid: 2197560000291799045
-  references:
-    version: 2
-    RefIds:
-    - rid: 2197560000291799044
-      type: {class: AddItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
-      data:
-        m_Type: DevionGames.InventorySystem.ItemActions.AddItem
-        m_Enabled: 1
-        item: {fileID: 3470470047144872708}
-        m_WindowName: Inventory
-        m_Item: {fileID: 1100484727990703582}
-        m_Amount: 1
-    - rid: 2197560000291799045
-      type: {class: RemoveItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
-      data:
-        m_Type: DevionGames.InventorySystem.ItemActions.RemoveItem
-        m_Enabled: 1
-        item: {fileID: 3470470047144872708}
-        m_WindowName: Inventory
-        m_Item: {fileID: 3470470047144872708}
-        m_Amount: 1
 --- !u!114 &3848445611472300504
 MonoBehaviour:
   m_ObjectHideFlags: 1
