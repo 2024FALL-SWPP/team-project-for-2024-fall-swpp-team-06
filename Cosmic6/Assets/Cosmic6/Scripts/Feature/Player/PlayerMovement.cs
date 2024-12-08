@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (!gameManager.isGameOver)
+        if (!gameManager.IsGameOver)
         {
             float moveX = Input.GetAxis("Horizontal");
             float moveZ = Input.GetAxis("Vertical");
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (!gameManager.isGameOver && Input.GetButtonDown("Jump") && isGrounded)
+        if (!gameManager.IsGameOver && Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(-2f * gravity * jumpHeight);
             isJumping = true;

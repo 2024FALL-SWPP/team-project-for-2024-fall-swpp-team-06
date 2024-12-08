@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.isGameOver) return;
+        if (gameManager.IsGameOver) return;
         
         float mouseX = Input.GetAxis("Mouse X") * horizontalSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * verticalSensitivity * Time.deltaTime;

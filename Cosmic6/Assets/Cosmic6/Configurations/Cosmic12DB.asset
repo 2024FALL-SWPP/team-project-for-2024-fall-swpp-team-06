@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cefcd19cdc9839d449772c4dce1503f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoSave: 1
+  autoSave: 0
   savingKey: Player
   savingRate: 60
   provider: 0
@@ -398,10 +398,30 @@ MonoBehaviour:
   properties: []
   m_UseCategoryCooldown: 1
   m_Cooldown: 1
-  actions: []
+  actions:
+  - rid: 2197560000291799044
+  - rid: 2197560000291799045
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2197560000291799044
+      type: {class: AddItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
+      data:
+        m_Type: DevionGames.InventorySystem.ItemActions.AddItem
+        m_Enabled: 1
+        item: {fileID: 3470470047144872708}
+        m_WindowName: Inventory
+        m_Item: {fileID: 1100484727990703582}
+        m_Amount: 1
+    - rid: 2197560000291799045
+      type: {class: RemoveItem, ns: DevionGames.InventorySystem.ItemActions, asm: DevionGames.InventorySystem}
+      data:
+        m_Type: DevionGames.InventorySystem.ItemActions.RemoveItem
+        m_Enabled: 1
+        item: {fileID: 3470470047144872708}
+        m_WindowName: Inventory
+        m_Item: {fileID: 3470470047144872708}
+        m_Amount: 1
 --- !u!114 &3848445611472300504
 MonoBehaviour:
   m_ObjectHideFlags: 1
