@@ -11,10 +11,13 @@ public class FlagManager : MonoBehaviour
     // clickable
     private int flagLayerIndex = 3;
     private int flagIndex = 0;
+    private bool updateOxygen1 = false;
+    private bool updateOxygen2 = false;
 
     public BaseManager baseManager;
     public InstantMovement instantMovement;
     public CameraRaycaster cameraRaycaster;
+    public PlayerStatusController playerStatusController;
 
     public QuestSystem questSystem;
 
@@ -37,12 +40,22 @@ public class FlagManager : MonoBehaviour
                 break;
             case 2:
                 // oxygen at region 2
+                if (!updateOxygen1)
+                {
+                    playerStatusController.UpgradeOxygen();
+                    updateOxygen1 = true;
+                }
                 break;
             case 3:
                 // protect heat for region 3
                 break;
             case 4:
                 // oxygen at region 3
+                if (!updateOxygen2)
+                {
+                    playerStatusController.UpgradeOxygen();
+                    updateOxygen2 = true;
+                }
                 break;
             case 5:
                 // teleport
@@ -63,7 +76,7 @@ public class FlagManager : MonoBehaviour
                 {
                     flags[0].SetActive(true);
                 }
-                if (i == 0)
+                else if (i == 1)
                 {
                     flags[1].SetActive(true);
                     flags[4].SetActive(true);

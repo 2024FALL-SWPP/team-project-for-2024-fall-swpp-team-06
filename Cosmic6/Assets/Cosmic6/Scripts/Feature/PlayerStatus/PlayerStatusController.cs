@@ -8,6 +8,7 @@ public class PlayerStatusController : MonoBehaviour
     public GameManager gameManager;
     public LocationTracker locationTracker;
     public TimeManager timeManager;
+    public PlayerStatusUI playerStatusUI;
     
     public float hp { get; private set; }
     public float oxygen { get; private set; }
@@ -112,6 +113,13 @@ public class PlayerStatusController : MonoBehaviour
         {
             gameManager.GameOver();
         }
+    }
+
+    public void UpgradeOxygen()
+    {
+        maxOxygen += 500f;
+        playerStatusUI.UpdateBarValues();
+        Debug.Log($"maxOxygen is updated to {maxOxygen}");
     }
 
     void GameOver()

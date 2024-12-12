@@ -12,11 +12,13 @@ public class MinimapController : MonoBehaviour
 
     public SpriteRenderer playerIcon;
     public SpriteRenderer[] baseIcons;
+    public RawImage minimapRawImage;
     //public SpriteRenderer[] regionSprites;
 
     //public PlayerState playerState;
 
     public Transform playerTransform;
+    public BaseManager baseManager;
 
     // Start is called before the first frame update
     void Start()
@@ -25,14 +27,15 @@ public class MinimapController : MonoBehaviour
         {
             fullmapCamera.gameObject.SetActive(false);
         }
+        foreach (var icon in baseIcons)
+        {
+            icon.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        //UpdateRegionVisibility();
-
         if (playerTransform != null)
         {
             playerIcon.transform.position = playerIcon.transform.parent.position;
@@ -91,13 +94,21 @@ public class MinimapController : MonoBehaviour
             minimapCamera.gameObject.SetActive(false);
             fullmapCamera.gameObject.SetActive(true);
         }
-        isFullMap = true;
 
-        playerIcon.transform.localScale = new Vector3(300, 300, 1);
-        foreach (var icon in baseIcons)
+        // makes minimap invisible by makes alpha 0f
+        if (minimapRawImage != null)
         {
-            icon.transform.localScale = new Vector3(10, 10, 1);
+            minimapRawImage.color = new Color(
+                minimapRawImage.color.r,
+                minimapRawImage.color.g,
+                minimapRawImage.color.b,
+                0f
+            );
         }
+
+        isFullMap = true;
+        playerIcon.transform.localScale = new Vector3(200, 200, 1);
+        SetBaseIconScale(new Vector3(50, 50, 1));
     }
 
     public void CloseFullMap()
@@ -107,12 +118,60 @@ public class MinimapController : MonoBehaviour
             fullmapCamera.gameObject.SetActive(false);
             minimapCamera.gameObject.SetActive(true);
         }
-        isFullMap = false;
 
+        // makes minimap visible by makes alpha 1.0f
+        if (minimapRawImage != null)
+        {
+            minimapRawImage.color = new Color(
+                minimapRawImage.color.r,
+                minimapRawImage.color.g,
+                minimapRawImage.color.b,
+                1f
+            );
+        }
+
+        isFullMap = false;
         playerIcon.transform.localScale = new Vector3(5, 5, 1);
+        SetBaseIconScale(new Vector3(3, 3, 1));
+    }
+
+    private void SetBaseIconScale(Vector3 desiredWorldScale)
+    {
         foreach (var icon in baseIcons)
         {
-            icon.transform.localScale = new Vector3(1, 1, 1);
+            Vector3 parentScale = icon.transform.parent != null
+                ? icon.transform.parent.localScale
+                : Vector3.one;
+
+            Vector3 correctedLocalScale = new Vector3(
+                desiredWorldScale.x / parentScale.x,
+                desiredWorldScale.y / parentScale.y,
+                desiredWorldScale.z / parentScale.z
+            );
+
+            icon.transform.localScale = correctedLocalScale;
+        }
+    }
+
+    public void UpdateMinimap()
+    {
+        for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
+        {
+            if (baseManager.isBaseRegistered[i])
+            {
+                if (i == 0)
+                {
+                    baseIcons[0].gameObject.SetActive(true);
+                }
+                else if (i == 1)
+                {
+                    baseIcons[1].gameObject.SetActive(true);
+                }
+                else
+                {
+                    baseIcons[2].gameObject.SetActive(true);
+                }
+            }
         }
     }
 }
