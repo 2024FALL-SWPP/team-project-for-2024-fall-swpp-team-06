@@ -36,7 +36,7 @@ public class InstantMovement : MonoBehaviour
         {
             print("teleport is possible");
             UpdateMapMarkers();
-            UpdateCurrentBase();
+            if (!isTeleportingMenuActive) { UpdateCurrentBase(); }
 
             if (Input.GetKeyDown(KeyCode.T) && currentBaseIndex != -1)
             {
@@ -57,18 +57,13 @@ public class InstantMovement : MonoBehaviour
 
     private void UpdateCurrentBase()
     {
-        if (isTeleportingMenuActive) return;
-
         currentBaseIndex = -1;
 
         for (int i = 0; i < baseManager.safeZoneOverlays.Length; i++)
         {
             if (!baseManager.isBaseRegistered[i]) continue;
 
-            Vector3 basePosition = basePositions[i].transform.position;
-            float distance = Vector3.Distance(playerTransform.position, basePosition);
-
-            if (distance <= teleportRange)
+            if (CheckDistance(i) <= teleportRange)
             {
                 currentBaseIndex = i;
                 teleportPopupUI.SetActive(true);
@@ -100,7 +95,7 @@ public class InstantMovement : MonoBehaviour
             }
         }
 
-        teleportInstructions.text = $"Currently near base {currentBaseIndex + 1}." +
+        teleportInstructions.text = $"Currently near base {currentBaseIndex + 1}.\n" +
             $"Choose a teleport destination: {destinations}";
 
         StartCoroutine(WaitForTeleportInput());
@@ -121,15 +116,12 @@ public class InstantMovement : MonoBehaviour
                     yield break;
                 }
 
-                /*Vector3 basePosition = basePositions[i].transform.position;
-                float distance = Vector3.Distance(playerTransform.position, basePosition);
-
-                if (distance > teleportRange)
+                if (CheckDistance(currentBaseIndex) > teleportRange)
                 {
                     teleportPopupUI.SetActive(false);
                     isTeleportingMenuActive = false;
                     yield break;
-                }*/
+                }
             }
 
             yield return null;
@@ -142,5 +134,12 @@ public class InstantMovement : MonoBehaviour
         isTeleporting = false;
         currentBaseIndex = -1;
         targetBaseIndex = -1;
+    }
+
+    private float CheckDistance(int idx)
+    {
+        Vector3 basePosition = basePositions[idx].transform.position;
+        float distance = Vector3.Distance(playerTransform.position, basePosition);
+        return distance;
     }
 }

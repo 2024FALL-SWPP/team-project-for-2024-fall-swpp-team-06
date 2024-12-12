@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Quest_Flag4 : Quest
 {
-    private FlagState flagstate;
+    /*private FlagState flagstate;
 
     public Quest_Flag4(string title, string description)
         : base(title, description, "Flag4", 1)
@@ -22,6 +22,29 @@ public class Quest_Flag4 : Quest
         {
             currentValue = 1; 
             isComplete = true; 
+            Debug.Log($"Quest '{title}' is complete!");
+        }
+        else
+        {
+            currentValue = 0;
+            isComplete = false;
+            Debug.Log($"Quest '{title}' is not complete.");
+        }
+    }*/
+
+    private FlagManager flagManager;
+
+    public Quest_Flag4(string title, string description)
+        : base(title, description, "Flag4", 1)
+    {
+    }
+
+    public override void CheckProgress()
+    {
+        if (flagManager.isFlagRegistered[3])
+        {
+            currentValue = 1;
+            isComplete = true;
             Debug.Log($"Quest '{title}' is complete!");
         }
         else
