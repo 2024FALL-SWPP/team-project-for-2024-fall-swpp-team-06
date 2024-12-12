@@ -11273,6 +11273,7 @@ MonoBehaviour:
   gameManager: {fileID: 789812390}
   locationTracker: {fileID: 195043985}
   timeManager: {fileID: 789812387}
+  playerStatusUI: {fileID: 0}
 --- !u!114 &195043984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14343,7 +14344,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1355536043}
   m_HandleRect: {fileID: 1355536042}
   m_Direction: 3
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -41417,7 +41418,9 @@ MonoBehaviour:
   fullmapCamera: {fileID: 1735203209}
   playerIcon: {fileID: 1445740097}
   baseIcons: []
-  playerTransform: {fileID: 0}
+  minimapRawImage: {fileID: 669449442}
+  playerTransform: {fileID: 195043977}
+  baseManager: {fileID: 789812385}
 --- !u!1 &670579387
 GameObject:
   m_ObjectHideFlags: 0
@@ -48543,7 +48546,8 @@ MonoBehaviour:
   cameraRaycaster: {fileID: 195043986}
   locationTracker: {fileID: 195043985}
   flagManager: {fileID: 789812388}
-  questSystem: {fileID: 0}
+  minimapController: {fileID: 669449444}
+  questSystem: {fileID: 1419481176}
 --- !u!114 &789812387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48577,7 +48581,8 @@ MonoBehaviour:
   baseManager: {fileID: 789812385}
   instantMovement: {fileID: 789812383}
   cameraRaycaster: {fileID: 195043986}
-  questSystem: {fileID: 0}
+  playerStatusController: {fileID: 195043983}
+  questSystem: {fileID: 1419481176}
 --- !u!114 &789812389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95575,6 +95580,10 @@ PrefabInstance:
       propertyPath: m_LayerMask.m_Bits
       value: 51
       objectReference: {fileID: 0}
+    - target: {fileID: 864753745464015929, guid: ca461851dfacfb14e84266ca01f62690, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 319
+      objectReference: {fileID: 0}
     - target: {fileID: 864753745464015930, guid: ca461851dfacfb14e84266ca01f62690, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -117395,7 +117404,7 @@ MonoBehaviour:
   maxZoomDistance: 6
   crosshairSprite: {fileID: 21300000, guid: 576e7db613e9d024fb1ac68e765255bf, type: 3}
   inventoryGameObject: {fileID: 1483117571}
-  questGameObject: {fileID: 1483117571}
+  questGameObject: {fileID: 27876070}
   idleTimeBeforeRecentering: 0.5
   recenterSpeed: 1
 --- !u!114 &1985604798
