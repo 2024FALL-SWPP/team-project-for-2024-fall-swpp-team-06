@@ -36,6 +36,12 @@ public class QuestSystem : MonoBehaviour
                 new Quest("Flag Exploration 4", "Find the fourth flag", "Flag4", 1),
                 new Quest("Flag Exploration 5", "Find the fifth flag", "Flag5", 1)
             }
+        },
+        {
+            "EscapeFlag", new List<Quest>
+            {
+                new Quest("Escape spot activated", "Find the escape flag", "Escape Flag", 1)
+            }
         }
     };
 

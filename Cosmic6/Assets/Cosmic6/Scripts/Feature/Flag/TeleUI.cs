@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Threading;
 
 public class TeleUI : MonoBehaviour
 {
@@ -44,15 +45,27 @@ public class TeleUI : MonoBehaviour
 
         if (basemanager!=null)
         {   
-            for(int i=0;i<3;i++){
-                if(basemanager.isBaseRegistered[i]){
-                    int count=0;
-                    for(int j=0;j<3;j++){
-                        if(telemanager.isTeleFound[j]) count++;
+            for(int i = 0; i < 3; i++)
+            {
+                if(basemanager.isBaseRegistered[i])
+                {
+                    switch(i)
+                    {
+                        case 0:
+                            texts[i] = $"{i} : {telemanager.teleRegion1} / {totalnums[i]}";
+                            break;
+                        case 1:
+                            texts[i] = $"{i} : {telemanager.teleRegion2} / {totalnums[i]}";
+                            break;
+                        case 2:
+                            texts[i] = $"{i} : {telemanager.teleRegion3} / {totalnums[i]}";
+                            break;
+                        default:
+                            break;
                     }
-                    texts[i] = $"{i} : {count} / {totalnums[i]}";
                 }
-                else{
+                else
+                {
                     texts[i] = "*******";
                 }
             }
