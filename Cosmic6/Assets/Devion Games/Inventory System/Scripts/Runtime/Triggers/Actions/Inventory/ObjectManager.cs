@@ -25,6 +25,15 @@ public class ObjectManager : MonoBehaviour
         return Instantiate(prefab, position, rotation);
     }
 
+    public GameObject SpawnObjectWithName(GameObject prefab, string prefabName, Vector3 position, Quaternion rotation)
+    {
+        Debug.Log("Object successfully instantiated!");
+
+        GameObject generatedPrefab = Instantiate(prefab, position, rotation);
+        generatedPrefab.name = prefabName;
+        return generatedPrefab;
+    }
+
     public void RemoveObject(GameObject obj, float delay = 0f)
     {
         Destroy(obj, delay);

@@ -69,12 +69,13 @@ public class FarmingManager : MonoBehaviour
     // hand manager
     public GameObject handManagerObject;
     private HandManager handManager;
-    
-    
+    public GameObject plant;
+    public bool plantOne;
+
     /// <summary>
     /// Input coordinates are Floor(global position / gridSize)
     /// </summary>
-    
+
     void Start()
     {
         // load fieldStates
@@ -88,6 +89,21 @@ public class FarmingManager : MonoBehaviour
         isTilingMode = false;
     }
 
+    void ExecutePlanting(Vector3 position)
+    {
+        // Position만 정하면 Instantiation + Hand에서 숫자 줄어들도록 하는 메서드
+        if (isPlantingMode && plant)
+        {
+            ObjectManager.Instance.SpawnObjectWithName(
+                plant,
+                plant.name,
+                new Vector3(),
+                Quaternion.identity
+            );
+            handManager.UseItem(1);
+        }
+    }
+
     void Update()
     {
         if (handManager.holdItems.Count > 0)
@@ -95,11 +111,28 @@ public class FarmingManager : MonoBehaviour
             Item item = handManager.holdItems[0];
             isTilingMode = item.name == "Shovel(Clone)";
             isPlantingMode = item.name.Contains("_Plant");
+
+            // 식물 심는 방법 예시 (테스트용으로 PlantOne 변수 사용 -> 지워도 됩니다)
+            if (isPlantingMode)
+            {
+                plant = item.OverridePrefab;
+                if(plantOne)
+                {
+                    ExecutePlanting(new Vector3());
+                    plantOne = false;
+                }
+
+            }
+            else
+            {
+                plant = null;
+            }
         }
         else
         {
             isTilingMode = false;
             isPlantingMode = false;
+            plant = null;
         }
     }
 

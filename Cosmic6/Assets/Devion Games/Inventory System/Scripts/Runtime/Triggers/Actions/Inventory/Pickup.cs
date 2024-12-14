@@ -133,12 +133,12 @@ namespace DevionGames.InventorySystem
             }
 
             // Seed 처리
-            if (!string.IsNullOrEmpty(plantItemData.seed.object_path))
+            if (!string.IsNullOrEmpty(plantItemData.seed.prefab_path))
             {
-                Debug.Log("Seed Path: " + plantItemData.seed.object_path);
+                Debug.Log("Seed Path: " + plantItemData.seed.prefab_path);
                 items.AddRange(
                     GetPrefabsAsItems(
-                        plantItemData.seed.object_path,
+                        plantItemData.seed.prefab_path,
                         plantItemData.seed.cnt)
                 );
             }
