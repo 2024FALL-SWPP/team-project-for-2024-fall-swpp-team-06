@@ -13,7 +13,7 @@ namespace DevionGames.InventorySystem
 		[ItemPicker (true)]
 		[SerializeField]
         [FormerlySerializedAs("items")]
-        protected List<Item> m_Items = new List<Item> ();
+        public List<Item> m_Items = new List<Item> ();
         [FormerlySerializedAs("amounts")]
         [SerializeField]
         protected List<int> m_Amounts = new List<int>();
@@ -130,6 +130,9 @@ namespace DevionGames.InventorySystem
 
         public void Add (Item item, bool allowStacking = false)
 		{
+
+            Debug.Log("Add Item: " + item);
+
             this.m_Items.Add (item);
             int index = m_Items.IndexOf(item);
 
@@ -140,12 +143,35 @@ namespace DevionGames.InventorySystem
 
 		}
 
-     
+        public int ItemCount(Item item)
+        {
+            int index = m_Items.IndexOf(item);
+            return m_Amounts[index];
+        }
+
+        public bool Remove(Item item, int amount)
+        {
+            int index = m_Items.IndexOf(item);
+            if (index < 0)
+                return false;
+
+            if (m_Amounts[index] > amount)
+            {
+                m_Amounts[index] -= amount;
+
+                if (onChange != null)
+                    onChange.Invoke();
+
+                return false;
+            }
+            else
+                return Remove(item);
+        }
 
         public bool Remove (Item item)
 		{
             int index = m_Items.IndexOf(item);
-            
+
             bool result = this.m_Items.Remove (item);
             if (result) {
                 this.m_Amounts.RemoveAt(index);
@@ -176,7 +202,6 @@ namespace DevionGames.InventorySystem
 
 		public void Clear ()
 		{
-            
             Item[] currencies = this.m_Items.Where(x => typeof(Currency).IsAssignableFrom(x.GetType())).ToArray();
             for (int i = 0; i < currencies.Length; i++) {
                 currencies[i].Stack = 0;
@@ -214,7 +239,6 @@ namespace DevionGames.InventorySystem
                     {
                         mItems.Add(null);
                     }
-
                 }
                 data.Add("Items", mItems);
             }
