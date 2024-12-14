@@ -47046,6 +47046,7 @@ GameObject:
   - component: {fileID: 789812388}
   - component: {fileID: 789812389}
   - component: {fileID: 789812390}
+  - component: {fileID: 789812391}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47188,6 +47189,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsGameOver: 0
   IsGameClear: 0
+--- !u!114 &789812391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789812382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1446a280c69f56c41a373e63effb61ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryWidget: {fileID: 1622988213}
+  questSystem: {fileID: 1419481176}
+  minimapCamera: {fileID: 388955981}
+  fullmapCamera: {fileID: 1735203207}
 --- !u!1 &791286411
 GameObject:
   m_ObjectHideFlags: 0
@@ -126491,6 +126508,7 @@ MonoBehaviour:
   headTransform: {fileID: 1271484571}
   inventoryGameObject: {fileID: 1762917753}
   questGameObject: {fileID: 27876070}
+  minimapCamera: {fileID: 0}
   crosshairSprite: {fileID: 21300000, guid: 576e7db613e9d024fb1ac68e765255bf, type: 3}
 --- !u!81 &2116376983
 AudioListener:
