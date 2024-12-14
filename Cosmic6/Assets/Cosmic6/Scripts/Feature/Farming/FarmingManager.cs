@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DevionGames.InventorySystem;
 
 public enum FieldState
 {
@@ -60,11 +61,14 @@ public class FarmingManager : MonoBehaviour
     private (int, int) clickedIndices;
 
     // equip seed
-    public bool isPlantingMode = true;
+    public bool isPlantingMode = false;
     
     // equip shovel
-    public bool isTilingMode = true;
-    
+    public bool isTilingMode = false;
+
+    // hand manager
+    public GameObject handManagerObject;
+    private HandManager handManager;
     
     
     /// <summary>
@@ -78,7 +82,28 @@ public class FarmingManager : MonoBehaviour
         overlayManager = GetComponent<OverlayManager>();
         fieldDecayManager = GetComponent<FieldDecayManager>();
         cameraRaycaster.OnRaycastHit += ProcessRaycast;
+        handManager = handManagerObject.GetComponent<HandManager>();
+
+        isPlantingMode = false;
+        isTilingMode = false;
     }
+
+    void Update()
+    {
+        if (handManager.holdItems.Count > 0)
+        {
+            Item item = handManager.holdItems[0];
+            isTilingMode = item.name == "Shovel(Clone)";
+            isPlantingMode = item.name.Contains("_Plant");
+        }
+        else
+        {
+            isTilingMode = false;
+            isPlantingMode = false;
+        }
+    }
+
+
     /*
     void Update()
     {
@@ -107,7 +132,7 @@ public class FarmingManager : MonoBehaviour
                         isClicked = true;
                         clickedIndices = (x, z);
                     }
-                        
+
                 }
             }
         }
@@ -124,7 +149,7 @@ public class FarmingManager : MonoBehaviour
                 {
                     Vector3 hitPoint = hit.point;
                     Terrain hitTerrain = hit.collider.GetComponent<Terrain>();
-                    
+
                     var (x, z) = GlobalToIdx(hitPoint.x, hitPoint.z);
 
                     FieldState state = GetFieldState(x, z);
@@ -132,7 +157,7 @@ public class FarmingManager : MonoBehaviour
                     if (state == FieldState.NotTilled)
                     {
                         OverlayData overlayData = GetOverlayData(x, z, hitTerrain);
-                        
+
                         if (isOverlayInvisible || x != currentX || z != currentZ)
                         {
                             overlayManager.ChangeOverlay(overlayData);
@@ -140,7 +165,7 @@ public class FarmingManager : MonoBehaviour
                             currentZ = z;
                             isOverlayInvisible = false;
                         }
-                        
+
                         // TODO: check if equipping shovel
                         if (overlayData.canFarm && isClicked)
                         {
@@ -186,7 +211,7 @@ public class FarmingManager : MonoBehaviour
         }
     }*/
 
-    public void ProcessRaycast(bool isHit, RaycastHit hit, bool isClicked)
+        public void ProcessRaycast(bool isHit, RaycastHit hit, bool isClicked)
     {
         if (!isHit || (!isTilingMode && !isPlantingMode))
         {

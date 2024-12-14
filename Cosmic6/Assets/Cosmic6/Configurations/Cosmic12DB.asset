@@ -1,5 +1,48 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8575297140035013122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
+  m_Name: OxygenTank
+  m_EditorClassIdentifier: 
+  m_Id: 0cc71797-03dd-425c-a8b4-01cc2e762b20
+  m_ItemName: OxygenTank
+  m_UseItemNameAsDisplayName: 1
+  m_DisplayName: New Item
+  m_Icon: {fileID: 21300000, guid: 4fb083f2779c6a54b83359c8e1f645ae, type: 3}
+  m_Prefab: {fileID: 8691791808019154518, guid: 5a845a7853c95490db49dd796863b496, type: 3}
+  m_Description: 
+  m_Category: {fileID: 7691753795492579254}
+  m_IsSellable: 1
+  m_BuyPrice: 0
+  m_CanBuyBack: 1
+  m_BuyCurrency: {fileID: 1100484727990703582}
+  m_SellPrice: 0
+  m_SellCurrency: {fileID: 1100484727990703582}
+  m_Stack: 1
+  m_MaxStack: 1
+  m_IsDroppable: 1
+  m_DropSound: {fileID: 0}
+  m_OverridePrefab: {fileID: 0}
+  m_IsCraftable: 0
+  m_CraftingDuration: 2
+  m_UseCraftingSkill: 0
+  m_SkillWindow: Skills
+  m_CraftingSkill: {fileID: 0}
+  m_RemoveIngredientsWhenFailed: 0
+  m_MinCraftingSkillValue: 0
+  m_CraftingAnimatorState: Blacksmithy
+  m_CraftingModifier:
+    modifiers: []
+  ingredients: []
+  properties: []
 --- !u!114 &-7679624580437207488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -315,6 +358,49 @@ MonoBehaviour:
     delay: 2
     duration: 2
     ignoreTimeScale: 1
+--- !u!114 &-4279285336912233152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
+  m_Name: Shovel
+  m_EditorClassIdentifier: 
+  m_Id: 244f2eab-103b-4075-9ccb-d7e90965296e
+  m_ItemName: Shovel
+  m_UseItemNameAsDisplayName: 1
+  m_DisplayName: New Item
+  m_Icon: {fileID: 21300000, guid: fdda12142964ac04ca8ac75e9ba9e191, type: 3}
+  m_Prefab: {fileID: 1331191491108408314, guid: 871d203318b26497bbfd076696abc710, type: 3}
+  m_Description: 
+  m_Category: {fileID: 7691753795492579254}
+  m_IsSellable: 1
+  m_BuyPrice: 0
+  m_CanBuyBack: 1
+  m_BuyCurrency: {fileID: 1100484727990703582}
+  m_SellPrice: 0
+  m_SellCurrency: {fileID: 1100484727990703582}
+  m_Stack: 1
+  m_MaxStack: 1
+  m_IsDroppable: 0
+  m_DropSound: {fileID: 0}
+  m_OverridePrefab: {fileID: 0}
+  m_IsCraftable: 0
+  m_CraftingDuration: 2
+  m_UseCraftingSkill: 0
+  m_SkillWindow: Skills
+  m_CraftingSkill: {fileID: 0}
+  m_RemoveIngredientsWhenFailed: 0
+  m_MinCraftingSkillValue: 0
+  m_CraftingAnimatorState: Blacksmithy
+  m_CraftingModifier:
+    modifiers: []
+  ingredients: []
+  properties: []
 --- !u!114 &-2627294083708159856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -347,6 +433,8 @@ MonoBehaviour:
   - {fileID: -6304872122063856682}
   - {fileID: 8597594496361177248}
   - {fileID: 3746986080560737022}
+  - {fileID: -4279285336912233152}
+  - {fileID: -8575297140035013122}
   currencies:
   - {fileID: 1100484727990703582}
   - {fileID: 3848445611472300504}
@@ -450,7 +538,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
-  m_Name: 
+  m_Name: 1_Fruit
   m_EditorClassIdentifier: 
   m_Id: 1e793490-7e62-462c-93dc-91703ecd35cc
   m_ItemName: 1_Fruit
@@ -553,14 +641,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
-  m_Name: 
+  m_Name: 1_Plant
   m_EditorClassIdentifier: 
   m_Id: 89035d5e-38c1-47b4-b546-b66adf7d0cde
   m_ItemName: 1_Plant
   m_UseItemNameAsDisplayName: 1
   m_DisplayName: New Item
   m_Icon: {fileID: 21300000, guid: 2b01dc3aa46e7407ebd3fbe3177c1bf3, type: 2}
-  m_Prefab: {fileID: 2573330088553696336, guid: 7763f0dae806f41ce9b8a1f05eed3edd, type: 3}
+  m_Prefab: {fileID: 2954944706896169227, guid: 5786483230d0e46b498b2f48349b6c99, type: 3}
   m_Description: 
   m_Category: {fileID: 7691753795492579254}
   m_IsSellable: 1
