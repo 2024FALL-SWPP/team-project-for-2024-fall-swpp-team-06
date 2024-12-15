@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 using DevionGames.UIWidgets;
 
 public class UIManager : MonoBehaviour
@@ -28,17 +29,16 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         // 초기상태: Partial Mode ON (fullOn=false)
-        // partial mode: minimapCamera ON, fullmapCamera OFF, minimapCanvas ON
         if (minimapCamera != null) minimapCamera.SetActive(true);
         if (fullmapCamera != null) fullmapCamera.SetActive(false);
         if (questPanel != null) questPanel.SetActive(false);
-        UpdateMinimapCanvasState();
 
         // 초기에는 인벤토리 off, 퀘스트 off, fullOn=false(Partial)
         inventoryOn = false;
         questOn = false;
         fullOn = false; // partial mode
 
+        UpdateMinimapCanvasState();
         LogStateChange("Start");
     }
 
@@ -51,12 +51,37 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            ToggleQuest();
+            // I->Q 시나리오에서만 인벤토리 닫히는거 기다림
+            if (inventoryOn)
+            {
+                // 인벤토리 닫고 기다린 뒤 퀘스트 켜기
+                inventoryWidget.Close();
+                inventoryOn = false;
+                LogStateChange("PreparingForQuest");
+                StartCoroutine(WaitForInventoryClose(() => ToggleQuestActual()));
+            }
+            else
+            {
+                // 인벤토리가 꺼져있다면 즉시 토글
+                ToggleQuestActual();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            ToggleMinimapMode();
+            // I->M 시나리오에서만 인벤토리 닫히는거 기다림
+            if (inventoryOn)
+            {
+                inventoryWidget.Close();
+                inventoryOn = false;
+                LogStateChange("PreparingForMinimap");
+                StartCoroutine(WaitForInventoryClose(() => ToggleMinimapModeActual()));
+            }
+            else
+            {
+                // 인벤토리가 꺼져있다면 즉시 토글
+                ToggleMinimapModeActual();
+            }
         }
     }
 
@@ -67,7 +92,6 @@ public class UIManager : MonoBehaviour
         {
             inventoryWidget.Close();
             inventoryOn = false;
-            // 인벤토리 off시 partial mode 유지
             LogStateChange("CloseInventoryFromButton");
         }
     }
@@ -84,7 +108,6 @@ public class UIManager : MonoBehaviour
                 questOn = false;
             }
 
-            // 만약 fullOn=true였다면 partial로 돌려야 함
             if (fullOn)
             {
                 // full->partial
@@ -93,7 +116,6 @@ public class UIManager : MonoBehaviour
                 fullOn = false; // partial mode
             }
 
-            // 이제 partial mode 상태에서 인벤토리 켜기
             if (inventoryWidget != null) inventoryWidget.Show();
             inventoryOn = true;
         }
@@ -102,27 +124,21 @@ public class UIManager : MonoBehaviour
             // 인벤토리 끄기
             if (inventoryWidget != null) inventoryWidget.Close();
             inventoryOn = false;
-            // 끌 때도 partial 유지
+            // partial 유지
         }
 
         UpdateMinimapCanvasState();
         LogStateChange("ToggleInventory");
     }
 
-    private void ToggleQuest()
+    // 인벤토리 닫힌 뒤 퀘스트 토글
+    private void ToggleQuestActual()
     {
         bool questActive = questOn;
 
         if (!questActive)
         {
             // 퀘스트 켜기
-            // 인벤토리나 full모드 켜져있다면 끄고 partial로 전환
-            if (inventoryOn)
-            {
-                inventoryWidget.Close();
-                inventoryOn = false;
-            }
-
             if (fullOn)
             {
                 // full->partial
@@ -131,7 +147,6 @@ public class UIManager : MonoBehaviour
                 fullOn = false;
             }
 
-            // 이제 partial 상태에서 퀘스트 켜기
             if (questPanel != null) questPanel.SetActive(true);
             questOn = true;
         }
@@ -147,23 +162,16 @@ public class UIManager : MonoBehaviour
         LogStateChange("ToggleQuest");
     }
 
-    private void ToggleMinimapMode()
+    // 인벤토리 닫힌 뒤 미니맵모드 토글
+    private void ToggleMinimapModeActual()
     {
         // M키: partial <-> full 모드 전환
-        // 인벤토리나 퀘스트 켜져있으면 끄고 전환
-        if (inventoryOn)
-        {
-            inventoryWidget.Close();
-            inventoryOn = false;
-        }
-
         if (questOn)
         {
             questPanel.SetActive(false);
             questOn = false;
         }
 
-        // 이제 partial <-> full 토글
         if (!fullOn)
         {
             // partial->full
@@ -185,11 +193,6 @@ public class UIManager : MonoBehaviour
 
     private void UpdateMinimapCanvasState()
     {
-        // partial일 때 minimapCanvas ON
-        // full일 때 canvas OFF
-        // partial = !fullOn
-        // full = fullOn
-
         if (minimapCanvas != null)
         {
             if (!fullOn)
@@ -218,5 +221,15 @@ public class UIManager : MonoBehaviour
         string timeStamp = DateTime.Now.ToString("HH:mm:ss.fff");
         Debug.Log("[" + timeStamp + "] " + source + ": " + previousState + " -> " + currentState);
         previousState = currentState;
+    }
+
+    private IEnumerator WaitForInventoryClose(Action onClosed)
+    {
+        // 인벤토리가 완전히 닫힐 때까지 대기 (IsVisible false일 때까지)
+        while (inventoryWidget != null && inventoryWidget.IsVisible)
+        {
+            yield return null;
+        }
+        onClosed?.Invoke();
     }
 }
