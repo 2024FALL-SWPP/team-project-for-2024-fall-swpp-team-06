@@ -1,153 +1,138 @@
 using UnityEngine;
-using System; // DateTime 사용
-using DevionGames.UIWidgets; // 인벤토리 UIWidget을 사용하기 위해 필요
+using System;
+using DevionGames.UIWidgets;
 
 public class UIManager : MonoBehaviour
 {
-    public UIWidget inventoryWidget; // 인벤토리 UIWidget (I키로 토글)
-    public QuestSystem questSystem;  // 퀘스트 시스템 (questPanel 제어용)
-    public GameObject minimapCamera; // 미니맵 카메라 GameObject (Partial)
-    public GameObject fullmapCamera; // 풀맵 카메라 GameObject (Full)
+    public UIWidget inventoryWidget; // 인벤토리 위젯 (I키는 에셋에서 처리)
+    public QuestSystem questSystem;  // 퀘스트 시스템
+    public GameObject minimapCamera; // partial 모드 카메라
+    public GameObject fullmapCamera; // full 모드 카메라
+    public GameObject minimapCanvas; // partial 일 때만 On
 
-    // 이전 상태 기억용
-    private string previousState = "IQM 000"; // 시작 시 아무것도 안 켜져있다고 가정
+    private string previousState = "IQM 000";
 
     void Start()
     {
-        if (minimapCamera != null)
-            minimapCamera.SetActive(true);
-        if (fullmapCamera != null)
-            fullmapCamera.SetActive(false);
+        // 시작 시 모두 꺼짐
+        if (questSystem != null && questSystem.questPanel != null)
+            questSystem.questPanel.SetActive(false);
+        if (minimapCamera != null) minimapCamera.SetActive(false);
+        if (fullmapCamera != null) fullmapCamera.SetActive(false);
+
+        UpdateMinimapCanvasState();
+        LogStateChange();
     }
 
     void Update()
     {
-        // Q키 처리: 퀘스트 토글
+        // Q키 눌러 퀘스트 패널 토글
         if (Input.GetKeyDown(KeyCode.Q))
         {
             ToggleQuest();
         }
 
-        // M키 처리: 미니맵 partial <-> full 토글
+        // M키 눌러 미니맵 토글
         if (Input.GetKeyDown(KeyCode.M))
         {
             ToggleMinimapCameras();
         }
 
-        // I키는 에셋 코드에서 처리 (수정 없음)
-        // 매 프레임 한 UI만 보이도록 상태 유지
-        EnforceSingleUIVisible();
+        // I키는 에셋 코드에서 처리하므로 여기서는 처리하지 않는다.
     }
 
     private void ToggleQuest()
     {
-        // 다른 UI 끄기
+        bool questActive = (questSystem != null && questSystem.questPanel != null && questSystem.questPanel.activeSelf);
+
+        // Q를 눌렀을 때 퀘스트를 토글
+        // 퀘스트 활성화하기 전에 인벤토리 강제 비활성화
         if (inventoryWidget != null && inventoryWidget.IsVisible)
-            inventoryWidget.Close();
+            inventoryWidget.Close(); // 인벤토리 닫기
 
-        if (minimapCamera != null && minimapCamera.activeSelf)
-            minimapCamera.SetActive(false);
-        if (fullmapCamera != null && fullmapCamera.activeSelf)
-            fullmapCamera.SetActive(false);
+        // 미니맵도 꺼준다
+        if (minimapCamera != null) minimapCamera.SetActive(false);
+        if (fullmapCamera != null) fullmapCamera.SetActive(false);
 
-        // 퀘스트 패널 토글
+        // 퀘스트 토글
         if (questSystem != null && questSystem.questPanel != null)
         {
-            bool currentlyActive = questSystem.questPanel.activeSelf;
-            questSystem.SetQuestPanelActive(!currentlyActive);
+            questSystem.SetQuestPanelActive(!questActive);
         }
+
+        UpdateMinimapCanvasState();
+        LogStateChange();
     }
 
     private void ToggleMinimapCameras()
     {
-        // 다른 UI 끄기 (인벤토리, 퀘스트)
-        if (inventoryWidget != null && inventoryWidget.IsVisible)
-            inventoryWidget.Close();
-        if (questSystem != null && questSystem.questPanel.activeSelf)
-            questSystem.SetQuestPanelActive(false);
-
-        // 현재 미니맵 상태 파악
         bool partialActive = (minimapCamera != null && minimapCamera.activeSelf);
         bool fullActive = (fullmapCamera != null && fullmapCamera.activeSelf);
 
-        // partial <-> full 상태 토글 로직
+        // M 누르면 미니맵 모드 토글
+        // 이때 인벤토리 강제 비활성화
+        if (inventoryWidget != null && inventoryWidget.IsVisible)
+            inventoryWidget.Close();
+
+        // 퀘스트도 끈다
+        if (questSystem != null && questSystem.questPanel != null && questSystem.questPanel.activeSelf)
+            questSystem.SetQuestPanelActive(false);
+
+        // 미니맵 토글 로직
         if (!partialActive && !fullActive)
         {
-            // 둘 다 꺼져있으면 partial(미니맵카메라) 켬
-            if (minimapCamera != null)
-                minimapCamera.SetActive(true);
-            if (fullmapCamera != null)
-                fullmapCamera.SetActive(false);
+            // 둘 다 꺼져있으면 partial 켬
+            if (minimapCamera != null) minimapCamera.SetActive(true);
+            if (fullmapCamera != null) fullmapCamera.SetActive(false);
         }
         else if (partialActive)
         {
-            // partial 켜져있으면 full 켜고 partial 끔
-            if (minimapCamera != null)
-                minimapCamera.SetActive(false);
-            if (fullmapCamera != null)
-                fullmapCamera.SetActive(true);
+            // partial -> full
+            if (minimapCamera != null) minimapCamera.SetActive(false);
+            if (fullmapCamera != null) fullmapCamera.SetActive(true);
         }
         else if (fullActive)
         {
-            // full 켜져있으면 partial 켜고 full 끔
-            if (fullmapCamera != null)
-                fullmapCamera.SetActive(false);
-            if (minimapCamera != null)
-                minimapCamera.SetActive(true);
+            // full -> partial
+            if (fullmapCamera != null) fullmapCamera.SetActive(false);
+            if (minimapCamera != null) minimapCamera.SetActive(true);
+        }
+
+        UpdateMinimapCanvasState();
+        LogStateChange();
+    }
+
+    private void UpdateMinimapCanvasState()
+    {
+        bool partialActive = (minimapCamera != null && minimapCamera.activeSelf);
+        bool fullActive = (fullmapCamera != null && fullmapCamera.activeSelf);
+
+        if (minimapCanvas != null)
+        {
+            if (partialActive && !fullActive)
+            {
+                minimapCanvas.SetActive(true);
+            }
+            else
+            {
+                minimapCanvas.SetActive(false);
+            }
         }
     }
 
-    private void EnforceSingleUIVisible()
+    private void LogStateChange()
     {
         bool invVisible = (inventoryWidget != null && inventoryWidget.IsVisible);
-        bool questVisible = (questSystem != null && questSystem.questPanel.activeSelf);
-        bool partialActive = (minimapCamera != null && minimapCamera.activeSelf);
+        bool questVisible = (questSystem != null && questSystem.questPanel != null && questSystem.questPanel.activeSelf);
         bool fullActive = (fullmapCamera != null && fullmapCamera.activeSelf);
-        
-        // 여기서 M은 fullmapCamera가 켜져 있을 때만 1, 아니면 0
-        bool fullMapVisible = fullActive; 
 
-        // 인벤토리가 켜져 있으면 다른 UI 끄기
-        if (invVisible)
-        {
-            if (questVisible)
-                questSystem.SetQuestPanelActive(false);
-            if (partialActive || fullActive)
-            {
-                if (minimapCamera != null) minimapCamera.SetActive(false);
-                if (fullmapCamera != null) fullmapCamera.SetActive(false);
-            }
-        }
+        bool fullMapVisible = fullActive;
 
-        // 퀘스트가 켜져 있으면 다른 UI 끄기
-        if (questVisible)
-        {
-            if (invVisible)
-                inventoryWidget.Close();
-            if (partialActive || fullActive)
-            {
-                if (minimapCamera != null) minimapCamera.SetActive(false);
-                if (fullmapCamera != null) fullmapCamera.SetActive(false);
-            }
-        }
-
-        // 미니맵이 켜져 있으면 다른 UI 끄기
-        if (partialActive || fullActive)
-        {
-            if (invVisible)
-                inventoryWidget.Close();
-            if (questVisible)
-                questSystem.SetQuestPanelActive(false);
-        }
-
-        // 현재 상태 문자열 생성
-        // I: invVisible, Q: questVisible, M: fullMapVisible(FullMap 상태만)
-        string currentState = "IQM " 
-            + (invVisible ? "1" : "0") 
-            + (questVisible ? "1" : "0") 
+        string currentState = "IQM "
+            + (invVisible ? "1" : "0")
+            + (questVisible ? "1" : "0")
             + (fullMapVisible ? "1" : "0");
 
-        // 상태가 바뀌었으면 로그 출력(타임스탬프 포함)
         if (currentState != previousState)
         {
             string timeStamp = DateTime.Now.ToString("HH:mm:ss.fff");
