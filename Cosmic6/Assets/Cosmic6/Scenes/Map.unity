@@ -84718,8 +84718,6 @@ MonoBehaviour:
   questListContainer: {fileID: 1861913659}
   popupPrefab: {fileID: 6338091705339655231, guid: 767c9e572d3ae48da9744d8a6b141686, type: 3}
   popupParent: {fileID: 992964769}
-  popupDuration: 5
-  verticalSpacing: 60
 --- !u!1 &1421057282
 GameObject:
   m_ObjectHideFlags: 0
@@ -126454,7 +126452,7 @@ Transform:
   m_GameObject: {fileID: 2116376979}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0.00011252743, z: -0.00011252743, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.17, z: -0.03}
+  m_LocalPosition: {x: -371.75302, y: 840.1118, z: 86.709045}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -126493,7 +126491,6 @@ MonoBehaviour:
   headTransform: {fileID: 1271484571}
   inventoryGameObject: {fileID: 1762917753}
   questGameObject: {fileID: 27876070}
-  minimapCamera: {fileID: 0}
   crosshairSprite: {fileID: 21300000, guid: 576e7db613e9d024fb1ac68e765255bf, type: 3}
 --- !u!81 &2116376983
 AudioListener:
