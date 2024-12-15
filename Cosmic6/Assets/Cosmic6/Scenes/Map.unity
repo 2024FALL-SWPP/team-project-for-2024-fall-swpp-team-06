@@ -47201,7 +47201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1446a280c69f56c41a373e63effb61ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 1762917753}
+  inventoryWidget: {fileID: 1622988213}
   questPanel: {fileID: 27876070}
   minimapCamera: {fileID: 388955981}
   fullmapCamera: {fileID: 1735203207}
@@ -117243,27 +117243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f59909c67ee5f049982f3103d0ddf9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  initialCameraOffset: {x: 0, y: 3, z: -4}
-  rotationSpeed: 3
-  turnSmoothing: 0.1
-  followSpeed: 10
-  verticalRotationLimit: 45
-  yawLimit: {x: -45, y: 45}
-  pitchLimit: {x: -45, y: 15}
-  gameManager: {fileID: 0}
-  headRigTransform: {fileID: 0}
-  headRigRotation: {x: -0.51714516, y: 0.48224565, z: 0.51714516, w: 0.48224565}
-  headTransform: {fileID: 1633868197}
-  headPosition: {x: 0, y: -0.17, z: -0.03}
-  zoomSpeed: 5
-  minZoomDistance: 1.5
-  maxZoomDistance: 6
-  crosshairSprite: {fileID: 21300000, guid: 576e7db613e9d024fb1ac68e765255bf, type: 3}
-  inventoryGameObject: {fileID: 0}
-  questGameObject: {fileID: 0}
-  idleTimeBeforeRecentering: 0.5
-  recenterSpeed: 1
 --- !u!114 &1985604798
 MonoBehaviour:
   m_ObjectHideFlags: 0
