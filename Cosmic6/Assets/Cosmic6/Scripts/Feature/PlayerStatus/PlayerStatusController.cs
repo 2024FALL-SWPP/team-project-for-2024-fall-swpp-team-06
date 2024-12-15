@@ -29,7 +29,8 @@ public class PlayerStatusController : MonoBehaviour
     private float hpUpdateAmount = 4f;
     private float energyUpdateAmount = 2f;
     private float oxygenUpdateAmount = 1f;
-    
+
+    public bool isHeatProtected = false;
     
     
     // Start is called before the first frame update
@@ -49,12 +50,15 @@ public class PlayerStatusController : MonoBehaviour
         
         if (locationTracker.currentRegionIndex == 2 && !timeManager.isNight)
         {
-            hpUpdateTimer += Time.deltaTime;
-            
-            if (hpUpdateTimer > hpUpdatePeriod)
+            if (!isHeatProtected)
             {
-                hpUpdateTimer -= hpUpdatePeriod;
-                UpdateHP(-hpUpdateAmount);
+                hpUpdateTimer += Time.deltaTime;
+
+                if (hpUpdateTimer > hpUpdatePeriod)
+                {
+                    hpUpdateTimer -= hpUpdatePeriod;
+                    UpdateHP(-hpUpdateAmount);
+                }
             }
         }
         

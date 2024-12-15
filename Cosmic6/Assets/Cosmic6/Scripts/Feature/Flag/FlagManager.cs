@@ -54,6 +54,7 @@ public class FlagManager : MonoBehaviour
                 break;
             case 4:
                 // protect heat for region 3
+                playerStatusController.isHeatProtected = true;
                 break;
             case 5:
                 // oxygen at region 3
