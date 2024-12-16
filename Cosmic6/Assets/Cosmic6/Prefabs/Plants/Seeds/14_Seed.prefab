@@ -23,6 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915259249838899913}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.95180553, y: 2.2186253, z: -0.58997566}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,13 +36,13 @@ Transform:
   - {fileID: 4199436980538187094}
   - {fileID: 583895001951808764}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &779066059905025782
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5300924420481766394}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
@@ -99,12 +100,15 @@ PrefabInstance:
     - target: {fileID: -7789118147956941738, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dac99cc3dc71744d2966b2208ae479bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 58fa3374ecf5042408d82a177726076d, type: 2}
     - target: {fileID: 919132149155446097, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Name
       value: sunflowerseed (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
 --- !u!4 &956299178803110173 stripped
 Transform:
@@ -116,6 +120,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5300924420481766394}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
@@ -165,12 +170,15 @@ PrefabInstance:
     - target: {fileID: -7789118147956941738, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dac99cc3dc71744d2966b2208ae479bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 58fa3374ecf5042408d82a177726076d, type: 2}
     - target: {fileID: 919132149155446097, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Name
       value: sunflowerseed (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
 --- !u!4 &583895001951808764 stripped
 Transform:
@@ -182,6 +190,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5300924420481766394}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
@@ -231,12 +240,15 @@ PrefabInstance:
     - target: {fileID: -7789118147956941738, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dac99cc3dc71744d2966b2208ae479bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 58fa3374ecf5042408d82a177726076d, type: 2}
     - target: {fileID: 919132149155446097, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Name
       value: sunflowerseed (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
 --- !u!4 &1581140156257589784 stripped
 Transform:
@@ -248,6 +260,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5300924420481766394}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
@@ -297,12 +310,15 @@ PrefabInstance:
     - target: {fileID: -7789118147956941738, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dac99cc3dc71744d2966b2208ae479bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 58fa3374ecf5042408d82a177726076d, type: 2}
     - target: {fileID: 919132149155446097, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Name
       value: sunflowerseed (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
 --- !u!4 &4199436980538187094 stripped
 Transform:
@@ -314,6 +330,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5300924420481766394}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
@@ -363,12 +380,15 @@ PrefabInstance:
     - target: {fileID: -7789118147956941738, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dac99cc3dc71744d2966b2208ae479bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 58fa3374ecf5042408d82a177726076d, type: 2}
     - target: {fileID: 919132149155446097, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Name
       value: sunflowerseed (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
 --- !u!4 &4952203099045983755 stripped
 Transform:
@@ -380,6 +400,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5300924420481766394}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
@@ -429,12 +450,15 @@ PrefabInstance:
     - target: {fileID: -7789118147956941738, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dac99cc3dc71744d2966b2208ae479bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 58fa3374ecf5042408d82a177726076d, type: 2}
     - target: {fileID: 919132149155446097, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
       propertyPath: m_Name
       value: sunflowerseed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f46ce2ff5fe25fb4d98a8e6d9b822280, type: 3}
 --- !u!4 &6712072167986950727 stripped
 Transform:

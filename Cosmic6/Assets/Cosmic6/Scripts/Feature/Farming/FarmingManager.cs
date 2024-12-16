@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DevionGames.InventorySystem;
 
 public enum FieldState
 {
@@ -60,17 +61,21 @@ public class FarmingManager : MonoBehaviour
     private (int, int) clickedIndices;
 
     // equip seed
-    public bool isPlantingMode = true;
+    public bool isPlantingMode = false;
     
     // equip shovel
-    public bool isTilingMode = true;
-    
-    
-    
+    public bool isTilingMode = false;
+
+    // hand manager
+    public GameObject handManagerObject;
+    private HandManager handManager;
+    public GameObject plant;
+    public bool plantOne;
+
     /// <summary>
     /// Input coordinates are Floor(global position / gridSize)
     /// </summary>
-    
+
     void Start()
     {
         // load fieldStates
@@ -78,7 +83,60 @@ public class FarmingManager : MonoBehaviour
         overlayManager = GetComponent<OverlayManager>();
         fieldDecayManager = GetComponent<FieldDecayManager>();
         cameraRaycaster.OnRaycastHit += ProcessRaycast;
+        handManager = handManagerObject.GetComponent<HandManager>();
+
+        isPlantingMode = false;
+        isTilingMode = false;
     }
+
+    void ExecutePlanting(Vector3 position)
+    {
+        // Position만 정하면 Instantiation + Hand에서 숫자 줄어들도록 하는 메서드
+        if (isPlantingMode && plant)
+        {
+            ObjectManager.Instance.SpawnObjectWithName(
+                plant,
+                plant.name,
+                new Vector3(),
+                Quaternion.identity
+            );
+            handManager.UseItem(1);
+        }
+    }
+
+    void Update()
+    {
+        if (handManager.holdItems.Count > 0)
+        {
+            Item item = handManager.holdItems[0];
+            isTilingMode = item.name == "Shovel(Clone)";
+            isPlantingMode = item.name.Contains("_Plant");
+
+            // 식물 심는 방법 예시 (테스트용으로 PlantOne 변수 사용 -> 지워도 됩니다)
+            if (isPlantingMode)
+            {
+                plant = item.OverridePrefab;
+                if(plantOne)
+                {
+                    ExecutePlanting(new Vector3());
+                    plantOne = false;
+                }
+
+            }
+            else
+            {
+                plant = null;
+            }
+        }
+        else
+        {
+            isTilingMode = false;
+            isPlantingMode = false;
+            plant = null;
+        }
+    }
+
+
     /*
     void Update()
     {
@@ -107,7 +165,7 @@ public class FarmingManager : MonoBehaviour
                         isClicked = true;
                         clickedIndices = (x, z);
                     }
-                        
+
                 }
             }
         }
@@ -124,7 +182,7 @@ public class FarmingManager : MonoBehaviour
                 {
                     Vector3 hitPoint = hit.point;
                     Terrain hitTerrain = hit.collider.GetComponent<Terrain>();
-                    
+
                     var (x, z) = GlobalToIdx(hitPoint.x, hitPoint.z);
 
                     FieldState state = GetFieldState(x, z);
@@ -132,7 +190,7 @@ public class FarmingManager : MonoBehaviour
                     if (state == FieldState.NotTilled)
                     {
                         OverlayData overlayData = GetOverlayData(x, z, hitTerrain);
-                        
+
                         if (isOverlayInvisible || x != currentX || z != currentZ)
                         {
                             overlayManager.ChangeOverlay(overlayData);
@@ -140,7 +198,7 @@ public class FarmingManager : MonoBehaviour
                             currentZ = z;
                             isOverlayInvisible = false;
                         }
-                        
+
                         // TODO: check if equipping shovel
                         if (overlayData.canFarm && isClicked)
                         {

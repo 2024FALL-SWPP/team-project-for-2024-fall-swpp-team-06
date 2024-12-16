@@ -45,7 +45,6 @@ namespace DevionGames.InventorySystem
                 if (Rarity.UseAsNamePrefix)
                     displayName = Rarity.Name + " " + displayName;
                 return displayName; 
-            
             }
             set {
                 this.m_DisplayName = value; 
