@@ -45,7 +45,7 @@ public class MinimapController : MonoBehaviour
         minimapCamera.transform.position = 
             new (playerTransform.position.x, minimapCamera.transform.position.y, playerTransform.position.z);
 
-
+    /*
         if (Input.GetKeyDown(KeyCode.M))
         {
             if (isFullMap)
@@ -56,22 +56,13 @@ public class MinimapController : MonoBehaviour
             {
                 ShowFullMap();
             }
-            /*RaycastHit hit;
-            Ray ray = minimapCamera.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.CompareTag("Minimap"))
-                {
-                    ShowFullMap();
-                }
-            }*/
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && isFullMap)
         {
             CloseFullMap();
-        }
+        }*/
     }
 
     /*void UpdateRegionVisibility()
@@ -83,7 +74,7 @@ public class MinimapController : MonoBehaviour
         regionSprites[2].enabled = playerState.isRegistered3;   // Region3
     }*/
 
-    void ShowFullMap()
+    public void ShowFullMap()
     {
         minimapCamera.gameObject.SetActive(false);
         fullmapCamera.gameObject.SetActive(true);

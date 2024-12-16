@@ -49,7 +49,6 @@ public class QuestSystem : MonoBehaviour
         }
     };
 
-
     void Start()
     {
         questPanel.SetActive(false);
@@ -57,17 +56,15 @@ public class QuestSystem : MonoBehaviour
         InitializeQuests();
     }
 
-    public void Update()
+    public void ToggleActive()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        questPanel.SetActive(!questPanel.activeSelf);
+        if (questPanel.activeSelf)
         {
-            questPanel.SetActive(!questPanel.activeSelf);
-            if (questPanel.activeSelf)
-            {
-                UpdateQuestDisplay();
-            }
+            UpdateQuestDisplay();
         }
     }
+    
 
     void InitializeQuests()
     {

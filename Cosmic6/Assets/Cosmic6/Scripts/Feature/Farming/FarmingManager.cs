@@ -233,6 +233,8 @@ public class FarmingManager : MonoBehaviour
                 {
                     if (GetFieldState(clickedIndices.Item1, clickedIndices.Item2) == FieldState.NotTilled)
                     {
+                        var fieldState = fieldDecayManager.Tile(x, z, hitTerrain);
+                        
                         /*
                         if (fieldDecayManager.Tile(x, z, hitTerrain))
                         {
@@ -360,14 +362,18 @@ public class FarmingManager : MonoBehaviour
         return FieldState.NotTilled;
     }
     
-    public bool SetFieldState(int x, int z, bool isPlanted)
+    public bool SetFieldState(int x, int z, FieldState state)
     {
         if (!fieldStates.ContainsKey((x, z)))
         {
             return false;
         }
 
-        fieldStates[(x, z)] = isPlanted ? FieldState.Planted : FieldState.Tilled;
+        if (state != FieldState.NotTilled)
+        {
+            fieldStates[(x, z)] = state;
+        }
+        
         return true;
     }
 
