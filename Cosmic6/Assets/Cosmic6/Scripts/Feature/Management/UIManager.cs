@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections;
 using DevionGames.UIWidgets;
 
 public class UIManager : MonoBehaviour
@@ -11,15 +10,16 @@ public class UIManager : MonoBehaviour
     public GameObject fullmapCamera;
     public GameObject minimapCanvas;
 
+    public MinimapController minimapController; // MinimapController 참조
+
     private bool inventoryOn = false;
-    private bool questOn = false; // 퀘스트 on/off를 단순히 이 bool로 관리
-    private bool fullOn = false; // false=Partial(M=0), true=Full(M=1)
+    private bool questOn = false;
+    private bool fullOn = false; 
 
     private string previousState = "IQM 000";
 
     void Awake()
     {
-        // I키 에셋 처리 해제
         if (inventoryWidget != null)
         {
             WidgetInputHandler.UnregisterInput(KeyCode.I, inventoryWidget);
@@ -28,7 +28,6 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        // 초기: partial 모드
         if (minimapCamera != null) minimapCamera.SetActive(true);
         if (fullmapCamera != null) fullmapCamera.SetActive(false);
         if (questPanel != null) questPanel.SetActive(false);
@@ -50,14 +49,11 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            // 인벤토리 닫히는 것 기다리는 로직을 없애고, I->Q든 뭐든 단순히 On/Off
             ToggleQuest();
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            // 인벤토리 닫히는 것 기다리는 로직 유지 필요하다면 다시 추가할 수 있지만,
-            // 우선 Q 문제 해결 위해 단순화한 코드 제안
             ToggleMinimapMode();
         }
     }
@@ -76,7 +72,6 @@ public class UIManager : MonoBehaviour
     {
         if (!inventoryOn)
         {
-            // 인벤토리 켤 때 다른 UI 끄기
             if (questOn)
             {
                 questPanel.SetActive(false);
@@ -86,9 +81,11 @@ public class UIManager : MonoBehaviour
             if (fullOn)
             {
                 // full->partial
+                fullOn = false;
                 fullmapCamera.SetActive(false);
                 minimapCamera.SetActive(true);
-                fullOn = false;
+                if (minimapController != null)
+                    minimapController.CloseFullMap();
             }
 
             if (inventoryWidget != null) inventoryWidget.Show();
@@ -96,7 +93,6 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            // 인벤토리 끄기
             if (inventoryWidget != null) inventoryWidget.Close();
             inventoryOn = false;
         }
@@ -107,11 +103,8 @@ public class UIManager : MonoBehaviour
 
     private void ToggleQuest()
     {
-        // Q 토글 단순화
         if (!questOn)
         {
-            // Q 켜기
-            // 다른 UI 끄기
             if (inventoryOn)
             {
                 inventoryWidget.Close();
@@ -121,9 +114,11 @@ public class UIManager : MonoBehaviour
             if (fullOn)
             {
                 // full->partial
+                fullOn = false;
                 fullmapCamera.SetActive(false);
                 minimapCamera.SetActive(true);
-                fullOn = false;
+                if (minimapController != null)
+                    minimapController.CloseFullMap();
             }
 
             questPanel.SetActive(true);
@@ -131,7 +126,6 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            // Q 끄기
             questPanel.SetActive(false);
             questOn = false;
         }
@@ -142,8 +136,6 @@ public class UIManager : MonoBehaviour
 
     private void ToggleMinimapMode()
     {
-        // M 토글
-        // 다른 UI 끄기
         if (inventoryOn)
         {
             inventoryWidget.Close();
@@ -156,20 +148,25 @@ public class UIManager : MonoBehaviour
             questOn = false;
         }
 
-        // partial<->full 토글
         if (!fullOn)
         {
             // partial->full
+            fullOn = true;
             minimapCamera.SetActive(false);
             fullmapCamera.SetActive(true);
-            fullOn = true;
+
+            if (minimapController != null)
+                minimapController.ShowFullMap();
         }
         else
         {
             // full->partial
+            fullOn = false;
             fullmapCamera.SetActive(false);
             minimapCamera.SetActive(true);
-            fullOn = false;
+
+            if (minimapController != null)
+                minimapController.CloseFullMap();
         }
 
         UpdateMinimapCanvasState();
@@ -196,7 +193,6 @@ public class UIManager : MonoBehaviour
 
     private void LogStateChange(string source)
     {
-        // I=inventoryOn, Q=questOn, M=fullOn
         string currentState = "IQM "
             + (inventoryOn ? "1" : "0")
             + (questOn ? "1" : "0")

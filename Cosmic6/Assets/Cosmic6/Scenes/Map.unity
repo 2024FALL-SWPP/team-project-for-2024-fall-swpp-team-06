@@ -49361,8 +49361,8 @@ MonoBehaviour:
   cameraRaycaster: {fileID: 1646881331}
   locationTracker: {fileID: 1646881330}
   flagManager: {fileID: 789812388}
-  minimapController: {fileID: 0}
-  questSystem: {fileID: 0}
+  minimapController: {fileID: 669449444}
+  questSystem: {fileID: 1419481176}
 --- !u!114 &789812387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49394,12 +49394,12 @@ MonoBehaviour:
   - {fileID: 772658569}
   - {fileID: 2026684835}
   isEscapeFlagRegistered: 0
-  escapeFlag: {fileID: 0}
+  escapeFlag: {fileID: 1085248403}
   baseManager: {fileID: 789812385}
   instantMovement: {fileID: 789812383}
   cameraRaycaster: {fileID: 1646881331}
-  playerStatusController: {fileID: 0}
-  questSystem: {fileID: 0}
+  playerStatusController: {fileID: 1646881340}
+  questSystem: {fileID: 1419481176}
 --- !u!114 &789812389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49425,7 +49425,7 @@ MonoBehaviour:
   teleRegion2: 0
   teleRegion3: 0
   cameraRaycaster: {fileID: 1646881331}
-  questSystem: {fileID: 0}
+  questSystem: {fileID: 1419481176}
 --- !u!114 &789812390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49457,6 +49457,7 @@ MonoBehaviour:
   minimapCamera: {fileID: 652138529}
   fullmapCamera: {fileID: 1735203207}
   minimapCanvas: {fileID: 669449440}
+  minimapController: {fileID: 669449444}
 --- !u!1 &793041237
 GameObject:
   m_ObjectHideFlags: 0
