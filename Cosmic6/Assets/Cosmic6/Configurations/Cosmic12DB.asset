@@ -1,5 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8589056795540978677
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,6 +76,7 @@ MonoBehaviour:
         m_WindowName: Inventory
         m_Item: {fileID: -8589056795540978677}
         m_Amount: 1
+--- !u!114 &-8575297140035013122
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +104,7 @@ MonoBehaviour:
   m_SellCurrency: {fileID: 1100484727990703582}
   m_Stack: 1
   m_MaxStack: 1
-  m_IsDroppable: 1
+  m_IsDroppable: 0
   m_DropSound: {fileID: 0}
   m_OverridePrefab: {fileID: 0}
   m_IsCraftable: 0
