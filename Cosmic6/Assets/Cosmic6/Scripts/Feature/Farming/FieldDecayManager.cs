@@ -81,19 +81,19 @@ public class FieldDecayManager : MonoBehaviour
     }
 
     // Planted -> Tilled
-    public bool Harvest(int x, int z)
+    public FieldState Harvest(int x, int z)
     {
         
         lock (queueLock)
         {
             if (!fieldMap.ContainsKey((x, z)))
-                return false;
+                return FieldState.NotTilled;
 
             var fieldInfo = fieldMap[(x, z)];
             var decayData = fieldInfo.decayData;
-            
+
             if (decayQueue.ContainsKey(decayData))
-                return false;
+                return FieldState.Tilled;
         
             fieldInfo.state = FieldState.Tilled;
         
@@ -110,17 +110,17 @@ public class FieldDecayManager : MonoBehaviour
             StopCoroutine(decayRoutine);
             decayRoutine = DecayRoutine();
             StartCoroutine(decayRoutine);
-            return true;
+            return FieldState.Tilled;
         }
     }
 
     // Tilled -> Planted
-    public bool Plant(int x, int z)
+    public FieldState Plant(int x, int z)
     {
         lock (queueLock)
         {
             if (!fieldMap.ContainsKey((x, z)))
-                return false;
+                return FieldState.NotTilled;
             
             var fieldInfo = fieldMap[(x, z)];
             var decayData = fieldInfo.decayData;
@@ -134,13 +134,29 @@ public class FieldDecayManager : MonoBehaviour
             StopCoroutine(decayRoutine);
             decayRoutine = DecayRoutine();
             StartCoroutine(decayRoutine);
-            return true;
+            return FieldState.Planted;
         }
     }
     
     // NotTilled -> Tilled
-    public bool Tile(int x, int z, Terrain terrain)
+    public FieldState Tile(int x, int z, Terrain terrain)
     {
+        lock (queueLock)
+        {
+            if (fieldMap.ContainsKey((x, z)))
+            {
+                var fieldInfo = fieldMap[(x, z)];
+
+                if (decayQueue.ContainsKey(fieldInfo.decayData))
+                {
+                    return FieldState.Tilled;
+                }
+                
+                return FieldState.Planted;
+            }
+        }
+        
+        
         TerrainData terrainData = terrain.terrainData;
         
         float terrainSizeX = terrainData.size.x;
@@ -167,7 +183,7 @@ public class FieldDecayManager : MonoBehaviour
         {
             if (decayQueue.ContainsKey(decayData))
             {
-                return false;
+                return FieldState.Tilled;
             }
         
             var leftoverTime = DecayStages * DecayInterval;
@@ -186,7 +202,7 @@ public class FieldDecayManager : MonoBehaviour
         }
 
         StartCoroutine(ChangeTexture(decayData));
-        return true;
+        return FieldState.Tilled;
     }
     
     // Tilled -> NotTilled

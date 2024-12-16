@@ -119,16 +119,23 @@ public class MeshFromTerrain : MonoBehaviour
             terrains[i] = objects[i].GetComponent<Terrain>();
             print(i + ": " + objects[i].name);
         }*/
-        terrains[1] = objects[0].gameObject.GetComponent<Terrain>();
+        print(objects[0].name);
+        print(objects[1].name);
+        
         terrains[0] = objects[1].gameObject.GetComponent<Terrain>();
+        terrains[1] = objects[1].gameObject.GetComponent<Terrain>();
+        terrains[2] = objects[0].gameObject.GetComponent<Terrain>();
 
         Vector3 terrainPosition = terrains[0].transform.position;
 
         // 스크립트 내에서 중심 좌표, 반지름, 해상도 설정
         //Vector2 centerXZ = new Vector2(100f, 620f); // 중심 좌표 (X, Z)
         //float radius = 150f; // 반지름
-        Vector2 centerXZ = new Vector2(65f, 570f); // 중심 좌표 (X, Z)
-        float radius = 120f; // 반지름
+        //Vector2 centerXZ = new Vector2(185f, 400f); // 중심 좌표 (X, Z)
+        //Vector2 centerXZ = new Vector2(22f, 131f); // 중심 좌표 (X, Z)
+        Vector2 centerXZ = new Vector2(240f, 2f); // 중심 좌표 (X, Z)
+        
+        float radius = 140f; // 반지름
         int resolution = 40; // 해상도 (삼각형 수)
         int radiusRes = 40;
 
@@ -162,6 +169,9 @@ public class MeshFromTerrain : MonoBehaviour
             if (x < 0)
             {
                 terrain = terrains[1];
+            } else if (z < 0)
+            {
+                terrain = terrains[2];
             }
             
             
@@ -183,6 +193,9 @@ public class MeshFromTerrain : MonoBehaviour
                 if (x < 0)
                 {
                     terrain = terrains[1];
+                } else if (z < 0)
+                {
+                    terrain = terrains[2];
                 }
                 
                 samplePosition = new Vector3(x, 0f, z);

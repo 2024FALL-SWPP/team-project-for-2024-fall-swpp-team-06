@@ -1094,11 +1094,13 @@ MonoBehaviour:
   - {fileID: 8196995433158361867}
   attackDamages:
   - 30
+  attackCoolDown: 3
   attackAnimationLengths:
   - 1.233
   player: {fileID: 0}
   headTransform: {fileID: 8196995433157896163}
-  headDirectionIdx: 0
+  headForwardDirectionIdx: 0
+  headVerticalDirectionIdx: 1
   headDirectionInverted: 1
   detectionRange: 25
   viewRangeinChasing: 35
@@ -1106,12 +1108,12 @@ MonoBehaviour:
   fovVerticalNormal: 120
   fovHorizontalAttacking: 240
   fovVerticalAttacking: 240
-  chaseRange: 20
+  chaseRange: 50
   attackRange: 5
   patrolCenterPoint: {x: 750, y: 0, z: -9750}
   patrolAreaRadius: 250
-  distanceLowerBound: 5
-  distanceUpperBound: 15
+  distanceLowerBound: 15
+  distanceUpperBound: 25
   investigateSpeed: 5
   chaseSpeed: 7
   patrolSpeed: 3
