@@ -186,11 +186,14 @@ public class FarmingManager : MonoBehaviour
         }
     }*/
 
+    
     public void Harvest(float globalX, float globalZ)
     {
         var (xIndex, zIndex) = GlobalToIdx(globalX, globalZ);
         
+        var fieldState = fieldDecayManager.Harvest(xIndex, zIndex);
         
+        SetFieldState(xIndex, zIndex, fieldState);
         
     }
 
@@ -231,16 +234,11 @@ public class FarmingManager : MonoBehaviour
             
                 if (overlayData.canFarm && isClicked)
                 {
-                    if (GetFieldState(clickedIndices.Item1, clickedIndices.Item2) == FieldState.NotTilled)
+                    if (GetFieldState(x, z) == FieldState.NotTilled)
                     {
                         var fieldState = fieldDecayManager.Tile(x, z, hitTerrain);
                         
-                        /*
-                        if (fieldDecayManager.Tile(x, z, hitTerrain))
-                        {
-                            print("tiling");
-                            AddTilledField(x, z);
-                        }*/
+                        SetFieldState(x, z, fieldState);
                     }
                 }
             }
@@ -251,12 +249,10 @@ public class FarmingManager : MonoBehaviour
 
                 if (isPlantingMode && state == FieldState.Tilled && isClicked)
                 {
-                    /*
-                    if (fieldDecayManager.Plant(x, z))
-                    {
-                        print("planting");
-                        SetFieldState(x, z, true);
-                    }*/
+                    var fieldState = fieldDecayManager.Plant(x, z);
+                    
+                    print("planting");
+                    SetFieldState(x, z, fieldState);
                 }
             }
         }
