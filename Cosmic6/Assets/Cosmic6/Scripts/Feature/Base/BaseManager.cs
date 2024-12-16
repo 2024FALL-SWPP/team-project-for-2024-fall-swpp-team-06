@@ -21,7 +21,6 @@ public class BaseManager : MonoBehaviour
     public CameraRaycaster cameraRaycaster;
     public LocationTracker locationTracker;
     public FlagManager flagManager;
-    public MinimapController minimapController;
     
     public QuestSystem questSystem;
 
@@ -73,7 +72,6 @@ public class BaseManager : MonoBehaviour
                 mapComponents[currentBase].SetActive(true);
                 safeZoneOverlays[currentBase].SetActive(true);
                 flagManager.UpdateMinimap();
-                minimapController.UpdateMinimap();
 
                 if (questSystem != null)
                 {
