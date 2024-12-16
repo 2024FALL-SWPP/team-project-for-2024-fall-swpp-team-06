@@ -6,14 +6,18 @@ using TMPro;
 public class QuestSystem : MonoBehaviour
 {
     public GameObject questPanel;
-    public GameObject questItemPrefab;
-    public Transform questListContainer;
+    public GameObject questItemPrefab; 
+    public Transform questListContainer; 
 
     private Queue<Quest> questQueue;
     private List<Quest> activeQuests;
 
     public GameObject popupPrefab;
     public Transform popupParent;
+    public float popupDuration = 5f;
+    public float verticalSpacing = 60f;
+
+    private List<GameObject> activePopups = new List<GameObject>();
 
     private Dictionary<string, List<Quest>> baseQuests = new Dictionary<string, List<Quest>>()
     {
@@ -45,6 +49,7 @@ public class QuestSystem : MonoBehaviour
         }
     };
 
+
     void Start()
     {
         questPanel.SetActive(false);
@@ -52,9 +57,24 @@ public class QuestSystem : MonoBehaviour
         InitializeQuests();
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            questPanel.SetActive(!questPanel.activeSelf);
+            if (questPanel.activeSelf)
+            {
+                UpdateQuestDisplay();
+            }
+        }
+    }
+
     void InitializeQuests()
     {
         questQueue = new Queue<Quest>();
+
+        //questQueue.Enqueue(new Quest("Flag Exploration", "Find the first flag", "Flag1", 1));
+
         for (int i = 0; i < 1; i++)
         {
             if (questQueue.Count > 0)
@@ -66,9 +86,12 @@ public class QuestSystem : MonoBehaviour
         }
     }
 
+
+
     private void AddQuest(Quest quest)
     {
         activeQuests.Add(quest);
+
         GameObject questItem = Instantiate(questItemPrefab, questListContainer);
         RectTransform rectTransform = questItem.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(700, 50);
@@ -102,14 +125,18 @@ public class QuestSystem : MonoBehaviour
         for (int i = activeQuests.Count - 1; i >= 0; i--)
         {
             Quest quest = activeQuests[i];
+
             if (quest.conditionVariable == variable)
             {
                 quest.UpdateProgress(value);
+
                 if (quest.IsComplete())
                 {
                     Debug.Log($"{quest.title} completed!");
+
                     activeQuests.RemoveAt(i);
                     Destroy(questListContainer.Find($"Quest_{quest.title}").gameObject);
+
                     if (questQueue.Count > 0)
                     {
                         AddQuest(questQueue.Dequeue());
@@ -130,6 +157,7 @@ public class QuestSystem : MonoBehaviour
 
         foreach (var quest in baseQuests[baseName])
         {
+
             if (!activeQuests.Exists(q => q.title == quest.title))
             {
                 AddQuest(quest);
@@ -141,15 +169,46 @@ public class QuestSystem : MonoBehaviour
         UpdateQuestDisplay();
     }
 
+    /*public void UpdateQuest(string variable)
+    {
+
+        for (int i = activeQuests.Count - 1; i >= 0; i--)
+        {
+            Quest quest = activeQuests[i];
+
+            if (quest.conditionVariable == variable)
+            {
+                quest.UpdateProgress(value);
+
+                if (quest.IsComplete())
+                {
+                    Debug.Log($"{quest.title} completed!");
+
+                    activeQuests.RemoveAt(i);
+                    Destroy(questListContainer.Find($"Quest_{quest.title}").gameObject);
+
+                    if (questQueue.Count > 0)
+                    {
+                        AddQuest(questQueue.Dequeue());
+                    }
+                }
+            }
+        }
+    }*/
+
     public void ShowPopup(Quest quest)
     {
         if (popupPrefab != null)
         {
             GameObject popupInstance;
             if (popupParent != null)
+            {
                 popupInstance = Instantiate(popupPrefab, popupParent);
+            }
             else
+            {
                 popupInstance = Instantiate(popupPrefab);
+            }
 
             TMP_Text titleText = popupInstance.transform.Find("Title").GetComponent<TMP_Text>();
             TMP_Text contentText = popupInstance.transform.Find("Content").GetComponent<TMP_Text>();
@@ -157,17 +216,36 @@ public class QuestSystem : MonoBehaviour
             titleText.text = quest.title;
             contentText.text = quest.description;
 
+            
+
             popupInstance.name = $"Popup_{quest.title}";
-            Destroy(popupInstance, 5f);
+
+            activePopups.Add(popupInstance);
+            UpdatePopupPositions();
+            StartCoroutine(RemovePopupAfterDelay(popupInstance));
+    
         }
     }
 
-    public void SetQuestPanelActive(bool active)
+    private void UpdatePopupPositions()
     {
-        questPanel.SetActive(active);
-        if (active)
+        for (int i = 0; i < activePopups.Count; i++)
         {
-            UpdateQuestDisplay();
+            RectTransform rectTransform = activePopups[i].GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(0, -i * verticalSpacing);
+        }
+    }
+
+    private IEnumerator RemovePopupAfterDelay(GameObject popupInstance)
+    {
+        yield return new WaitForSeconds(popupDuration);
+
+        if (activePopups.Contains(popupInstance))
+        {
+            activePopups.Remove(popupInstance);
+            Destroy(popupInstance);
+
+            UpdatePopupPositions();
         }
     }
 }
