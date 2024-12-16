@@ -57,17 +57,17 @@ public class QuestSystem : MonoBehaviour
         InitializeQuests();
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            questPanel.SetActive(!questPanel.activeSelf);
-            if (questPanel.activeSelf)
-            {
-                UpdateQuestDisplay();
-            }
-        }
-    }
+    // public void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Q))
+    //     {
+    //         questPanel.SetActive(!questPanel.activeSelf);
+    //         if (questPanel.activeSelf)
+    //         {
+    //             UpdateQuestDisplay();
+    //         }
+    //     }
+    // }
 
     void InitializeQuests()
     {
