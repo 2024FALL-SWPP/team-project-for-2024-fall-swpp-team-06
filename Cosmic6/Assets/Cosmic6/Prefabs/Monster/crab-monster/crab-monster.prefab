@@ -3919,7 +3919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8748079910490604977
 Transform:
   m_ObjectHideFlags: 0
@@ -4030,12 +4030,14 @@ MonoBehaviour:
   attackDamages:
   - 7
   - 10
+  attackCoolDown: 3
   attackAnimationLengths:
   - 1.25
   - 1.667
   player: {fileID: 0}
   headTransform: {fileID: 8748079910490604549}
-  headDirectionIdx: 1
+  headForwardDirectionIdx: 1
+  headVerticalDirectionIdx: 2
   headDirectionInverted: 0
   detectionRange: 25
   viewRangeinChasing: 35
