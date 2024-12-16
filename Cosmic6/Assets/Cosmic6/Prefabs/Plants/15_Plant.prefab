@@ -57,6 +57,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 15_Plant_3
       objectReference: {fileID: 0}
+    - target: {fileID: 2514113679389420515, guid: a59bad194f2254e08823b66d66af14a5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2795147158445804334, guid: a59bad194f2254e08823b66d66af14a5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -75,11 +79,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5488070608499680418, guid: a59bad194f2254e08823b66d66af14a5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4
+      value: 0.406
       objectReference: {fileID: 0}
     - target: {fileID: 5488070608499680418, guid: a59bad194f2254e08823b66d66af14a5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: -4.008
       objectReference: {fileID: 0}
     - target: {fileID: 5488070608499680418, guid: a59bad194f2254e08823b66d66af14a5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -145,11 +149,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2555797910166000632, guid: 334a9c459caee4293b0fd8134f8e068f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.134
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 2555797910166000632, guid: 334a9c459caee4293b0fd8134f8e068f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.489
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2555797910166000632, guid: 334a9c459caee4293b0fd8134f8e068f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -183,6 +187,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 15_Plant_1
       objectReference: {fileID: 0}
+    - target: {fileID: 7118203606005937643, guid: 334a9c459caee4293b0fd8134f8e068f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -207,15 +215,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1299447310630108342, guid: f61d4d8a74e214366871bb05ae6f16c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.95180553
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299447310630108342, guid: f61d4d8a74e214366871bb05ae6f16c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2186253
+      value: -1.93
       objectReference: {fileID: 0}
     - target: {fileID: 1299447310630108342, guid: f61d4d8a74e214366871bb05ae6f16c8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.58997566
+      value: -3.66
       objectReference: {fileID: 0}
     - target: {fileID: 1299447310630108342, guid: f61d4d8a74e214366871bb05ae6f16c8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -249,6 +257,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 15_Seed
       objectReference: {fileID: 0}
+    - target: {fileID: 5103529868121944548, guid: f61d4d8a74e214366871bb05ae6f16c8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -271,6 +283,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 15_Plant_2
       objectReference: {fileID: 0}
+    - target: {fileID: 5128849249399796276, guid: f86994bdd8672405c9cf06e9b19f5b63, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6611767948201029861, guid: f86994bdd8672405c9cf06e9b19f5b63, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -281,11 +297,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6611767948201029861, guid: f86994bdd8672405c9cf06e9b19f5b63, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.262
       objectReference: {fileID: 0}
     - target: {fileID: 6611767948201029861, guid: f86994bdd8672405c9cf06e9b19f5b63, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.908
+      value: -2.49
       objectReference: {fileID: 0}
     - target: {fileID: 6611767948201029861, guid: f86994bdd8672405c9cf06e9b19f5b63, type: 3}
       propertyPath: m_LocalRotation.w
@@ -343,11 +359,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1362809902234100292, guid: 4acef1fa82fc54671b9434939b86f24d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.134
+      value: 0.087
       objectReference: {fileID: 0}
     - target: {fileID: 1362809902234100292, guid: 4acef1fa82fc54671b9434939b86f24d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.489
+      value: -0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1362809902234100292, guid: 4acef1fa82fc54671b9434939b86f24d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -409,15 +425,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6169345021200833906, guid: 194d739dabbee41079f3885bf6c69967, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.139
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6169345021200833906, guid: 194d739dabbee41079f3885bf6c69967, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.105
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6169345021200833906, guid: 194d739dabbee41079f3885bf6c69967, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.273
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6169345021200833906, guid: 194d739dabbee41079f3885bf6c69967, type: 3}
       propertyPath: m_LocalRotation.w
@@ -450,6 +466,10 @@ PrefabInstance:
     - target: {fileID: 6833713465353324488, guid: 194d739dabbee41079f3885bf6c69967, type: 3}
       propertyPath: m_Name
       value: 15_Fruit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833713465353324488, guid: 194d739dabbee41079f3885bf6c69967, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
