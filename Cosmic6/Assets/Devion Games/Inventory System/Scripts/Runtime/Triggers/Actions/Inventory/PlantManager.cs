@@ -23,6 +23,19 @@ public class PlantManager : MonoBehaviour
     private List<PlantData> plantList = new List<PlantData>();
     private Dictionary<string, int> plantNameCounts = new Dictionary<string, int>();
 
+    public static PlantManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
+
     // Add plant data
     public void AddPlant(string name, Vector3 pos, PlantLifecycle lifecycle)
     {

@@ -9,9 +9,6 @@ namespace DevionGames.InventorySystem
         [Header("Time Intervals (in seconds)")]
         public float TimeInterval = 5f; // 시간 간격
 
-        public GameObject plantManagerObject;
-        private PlantManager plantManager;
-
         private List<Transform> childInstances = new List<Transform>();
 
         private void Start()
@@ -26,9 +23,7 @@ namespace DevionGames.InventorySystem
             ActivateOnlyFirstState();
 
             // plantManager에 정보 보내기
-            plantManager = plantManagerObject.GetComponent<PlantManager>();
-
-            plantManager.AddPlant(
+            PlantManager.Instance.AddPlant(
                 gameObject.name,
                 gameObject.transform.position,
                 this
