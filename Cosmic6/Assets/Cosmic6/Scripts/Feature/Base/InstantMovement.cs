@@ -62,7 +62,7 @@ public class InstantMovement : MonoBehaviour
 
         currentBaseIndex = -1;
 
-        for (int i = 0; i < baseManager.safeZoneOverlays.Length; i++)
+        for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
         {
             if (!baseManager.isBaseRegistered[i]) continue;
 

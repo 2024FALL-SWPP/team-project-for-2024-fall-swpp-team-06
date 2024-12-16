@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BaseManager : MonoBehaviour
 {
     public bool[] isBaseRegistered { get; private set; } = { false, false, false };
+    public GameObject[] mapComponents;
     public GameObject[] safeZoneOverlays;
+    public GameObject[] bases;
+    
     string[] validTags = { "Base1", "Base2", "Base3" };
 
     private int currentBase = 0;
@@ -29,11 +33,15 @@ public class BaseManager : MonoBehaviour
         {
             if (isBaseRegistered[i])
             {
+                mapComponents[i].SetActive(true);
                 safeZoneOverlays[i].SetActive(true);
+                bases[i].layer = 0;
             }
             else
             {
+                mapComponents[i].SetActive(false);
                 safeZoneOverlays[i].SetActive(false);
+                bases[i].layer = baseLayerIndex;
             }
         }
     }
@@ -47,25 +55,21 @@ public class BaseManager : MonoBehaviour
         }
 
         if (hit.collider.gameObject.layer == baseLayerIndex && 
-                System.Array.Exists(validTags, tag => tag == hit.collider.gameObject.tag))
+            hit.collider.gameObject.tag.StartsWith("Base"))
         {
-            
             if (locationTracker.currentRegionIndex != currentBase)
             {
-                //safeZoneOverlays[currentBase].SetActive(false);
                 currentBase = locationTracker.currentRegionIndex;
             }
+            
             print(currentBase);
-            /*
-            if (isBaseRegistered[currentBase])
-            {
-                safeZoneOverlays[currentBase].SetActive(true);
-            }*/
-
+            
             if (isClicked && !isBaseRegistered[currentBase])
             {
                 isBaseRegistered[currentBase] = true;
+                bases[currentBase].layer = 0;
                 print("Base" + currentBase + "registered");
+                mapComponents[currentBase].SetActive(true);
                 safeZoneOverlays[currentBase].SetActive(true);
                 flagManager.UpdateMinimap();
 

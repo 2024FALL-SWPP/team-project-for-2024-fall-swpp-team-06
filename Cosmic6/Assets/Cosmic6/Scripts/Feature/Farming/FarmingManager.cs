@@ -186,6 +186,14 @@ public class FarmingManager : MonoBehaviour
         }
     }*/
 
+    public void Harvest(float globalX, float globalZ)
+    {
+        var (xIndex, zIndex) = GlobalToIdx(globalX, globalZ);
+        
+        
+        
+    }
+
     public void ProcessRaycast(bool isHit, RaycastHit hit, bool isClicked)
     {
         if (!isHit || (!isTilingMode && !isPlantingMode))
@@ -225,11 +233,12 @@ public class FarmingManager : MonoBehaviour
                 {
                     if (GetFieldState(clickedIndices.Item1, clickedIndices.Item2) == FieldState.NotTilled)
                     {
+                        /*
                         if (fieldDecayManager.Tile(x, z, hitTerrain))
                         {
                             print("tiling");
                             AddTilledField(x, z);
-                        }
+                        }*/
                     }
                 }
             }
@@ -240,11 +249,12 @@ public class FarmingManager : MonoBehaviour
 
                 if (isPlantingMode && state == FieldState.Tilled && isClicked)
                 {
+                    /*
                     if (fieldDecayManager.Plant(x, z))
                     {
                         print("planting");
                         SetFieldState(x, z, true);
-                    }
+                    }*/
                 }
             }
         }

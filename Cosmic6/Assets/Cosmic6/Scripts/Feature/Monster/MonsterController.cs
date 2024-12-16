@@ -21,7 +21,7 @@ public class MonsterController : MonoBehaviour
     public List<float> attackDamages;
     private Dictionary<GameObject, int> _attackIndexDictionary = new Dictionary<GameObject, int>();
     private List<BoxCollider> _attackColliders = new List<BoxCollider>();
-    private float _attackCoolDown = 3f;
+    public float attackCoolDown = 3f;
     public List<float> attackAnimationLengths;
     private bool isAttackHit = false;
     
@@ -38,7 +38,8 @@ public class MonsterController : MonoBehaviour
     // TODO: private PlayerController player;
     public Transform headTransform;
     // Local Axis of Head Direction
-    public int headDirectionIdx = 1;
+    public int headForwardDirectionIdx = 1;
+    public int headVerticalDirectionIdx = 0;
     public bool headDirectionInverted = false;
     private LayerMask _monsterInvertedMask = ~(1 << 9);
     private Vector3 _headPositionOffset;
@@ -322,7 +323,6 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator Attack()
     {
-        // TODO: add box colliders to the attacking parts & add several animations & sample attack motion & make lists for animation length and attack cooldown
         print("Attack");
 
         float checkRate = 0.5f;
@@ -331,7 +331,6 @@ public class MonsterController : MonoBehaviour
         
         while (true)
         {
-            // TODO: use Animation Event?
             // sample attack motion
             // activate attacking part collider
             // set animation trigger for attack
@@ -344,7 +343,7 @@ public class MonsterController : MonoBehaviour
             _attackColliders[attackIndex].enabled = false;
             isAttackHit = false;
 
-            int numCheck = Mathf.RoundToInt((_attackCoolDown - attackAnimationLengths[attackIndex]) / checkRate);
+            int numCheck = Mathf.RoundToInt((attackCoolDown - attackAnimationLengths[attackIndex]) / checkRate);
 
             for (int i = 0; i < numCheck; i++)
             {
@@ -400,7 +399,6 @@ public class MonsterController : MonoBehaviour
     }
     
     
-    // TODO: other models can differ
     /// <summary>
     /// 
     /// </summary>
@@ -409,7 +407,21 @@ public class MonsterController : MonoBehaviour
     Vector3 GetHeadDirection(int idx)
     {
         int multiplier = headDirectionInverted ? -1 : 1;
-        var resIdx = (headDirectionIdx + idx * multiplier + 3) % 3;
+        int resIdx;
+
+        switch (idx)
+        {
+            case 0:
+                resIdx = headForwardDirectionIdx;
+                break;
+            case 1:
+                resIdx = 3 - (headForwardDirectionIdx + headVerticalDirectionIdx);
+                break;
+            default:
+                resIdx = headVerticalDirectionIdx;
+                break;
+        }
+        
         switch (resIdx)
         {
             case 0:

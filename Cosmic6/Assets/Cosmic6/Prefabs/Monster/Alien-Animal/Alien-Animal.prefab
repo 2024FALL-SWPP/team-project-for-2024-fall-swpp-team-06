@@ -84,7 +84,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1038215826213686593
 Transform:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -2
+  m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!136 &712345779229750516
@@ -183,33 +183,41 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370328055578073083}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d65a21eaa357c4b3483251cbcc1091af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  attackParts: []
-  attackDamages: []
-  attackAnimationLengths: []
+  attackParts:
+  - {fileID: 3917869796040856224}
+  - {fileID: 5579466972771275331}
+  attackDamages:
+  - 20
+  - 35
+  attackCoolDown: 3.1
+  attackAnimationLengths:
+  - 1.66
+  - 2.08
   player: {fileID: 0}
   headTransform: {fileID: 147828974437283298}
-  headDirectionIdx: 1
+  headForwardDirectionIdx: 1
+  headVerticalDirectionIdx: 0
   headDirectionInverted: 0
   detectionRange: 25
   viewRangeinChasing: 35
-  fovHorizontalNormal: 100
-  fovVerticalNormal: 120
+  fovHorizontalNormal: 180
+  fovVerticalNormal: 150
   fovHorizontalAttacking: 240
   fovVerticalAttacking: 240
-  chaseRange: 40
+  chaseRange: 45
   attackRange: 5
   patrolCenterPoint: {x: -2500, y: 0, z: -7500}
   patrolAreaRadius: 500
   distanceLowerBound: 15
   distanceUpperBound: 30
-  investigateSpeed: 5
-  chaseSpeed: 8
+  investigateSpeed: 4.5
+  chaseSpeed: 6
   patrolSpeed: 3
 --- !u!1 &470418714593744563
 GameObject:
@@ -2012,6 +2020,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 831722533694871818}
+  - component: {fileID: 1736767791}
   m_Layer: 0
   m_Name: Bone.005_L.004
   m_TagString: Untagged
@@ -2038,6 +2047,19 @@ Transform:
   m_Father: {fileID: 8196266255423949892}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1736767791
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3917869796040856224}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.08, y: 0.22, z: 0.08}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3960740188364790917
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,6 +2603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 147828974437283298}
+  - component: {fileID: 284201039}
   m_Layer: 0
   m_Name: Bone.017
   m_TagString: Untagged
@@ -2603,6 +2626,19 @@ Transform:
   m_Father: {fileID: 6305183422240999874}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &284201039
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579466972771275331}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.13, y: 0.13, z: 0.1}
+  m_Center: {x: 0.02, y: -0.02, z: 0}
 --- !u!1 &5733529801960006896
 GameObject:
   m_ObjectHideFlags: 0

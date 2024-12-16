@@ -14,7 +14,7 @@ public class PlayerStatusController : MonoBehaviour
     public float energy { get; private set; }
 
     public float maxHP { get; private set; } = 100f;
-    public float maxOxygen { get; private set; } = 500f;
+    public float maxOxygen { get; private set; } = 600f;
     public float maxEnergy { get; private set; } = 100f;
 
     private float hpUpdatePeriod = 6f; // in Region 3

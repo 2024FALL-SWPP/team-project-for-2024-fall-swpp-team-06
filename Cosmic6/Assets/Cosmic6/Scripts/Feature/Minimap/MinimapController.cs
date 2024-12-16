@@ -17,10 +17,13 @@ public class MinimapController : MonoBehaviour
     //public PlayerState playerState;
 
     public Transform playerTransform;
+    
+    private RawImage rawImage;
 
     // Start is called before the first frame update
     void Start()
     {
+        rawImage = GetComponent<RawImage>();
         if (fullmapCamera != null)
         {
             fullmapCamera.gameObject.SetActive(false);
@@ -30,22 +33,11 @@ public class MinimapController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         //UpdateRegionVisibility();
-
-        if (playerTransform != null)
-        {
-            playerIcon.transform.position = playerIcon.transform.parent.position;
-        }
-
-        if (isFullMap)
-        {
-            playerIcon.transform.rotation = Quaternion.Euler(90, 30, 30);
-        }
-        else
-        {
-            playerIcon.transform.localRotation = Quaternion.Euler(90, 30, 120);
-        }
+        
+        minimapCamera.transform.position = 
+            new (playerTransform.position.x, minimapCamera.transform.position.y, playerTransform.position.z);
 
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -86,14 +78,14 @@ public class MinimapController : MonoBehaviour
 
     void ShowFullMap()
     {
-        if (fullmapCamera != null)
-        {
-            minimapCamera.gameObject.SetActive(false);
-            fullmapCamera.gameObject.SetActive(true);
-        }
+        
+        minimapCamera.gameObject.SetActive(false);
+        fullmapCamera.gameObject.SetActive(true);
+        rawImage.enabled = false;
+        
         isFullMap = true;
 
-        playerIcon.transform.localScale = new Vector3(300, 300, 1);
+        playerIcon.transform.localScale = new Vector3(150, 150, 1);
         foreach (var icon in baseIcons)
         {
             icon.transform.localScale = new Vector3(10, 10, 1);
@@ -102,14 +94,13 @@ public class MinimapController : MonoBehaviour
 
     public void CloseFullMap()
     {
-        if (fullmapCamera != null)
-        {
-            fullmapCamera.gameObject.SetActive(false);
-            minimapCamera.gameObject.SetActive(true);
-        }
+        fullmapCamera.gameObject.SetActive(false);
+        minimapCamera.gameObject.SetActive(true);
+        rawImage.enabled = true;
+        
         isFullMap = false;
 
-        playerIcon.transform.localScale = new Vector3(5, 5, 1);
+        playerIcon.transform.localScale = new Vector3(12.5f, 12.5f, 1);
         foreach (var icon in baseIcons)
         {
             icon.transform.localScale = new Vector3(1, 1, 1);
