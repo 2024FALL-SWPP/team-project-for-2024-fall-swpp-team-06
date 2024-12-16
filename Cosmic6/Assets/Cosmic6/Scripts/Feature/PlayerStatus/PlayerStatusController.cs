@@ -8,14 +8,13 @@ public class PlayerStatusController : MonoBehaviour
     public GameManager gameManager;
     public LocationTracker locationTracker;
     public TimeManager timeManager;
-    public PlayerStatusUI playerStatusUI;
     
     public float hp { get; private set; }
     public float oxygen { get; private set; }
     public float energy { get; private set; }
 
     public float maxHP { get; private set; } = 100f;
-    public float maxOxygen { get; private set; } = 500f;
+    public float maxOxygen { get; private set; } = 600f;
     public float maxEnergy { get; private set; } = 100f;
 
     private float hpUpdatePeriod = 6f; // in Region 3
@@ -45,7 +44,7 @@ public class PlayerStatusController : MonoBehaviour
 
     private void Update()
     {
-        if (gameManager.IsGameOver) return;
+        if (gameManager.isGameOver) return;
         
         if (locationTracker.currentRegionIndex == 2 && !timeManager.isNight)
         {
@@ -113,13 +112,6 @@ public class PlayerStatusController : MonoBehaviour
         {
             gameManager.GameOver();
         }
-    }
-
-    public void UpgradeOxygen()
-    {
-        maxOxygen += 500f;
-        playerStatusUI.UpdateBarValues();
-        Debug.Log($"maxOxygen is updated to {maxOxygen}");
     }
 
     void GameOver()

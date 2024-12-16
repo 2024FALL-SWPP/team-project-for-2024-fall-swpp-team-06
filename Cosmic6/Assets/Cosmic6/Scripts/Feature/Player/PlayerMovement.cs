@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private float characterControllerHeight = 0.84f;
     private Animator animator;
     private bool isJumping = false;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -46,18 +46,18 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
             animator.SetBool("Jump_b", false);
         }
-
-
-        if (!gameManager.IsGameOver)
+        
+        
+        if (!gameManager.isGameOver)
         {
             float moveX = Input.GetAxis("Horizontal");
             float moveZ = Input.GetAxis("Vertical");
-
+        
             animator.SetFloat("Horizontal", moveX);
             animator.SetFloat("Vertical", moveZ);
-
+        
             float speed = isGrounded ? groundedSpeed : groundedSpeed * airMovementFactor;
-
+        
             displacement = transform.right * moveX + transform.forward * moveZ;
             characterController.Move(speed * Time.deltaTime * displacement);
         }
@@ -66,16 +66,16 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("Horizontal", 0);
             animator.SetFloat("Vertical", 0);
         }
-
-
-        if (!gameManager.IsGameOver && Input.GetButtonDown("Jump") && isGrounded)
+            
+        
+        if (!gameManager.isGameOver && Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(-2f * gravity * jumpHeight);
             isJumping = true;
             animator.SetBool("Jump_b", true);
         }
-
-
+        
+        
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
     }
@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         float changeSpeed = -0.1f;
         float timer = 0;
         float acceleration = 0.15f * 5 / gameManager.gameOverAnimationDuration;
-
+        
         while (timer < gameManager.gameOverAnimationDuration / 2)
         {
             timer += Time.deltaTime;
@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
             changeSpeed -= acceleration * Time.deltaTime;
             yield return null;
         }
-
+        
         yield return new WaitForSeconds(gameManager.gameOverAnimationDuration / 2);
         characterController.height = characterControllerHeight;
         characterController.enabled = false;

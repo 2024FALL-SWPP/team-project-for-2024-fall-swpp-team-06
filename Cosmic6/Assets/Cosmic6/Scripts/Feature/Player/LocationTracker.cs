@@ -9,11 +9,11 @@ public class LocationTracker : MonoBehaviour
 {
     public int currentRegionIndex { get; private set; } = 0;
     
-    private Vector3[] baseLocations = { new (-1850, 0, -7510), new (1100, 0, -8380), new (3065, 0, -11430)};
+    private Vector3[] baseLocations = { new (-1815, 0, -8600), new (22, 0, -9369), new (3240, 0, -10998)};
 
     public Vector3[] respawnLocations { get; private set; } =
-        { new(-1980, 5, -7520), new(-1850, 10, -7510), new(1100, 10, -8380), new(3065, 10, -11430) };
-    private float[] baseRadiusSqs = { 120*120, 150*150, 120*120 };
+        { new(-1980, 1.65f, -8580), new(-1801.42f, -0.02f, -8694.16f), new(8.6f, 0.65f, -9526f), new(3171.5f, 0f, -10929.1f) };
+    private float[] baseRadiusSqs = { 140*140, 150*150, 140*140 };
     public bool isBase { get; private set; } = false;
     public BaseManager baseManager;
 
