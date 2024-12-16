@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class FlagManager : MonoBehaviour
 {
     public bool[] isFlagRegistered { get; private set; } = { false, false, false, false, false };
@@ -9,20 +8,16 @@ public class FlagManager : MonoBehaviour
     public bool isEscapeFlagRegistered = false;
     public GameObject escapeFlag;
     string[] validNames = { "Flag1", "Flag2", "Flag3", "Flag4", "Flag5" };
-
     // clickable
     private int flagLayerIndex = 3;
     private int flagIndex = 0;
     private bool updateOxygen1 = false;
     private bool updateOxygen2 = false;
-
     public BaseManager baseManager;
     public InstantMovement instantMovement;
     public CameraRaycaster cameraRaycaster;
     public PlayerStatusController playerStatusController;
-
     public QuestSystem questSystem;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +27,6 @@ public class FlagManager : MonoBehaviour
         }
         cameraRaycaster.OnRaycastHit += ProcessRaycast;
     }
-
     void Update()
     {
         switch(flagIndex)
@@ -67,7 +61,6 @@ public class FlagManager : MonoBehaviour
                 break;
         }
     }
-
     public void UpdateMinimap()
     {
         for (int i = 0; i < baseManager.isBaseRegistered.Length; i++)
@@ -91,14 +84,12 @@ public class FlagManager : MonoBehaviour
             }
         }
     }
-
     public void ProcessRaycast(bool isHit, RaycastHit hit, bool isClicked)
     {
         if (!isHit)
         {
             return;
         }
-
         if (hit.collider.gameObject.layer == flagLayerIndex &&
                 System.Array.Exists(validNames, name => name == hit.collider.gameObject.name))
         {
@@ -109,14 +100,13 @@ public class FlagManager : MonoBehaviour
                 flagIndex = int.Parse(idxChar.ToString());
                 Debug.Log($"Flag {flagIndex} detected");
                 flags[flagIndex - 1].SetActive(false);
-
                 if (questSystem != null)
                 {
                     string variableName = validNames[flagIndex-1];
                     questSystem.UpdateQuestProgress(variableName, 1);
                     Debug.Log($"Quest progress updated for {variableName}");
                 }
-            }   
+            }
         }
         else if (hit.collider.gameObject.layer == flagLayerIndex &&
             hit.collider.gameObject == escapeFlag)
@@ -125,7 +115,6 @@ public class FlagManager : MonoBehaviour
             {
                 isEscapeFlagRegistered = true;
                 escapeFlag.SetActive(false);
-
                 if (questSystem != null)
                 {
                     string variableName = "EscapeFlag";
