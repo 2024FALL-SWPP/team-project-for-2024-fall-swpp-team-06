@@ -56,7 +56,7 @@ public class TeleDetector : MonoBehaviour
         else
         {
             detected=false;
-            Debug.Log("No Tele nearby");
+            //Debug.Log("No Tele nearby");
         }
     }
 }

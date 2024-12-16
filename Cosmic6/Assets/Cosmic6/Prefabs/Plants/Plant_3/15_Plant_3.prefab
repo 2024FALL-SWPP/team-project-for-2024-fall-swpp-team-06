@@ -23,6 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2514113679389420515}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4, z: -6}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
@@ -37,13 +38,13 @@ Transform:
   - {fileID: 3927551555624316993}
   - {fileID: 1591757362279710696}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1257119178393296695
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5488070608499680418}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
@@ -105,12 +106,15 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0bbbd55bb7da24ff2ab2c82e11e942a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 5409f4ecba5fc45d3bff98e1f7239812, type: 2}
     - target: {fileID: 919132149155446097, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Name
       value: Fruit1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
 --- !u!4 &1655238090631674076 stripped
 Transform:
@@ -122,6 +126,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5488070608499680418}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
@@ -183,12 +188,15 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0bbbd55bb7da24ff2ab2c82e11e942a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 5409f4ecba5fc45d3bff98e1f7239812, type: 2}
     - target: {fileID: 919132149155446097, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Name
       value: Fruit6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
 --- !u!4 &1591757362279710696 stripped
 Transform:
@@ -200,6 +208,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5488070608499680418}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
@@ -261,12 +270,15 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0bbbd55bb7da24ff2ab2c82e11e942a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 5409f4ecba5fc45d3bff98e1f7239812, type: 2}
     - target: {fileID: 919132149155446097, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Name
       value: Fruit2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
 --- !u!4 &2983416055847749209 stripped
 Transform:
@@ -278,6 +290,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5488070608499680418}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
@@ -339,12 +352,15 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0bbbd55bb7da24ff2ab2c82e11e942a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 5409f4ecba5fc45d3bff98e1f7239812, type: 2}
     - target: {fileID: 919132149155446097, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Name
       value: Fruit5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
 --- !u!4 &3927551555624316993 stripped
 Transform:
@@ -356,6 +372,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5488070608499680418}
     m_Modifications:
     - target: {fileID: 5128244743740868808, guid: 500624cb557de1945b1740e774af494a, type: 3}
@@ -415,6 +432,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 291794d87b6b44fa588065c4f5a70d37, type: 2}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 500624cb557de1945b1740e774af494a, type: 3}
 --- !u!4 &9116270702054998953 stripped
 Transform:
@@ -426,6 +446,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5488070608499680418}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 68a4eaa0b027f1642821c72363357265, type: 3}
@@ -481,6 +502,9 @@ PrefabInstance:
       value: Tree_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68a4eaa0b027f1642821c72363357265, type: 3}
 --- !u!4 &5821757326735470871 stripped
 Transform:
@@ -492,6 +516,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5488070608499680418}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
@@ -553,12 +578,15 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0bbbd55bb7da24ff2ab2c82e11e942a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 5409f4ecba5fc45d3bff98e1f7239812, type: 2}
     - target: {fileID: 919132149155446097, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Name
       value: Fruit3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
 --- !u!4 &7727255107347468932 stripped
 Transform:
@@ -570,6 +598,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5488070608499680418}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
@@ -631,12 +660,15 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0bbbd55bb7da24ff2ab2c82e11e942a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 5409f4ecba5fc45d3bff98e1f7239812, type: 2}
     - target: {fileID: 919132149155446097, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
       propertyPath: m_Name
       value: Fruit4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ceaaca15e08d1248b6748a16edeca4f, type: 3}
 --- !u!4 &7628903430410165727 stripped
 Transform:

@@ -55,7 +55,7 @@ public class QuestSystem : MonoBehaviour
         activeQuests = new List<Quest>();
         InitializeQuests();
     }
-
+    
     public void ToggleActive()
     {
         questPanel.SetActive(!questPanel.activeSelf);
@@ -64,7 +64,6 @@ public class QuestSystem : MonoBehaviour
             UpdateQuestDisplay();
         }
     }
-    
 
     void InitializeQuests()
     {

@@ -2,25 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using DevionGames.UIWidgets;
 
 public class UIManager : MonoBehaviour
 {
 
     public MinimapController minimapController;
-    
+
     public bool isUIActive { get; private set; } = false;
     public QuestSystem questSystem;
     public GameObject settingUI;
-    public GameObject inventoryUI;
+    public UIWidget inventoryWidget;
     public GameObject crossHairUI;
-    
+
     private UIIndex currentUIIndex;
 
     private enum UIIndex
     {
-        Map, Quest, Inventory, Setting
+        Map,
+        Quest,
+        Inventory,
+        Setting
     }
-    
+
 
     // Update is called once per frame
     void Update()
@@ -45,7 +49,7 @@ public class UIManager : MonoBehaviour
                 isUIActive = false;
                 return;
             }
-            
+
             ActivateUI(UIIndex.Setting);
             isUIActive = true;
         }
@@ -62,7 +66,7 @@ public class UIManager : MonoBehaviour
                 questSystem.ToggleActive();
                 break;
             case UIIndex.Inventory:
-                inventoryUI.SetActive(true);
+                inventoryWidget.Show();
                 break;
             default:
                 settingUI.SetActive(true);
@@ -81,7 +85,7 @@ public class UIManager : MonoBehaviour
                 questSystem.ToggleActive();
                 break;
             case UIIndex.Inventory:
-                inventoryUI.SetActive(false);
+                inventoryWidget.Close();
                 break;
             default:
                 settingUI.SetActive(false);
@@ -97,7 +101,7 @@ public class UIManager : MonoBehaviour
             {
                 return;
             }
-                
+
             DeactivateUI(currentUIIndex);
         }
         else
@@ -105,7 +109,7 @@ public class UIManager : MonoBehaviour
             isUIActive = true;
             UpdateUIState();
         }
-                
+
         if (currentUIIndex != uiIndex)
         {
             ActivateUI(uiIndex);
@@ -117,7 +121,7 @@ public class UIManager : MonoBehaviour
             UpdateUIState();
         }
     }
-    
+
     private void UpdateUIState()
     {
         if (isUIActive)
