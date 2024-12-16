@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 using System.Collections.Generic;
@@ -6,6 +6,7 @@ using DevionGames.InventorySystem;
 
 public class PlantManager : MonoBehaviour
 {
+
     public class PlantData
     {
         public string plantName;
@@ -84,6 +85,10 @@ public class PlantManager : MonoBehaviour
         {
             if (plantList[i].plantName == plantName)
             {
+                // FarmingManager로 제거된 식물 position 보내기
+                Vector3 position = plantList[i].position;
+                FarmingManager.Instance.Harvest(position.x, position.z);
+
                 Debug.Log($"Plant Removed: {plantList[i].plantName}, Position: {plantList[i].position}");
                 plantList.RemoveAt(i);
                 return;
@@ -107,8 +112,6 @@ public class PlantManager : MonoBehaviour
                 Destroy(obj);
             }
         }
-
-        // TODO: FarmingManager로 제거된 식물 position 보내기
     }
 
     void Update()

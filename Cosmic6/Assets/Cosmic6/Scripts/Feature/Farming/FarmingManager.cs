@@ -26,7 +26,20 @@ public class FarmingManager : MonoBehaviour
             this.canFarm = canFarm;
         }
     }
-    
+
+    public static FarmingManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
+
     // fieldStates should be saved & loaded
     private Dictionary<(int, int), FieldState> fieldStates = new Dictionary<(int, int), FieldState>();
     private OverlayManager overlayManager;
