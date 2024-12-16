@@ -29,8 +29,8 @@ public class PlayerStatusController : MonoBehaviour
     private float hpUpdateAmount = 4f;
     private float energyUpdateAmount = 2f;
     private float oxygenUpdateAmount = 1f;
-    
-    
+
+    public bool isHeatProtected = false;
     
     // Start is called before the first frame update
     void Start()
@@ -49,12 +49,15 @@ public class PlayerStatusController : MonoBehaviour
         
         if (locationTracker.currentRegionIndex == 2 && !timeManager.isNight)
         {
-            hpUpdateTimer += Time.deltaTime;
-            
-            if (hpUpdateTimer > hpUpdatePeriod)
+            if (!isHeatProtected)
             {
-                hpUpdateTimer -= hpUpdatePeriod;
-                UpdateHP(-hpUpdateAmount);
+                hpUpdateTimer += Time.deltaTime;
+
+                if (hpUpdateTimer > hpUpdatePeriod)
+                {
+                    hpUpdateTimer -= hpUpdatePeriod;
+                    UpdateHP(-hpUpdateAmount);
+                }
             }
         }
         
@@ -115,9 +118,16 @@ public class PlayerStatusController : MonoBehaviour
         }
     }
 
-    public void UpgradeOxygen()
+    public void UpgradeOxygen1()
     {
-        maxOxygen += 500f;
+        maxOxygen += 200f;
+        playerStatusUI.UpdateBarValues();
+        Debug.Log($"maxOxygen is updated to {maxOxygen}");
+    }
+
+    public void UpgradeOxygen2()
+    {
+        maxOxygen += 400f;
         playerStatusUI.UpdateBarValues();
         Debug.Log($"maxOxygen is updated to {maxOxygen}");
     }

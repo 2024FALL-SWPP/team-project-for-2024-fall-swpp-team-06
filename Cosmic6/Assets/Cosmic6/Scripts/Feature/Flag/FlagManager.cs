@@ -38,7 +38,7 @@ public class FlagManager : MonoBehaviour
                 // oxygen at region 2
                 if (!updateOxygen1)
                 {
-                    playerStatusController.UpgradeOxygen();
+                    playerStatusController.UpgradeOxygen1();
                     updateOxygen1 = true;
                 }
                 break;
@@ -47,13 +47,14 @@ public class FlagManager : MonoBehaviour
                 instantMovement.teleportPossible = true;
                 break;
             case 4:
+                playerStatusController.isHeatProtected = true;
                 // protect heat for region 3
                 break;
             case 5:
                 // oxygen at region 3
                 if (!updateOxygen2)
                 {
-                    playerStatusController.UpgradeOxygen();
+                    playerStatusController.UpgradeOxygen2();
                     updateOxygen2 = true;
                 }
                 break;
