@@ -358,6 +358,55 @@ MonoBehaviour:
     delay: 2
     duration: 2
     ignoreTimeScale: 1
+--- !u!114 &-4559097672397118033
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a78acd5557204d499bcf3420fd4ee78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id: 0b492e11-6a3d-44e9-87ff-c917892033f5
+  m_ItemName: 1_Fruit
+  m_UseItemNameAsDisplayName: 1
+  m_DisplayName: New Item
+  m_Icon: {fileID: 21300000, guid: 04d0a35c2e4514010bb05a806694dca0, type: 2}
+  m_Prefab: {fileID: 1290593495328597672, guid: 8804b3939fe8249e38739551c2456ebb, type: 3}
+  m_Description: 
+  m_Category: {fileID: 7691753795492579254}
+  m_IsSellable: 1
+  m_BuyPrice: 0
+  m_CanBuyBack: 1
+  m_BuyCurrency: {fileID: 1100484727990703582}
+  m_SellPrice: 0
+  m_SellCurrency: {fileID: 1100484727990703582}
+  m_Stack: 100
+  m_MaxStack: 100
+  m_IsDroppable: 1
+  m_DropSound: {fileID: 0}
+  m_OverridePrefab: {fileID: 0}
+  m_IsCraftable: 0
+  m_CraftingDuration: 2
+  m_UseCraftingSkill: 0
+  m_SkillWindow: Skills
+  m_CraftingSkill: {fileID: 0}
+  m_RemoveIngredientsWhenFailed: 0
+  m_MinCraftingSkillValue: 0
+  m_CraftingAnimatorState: Blacksmithy
+  m_CraftingModifier:
+    modifiers: []
+  ingredients: []
+  properties: []
+  m_UseCategoryCooldown: 1
+  m_Cooldown: 1
+  actions: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-4279285336912233152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,9 +481,9 @@ MonoBehaviour:
   items:
   - {fileID: -6304872122063856682}
   - {fileID: 8597594496361177248}
-  - {fileID: 3746986080560737022}
   - {fileID: -4279285336912233152}
   - {fileID: -8575297140035013122}
+  - {fileID: -4559097672397118033}
   currencies:
   - {fileID: 1100484727990703582}
   - {fileID: 3848445611472300504}
@@ -528,49 +577,6 @@ MonoBehaviour:
   sellPriceTooltipName: Sell Price Tooltip
   stackName: Stack
   notificationName: Notification
---- !u!114 &3746986080560737022
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e14be5e3e6cf2204293682bf65bce5dc, type: 3}
-  m_Name: 1_Fruit
-  m_EditorClassIdentifier: 
-  m_Id: 1e793490-7e62-462c-93dc-91703ecd35cc
-  m_ItemName: 1_Fruit
-  m_UseItemNameAsDisplayName: 1
-  m_DisplayName: New Item
-  m_Icon: {fileID: 21300000, guid: 04d0a35c2e4514010bb05a806694dca0, type: 2}
-  m_Prefab: {fileID: 6698902239997613804, guid: 238ef83921aa94ee59068155ffd14274, type: 3}
-  m_Description: 
-  m_Category: {fileID: 7691753795492579254}
-  m_IsSellable: 1
-  m_BuyPrice: 0
-  m_CanBuyBack: 1
-  m_BuyCurrency: {fileID: 1100484727990703582}
-  m_SellPrice: 0
-  m_SellCurrency: {fileID: 1100484727990703582}
-  m_Stack: 100
-  m_MaxStack: 100
-  m_IsDroppable: 0
-  m_DropSound: {fileID: 0}
-  m_OverridePrefab: {fileID: 0}
-  m_IsCraftable: 0
-  m_CraftingDuration: 2
-  m_UseCraftingSkill: 0
-  m_SkillWindow: Skills
-  m_CraftingSkill: {fileID: 0}
-  m_RemoveIngredientsWhenFailed: 0
-  m_MinCraftingSkillValue: 0
-  m_CraftingAnimatorState: Blacksmithy
-  m_CraftingModifier:
-    modifiers: []
-  ingredients: []
-  properties: []
 --- !u!114 &3848445611472300504
 MonoBehaviour:
   m_ObjectHideFlags: 1
