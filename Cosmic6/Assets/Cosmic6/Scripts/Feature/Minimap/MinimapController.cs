@@ -30,6 +30,7 @@ public class MinimapController : MonoBehaviour
 
     void Update()
     {
+        minimapCamera.transform.position = new(playerTransform.position.x, minimapCamera.transform.position.y, playerTransform.position.z);
         // 플레이어 아이콘 추적 로직 (필요하다면 유지)
         if (playerTransform != null && playerIcon != null)
         {
