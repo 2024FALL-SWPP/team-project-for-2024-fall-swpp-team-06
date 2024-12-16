@@ -14,10 +14,6 @@ public class QuestSystem : MonoBehaviour
 
     public GameObject popupPrefab;
     public Transform popupParent;
-    public float popupDuration = 5f;
-    public float verticalSpacing = 60f;
-
-    private List<GameObject> activePopups = new List<GameObject>();
 
     private Dictionary<string, List<Quest>> baseQuests = new Dictionary<string, List<Quest>>()
     {
@@ -39,12 +35,6 @@ public class QuestSystem : MonoBehaviour
             {
                 new Quest("Flag Exploration 4", "Find the fourth flag", "Flag4", 1),
                 new Quest("Flag Exploration 5", "Find the fifth flag", "Flag5", 1)
-            }
-        },
-        {
-            "EscapeFlag", new List<Quest>
-            {
-                new Quest("Escape spot activated", "Find the escape flag", "Escape Flag", 1)
             }
         }
     };
@@ -216,36 +206,9 @@ public class QuestSystem : MonoBehaviour
             titleText.text = quest.title;
             contentText.text = quest.description;
 
-            
-
             popupInstance.name = $"Popup_{quest.title}";
 
-            activePopups.Add(popupInstance);
-            UpdatePopupPositions();
-            StartCoroutine(RemovePopupAfterDelay(popupInstance));
-    
-        }
-    }
-
-    private void UpdatePopupPositions()
-    {
-        for (int i = 0; i < activePopups.Count; i++)
-        {
-            RectTransform rectTransform = activePopups[i].GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(0, -i * verticalSpacing);
-        }
-    }
-
-    private IEnumerator RemovePopupAfterDelay(GameObject popupInstance)
-    {
-        yield return new WaitForSeconds(popupDuration);
-
-        if (activePopups.Contains(popupInstance))
-        {
-            activePopups.Remove(popupInstance);
-            Destroy(popupInstance);
-
-            UpdatePopupPositions();
+            Destroy(popupInstance, 5f);
         }
     }
 }
