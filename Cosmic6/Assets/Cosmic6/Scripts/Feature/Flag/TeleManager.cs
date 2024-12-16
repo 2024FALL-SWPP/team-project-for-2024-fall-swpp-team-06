@@ -57,6 +57,7 @@ public class TeleManager : MonoBehaviour
     private void UpdateTeleNum(int idx)
     {
         teleNum++;
+        questSystem.UpdateQuestProgress("Tele", 1);
         if (idx < 4 && idx > 0) { teleRegion1++; }
         else if (idx < 6) { teleRegion2++; }
         else { teleRegion3++; }
