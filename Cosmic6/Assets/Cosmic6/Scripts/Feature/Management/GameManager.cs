@@ -7,25 +7,26 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public event Action OnGameOver;
-    public bool isGameOver { get; private set; } = false;
+    public bool IsGameOver = false;
+    public bool IsGameClear = false;
 
     public float gameOverDuration { get; private set; } = 6f;
     public float gameOverAnimationDuration { get; private set; } = 2.5f;
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void GameOver()
     {
-        isGameOver = true;
+        IsGameOver = true;
         OnGameOver?.Invoke();
         StartCoroutine(GameOverCoroutine());
     }
@@ -33,6 +34,18 @@ public class GameManager : MonoBehaviour
     IEnumerator GameOverCoroutine()
     {
         yield return new WaitForSeconds(gameOverDuration);
-        isGameOver = false;
+        IsGameOver = false;
+    }
+
+    public void GameClear()
+    {
+        IsGameClear = true;
+        StartCoroutine(GameClearCoroutine());
+    }
+
+    IEnumerator GameClearCoroutine()
+    {
+        // show ending scene
+        yield return new WaitForSeconds(gameOverDuration);
     }
 }

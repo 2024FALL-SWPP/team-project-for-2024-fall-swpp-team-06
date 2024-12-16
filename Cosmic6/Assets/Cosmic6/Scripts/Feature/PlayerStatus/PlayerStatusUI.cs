@@ -46,6 +46,11 @@ public class PlayerStatusUI : MonoBehaviour
         oxygenProgressBar.SetValue(playerStatusController.oxygen);
         energyProgressBar.SetValue(playerStatusController.energy);
     }
+
+    public void UpdateBarValues()
+    {
+        oxygenProgressBar.maxValue = playerStatusController.maxOxygen;
+    }
     
     /*
     void Start()

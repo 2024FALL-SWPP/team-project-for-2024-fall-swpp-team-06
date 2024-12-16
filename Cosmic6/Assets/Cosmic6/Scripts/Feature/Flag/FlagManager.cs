@@ -6,15 +6,20 @@ public class FlagManager : MonoBehaviour
 {
     public bool[] isFlagRegistered { get; private set; } = { false, false, false, false, false };
     public GameObject[] flags;
+    public bool isEscapeFlagRegistered = false;
+    public GameObject escapeFlag;
     string[] validNames = { "Flag1", "Flag2", "Flag3", "Flag4", "Flag5" };
 
     // clickable
     private int flagLayerIndex = 3;
     private int flagIndex = 0;
+    private bool updateOxygen1 = false;
+    private bool updateOxygen2 = false;
 
     public BaseManager baseManager;
     public InstantMovement instantMovement;
     public CameraRaycaster cameraRaycaster;
+    public PlayerStatusController playerStatusController;
 
     public QuestSystem questSystem;
 
@@ -37,16 +42,26 @@ public class FlagManager : MonoBehaviour
                 break;
             case 2:
                 // oxygen at region 2
+                if (!updateOxygen1)
+                {
+                    playerStatusController.UpgradeOxygen();
+                    updateOxygen1 = true;
+                }
                 break;
             case 3:
-                // protect heat for region 3
-                break;
-            case 4:
-                // oxygen at region 3
-                break;
-            case 5:
                 // teleport
                 instantMovement.teleportPossible = true;
+                break;
+            case 4:
+                // protect heat for region 3
+                break;
+            case 5:
+                // oxygen at region 3
+                if (!updateOxygen2)
+                {
+                    playerStatusController.UpgradeOxygen();
+                    updateOxygen2 = true;
+                }
                 break;
             default:
                 break;
@@ -63,15 +78,15 @@ public class FlagManager : MonoBehaviour
                 {
                     flags[0].SetActive(true);
                 }
-                if (i == 0)
+                else if (i == 1)
                 {
                     flags[1].SetActive(true);
-                    flags[4].SetActive(true);
+                    flags[2].SetActive(true);
                 }
                 else
                 {
-                    flags[2].SetActive(true);
                     flags[3].SetActive(true);
+                    flags[4].SetActive(true);
                 }
             }
         }
@@ -102,6 +117,22 @@ public class FlagManager : MonoBehaviour
                     Debug.Log($"Quest progress updated for {variableName}");
                 }
             }   
+        }
+        else if (hit.collider.gameObject.layer == flagLayerIndex &&
+            hit.collider.gameObject == escapeFlag)
+        {
+            if (isClicked)
+            {
+                isEscapeFlagRegistered = true;
+                escapeFlag.SetActive(false);
+
+                if (questSystem != null)
+                {
+                    string variableName = "EscapeFlag";
+                    questSystem.UpdateQuestProgress(variableName, 1);
+                    Debug.Log($"Quest progress updated for {variableName}");
+                }
+            }
         }
     }
 }
