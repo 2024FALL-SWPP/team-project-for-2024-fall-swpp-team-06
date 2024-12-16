@@ -486,7 +486,6 @@ namespace DevionGames.InventorySystem
         public virtual bool StackOrAdd(Item item)
         {
             if (!StackItem(item) && !AddItem(item)){
-
                 return false;
             }
             return true;
@@ -912,6 +911,9 @@ namespace DevionGames.InventorySystem
 
             if (!UseReferences && this.m_Collection.Contains(item))
             {
+
+                Debug.Log("Removing Items -- No UseReferences");
+
                 //Remove item from the collection
                 this.m_Collection.Remove(item);
 
