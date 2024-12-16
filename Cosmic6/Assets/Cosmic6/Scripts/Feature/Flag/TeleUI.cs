@@ -52,13 +52,13 @@ public class TeleUI : MonoBehaviour
                     switch(i)
                     {
                         case 0:
-                            texts[i] = $"{i} : {telemanager.teleRegion1} / {totalnums[i]}";
+                            texts[i] = $"Region{i+1} : {telemanager.teleRegion1} / {totalnums[i]}";
                             break;
                         case 1:
-                            texts[i] = $"{i} : {telemanager.teleRegion2} / {totalnums[i]}";
+                            texts[i] = $"Region{i+1} : {telemanager.teleRegion2} / {totalnums[i]}";
                             break;
                         case 2:
-                            texts[i] = $"{i} : {telemanager.teleRegion3} / {totalnums[i]}";
+                            texts[i] = $"Region{i+1} : {telemanager.teleRegion3} / {totalnums[i]}";
                             break;
                         default:
                             break;

@@ -12,6 +12,9 @@ public class QuestSystem : MonoBehaviour
     private Queue<Quest> questQueue;
     private List<Quest> activeQuests;
 
+    public GameObject questclearPrefab;
+    public Transform questclearParent;
+
     public GameObject popupPrefab;
     public Transform popupParent;
     public float popupDuration = 5f;
@@ -57,23 +60,23 @@ public class QuestSystem : MonoBehaviour
         InitializeQuests();
     }
 
-    // public void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Q))
-    //     {
-    //         questPanel.SetActive(!questPanel.activeSelf);
-    //         if (questPanel.activeSelf)
-    //         {
-    //             UpdateQuestDisplay();
-    //         }
-    //     }
-    // }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            questPanel.SetActive(!questPanel.activeSelf);
+            if (questPanel.activeSelf)
+            {
+                UpdateQuestDisplay();
+            }
+        }
+    }
 
     void InitializeQuests()
     {
         questQueue = new Queue<Quest>();
 
-        //questQueue.Enqueue(new Quest("Flag Exploration", "Find the first flag", "Flag1", 1));
+        questQueue.Enqueue(new Quest("Contact Earth", "Search for all the communication equipment", "Tele", 7));
 
         for (int i = 0; i < 1; i++)
         {
@@ -133,7 +136,7 @@ public class QuestSystem : MonoBehaviour
                 if (quest.IsComplete())
                 {
                     Debug.Log($"{quest.title} completed!");
-
+                    clearPopup(quest);
                     activeQuests.RemoveAt(i);
                     Destroy(questListContainer.Find($"Quest_{quest.title}").gameObject);
 
@@ -169,32 +172,34 @@ public class QuestSystem : MonoBehaviour
         UpdateQuestDisplay();
     }
 
-    /*public void UpdateQuest(string variable)
+    public void clearPopup(Quest quest)
     {
-
-        for (int i = activeQuests.Count - 1; i >= 0; i--)
+        if (questclearPrefab != null)
         {
-            Quest quest = activeQuests[i];
-
-            if (quest.conditionVariable == variable)
+            GameObject clearInstance;
+            if (questclearParent != null)
             {
-                quest.UpdateProgress(value);
-
-                if (quest.IsComplete())
-                {
-                    Debug.Log($"{quest.title} completed!");
-
-                    activeQuests.RemoveAt(i);
-                    Destroy(questListContainer.Find($"Quest_{quest.title}").gameObject);
-
-                    if (questQueue.Count > 0)
-                    {
-                        AddQuest(questQueue.Dequeue());
-                    }
-                }
+                clearInstance = Instantiate(questclearPrefab, questclearParent);
             }
+            else
+            {
+                clearInstance = Instantiate(questclearPrefab);
+            }
+
+            TMP_Text cleartitleText = clearInstance.transform.Find("Title").GetComponent<TMP_Text>();
+            TMP_Text clearcontentText = clearInstance.transform.Find("Content").GetComponent<TMP_Text>();
+
+            cleartitleText.text = "CLEAR!";
+            clearcontentText.text = quest.title;
+
+            
+
+            clearInstance.name = $"Popup_{quest.title}";
+
+            Destroy(clearInstance, 5f);
+    
         }
-    }*/
+    }
 
     public void ShowPopup(Quest quest)
     {
