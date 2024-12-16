@@ -20,7 +20,6 @@ public class TeleManager : MonoBehaviour
     private int teleLayerIndex = 3;
 
     public CameraRaycaster cameraRaycaster;
-    public QuestSystem questSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +30,10 @@ public class TeleManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if (teleNum == 7)
+        {
+            escapeFlag.SetActive(true);
+        }
     }
 
     public void ProcessRaycast(bool isHit, RaycastHit hit, bool isClicked)
@@ -57,23 +59,11 @@ public class TeleManager : MonoBehaviour
     private void UpdateTeleNum(int idx)
     {
         teleNum++;
-        if (idx < 4 && idx > 0) { teleRegion1++; }
-        else if (idx < 6) { teleRegion2++; }
+        if (idx < 3) { teleRegion1++; }
+        else if (idx < 5) { teleRegion2++; }
         else { teleRegion3++; }
         teleFlags[idx - 1].SetActive(false);
         isTeleFound[idx - 1] = true;
         Debug.Log($"tele{idx} is deleted. {7 - teleNum} teles remain.");
-
-        if (teleNum == 7)
-        {
-            escapeFlag.SetActive(true);
-
-            if (questSystem != null)
-            {
-                string variableName = "EscapeFlag";
-                questSystem.UpdateQuest(variableName, 1);
-                Debug.Log($"Quest updated for {variableName}");
-            }
-        }
     }
 }
