@@ -12,14 +12,14 @@ public class UIManager : MonoBehaviour
     public GameObject minimapCanvas;
 
     private bool inventoryOn = false;
-    private bool questOn = false;
-    private bool fullOn = false; // false = Partial Mode(M=0), true = Full Mode(M=1)
+    private bool questOn = false; // 퀘스트 on/off를 단순히 이 bool로 관리
+    private bool fullOn = false; // false=Partial(M=0), true=Full(M=1)
 
     private string previousState = "IQM 000";
 
     void Awake()
     {
-        // I키 해제해서 UIManager에서 I키 관리
+        // I키 에셋 처리 해제
         if (inventoryWidget != null)
         {
             WidgetInputHandler.UnregisterInput(KeyCode.I, inventoryWidget);
@@ -28,15 +28,14 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        // 초기상태: Partial Mode ON (fullOn=false)
+        // 초기: partial 모드
         if (minimapCamera != null) minimapCamera.SetActive(true);
         if (fullmapCamera != null) fullmapCamera.SetActive(false);
         if (questPanel != null) questPanel.SetActive(false);
 
-        // 초기에는 인벤토리 off, 퀘스트 off, fullOn=false(Partial)
         inventoryOn = false;
         questOn = false;
-        fullOn = false; // partial mode
+        fullOn = false;
 
         UpdateMinimapCanvasState();
         LogStateChange("Start");
@@ -51,43 +50,20 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            // I->Q 시나리오에서만 인벤토리 닫히는거 기다림
-            if (inventoryOn)
-            {
-                // 인벤토리 닫고 기다린 뒤 퀘스트 켜기
-                inventoryWidget.Close();
-                inventoryOn = false;
-                LogStateChange("PreparingForQuest");
-                StartCoroutine(WaitForInventoryClose(() => ToggleQuestActual()));
-            }
-            else
-            {
-                // 인벤토리가 꺼져있다면 즉시 토글
-                ToggleQuestActual();
-            }
+            // 인벤토리 닫히는 것 기다리는 로직을 없애고, I->Q든 뭐든 단순히 On/Off
+            ToggleQuest();
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            // I->M 시나리오에서만 인벤토리 닫히는거 기다림
-            if (inventoryOn)
-            {
-                inventoryWidget.Close();
-                inventoryOn = false;
-                LogStateChange("PreparingForMinimap");
-                StartCoroutine(WaitForInventoryClose(() => ToggleMinimapModeActual()));
-            }
-            else
-            {
-                // 인벤토리가 꺼져있다면 즉시 토글
-                ToggleMinimapModeActual();
-            }
+            // 인벤토리 닫히는 것 기다리는 로직 유지 필요하다면 다시 추가할 수 있지만,
+            // 우선 Q 문제 해결 위해 단순화한 코드 제안
+            ToggleMinimapMode();
         }
     }
 
     public void CloseInventoryFromButton()
     {
-        // X 버튼으로 인벤토리 닫기
         if (inventoryOn && inventoryWidget != null)
         {
             inventoryWidget.Close();
@@ -100,8 +76,7 @@ public class UIManager : MonoBehaviour
     {
         if (!inventoryOn)
         {
-            // 인벤토리 켜기
-            // 인벤토리를 켜기 전에 퀘스트, 풀맵(Full모드)이 켜져있다면 끄고 partial로 돌아옴
+            // 인벤토리 켤 때 다른 UI 끄기
             if (questOn)
             {
                 questPanel.SetActive(false);
@@ -113,7 +88,7 @@ public class UIManager : MonoBehaviour
                 // full->partial
                 fullmapCamera.SetActive(false);
                 minimapCamera.SetActive(true);
-                fullOn = false; // partial mode
+                fullOn = false;
             }
 
             if (inventoryWidget != null) inventoryWidget.Show();
@@ -124,21 +99,25 @@ public class UIManager : MonoBehaviour
             // 인벤토리 끄기
             if (inventoryWidget != null) inventoryWidget.Close();
             inventoryOn = false;
-            // partial 유지
         }
 
         UpdateMinimapCanvasState();
         LogStateChange("ToggleInventory");
     }
 
-    // 인벤토리 닫힌 뒤 퀘스트 토글
-    private void ToggleQuestActual()
+    private void ToggleQuest()
     {
-        bool questActive = questOn;
-
-        if (!questActive)
+        // Q 토글 단순화
+        if (!questOn)
         {
-            // 퀘스트 켜기
+            // Q 켜기
+            // 다른 UI 끄기
+            if (inventoryOn)
+            {
+                inventoryWidget.Close();
+                inventoryOn = false;
+            }
+
             if (fullOn)
             {
                 // full->partial
@@ -147,31 +126,37 @@ public class UIManager : MonoBehaviour
                 fullOn = false;
             }
 
-            if (questPanel != null) questPanel.SetActive(true);
+            questPanel.SetActive(true);
             questOn = true;
         }
         else
         {
-            // 퀘스트 끄기
-            if (questPanel != null) questPanel.SetActive(false);
+            // Q 끄기
+            questPanel.SetActive(false);
             questOn = false;
-            // partial 유지
         }
 
         UpdateMinimapCanvasState();
         LogStateChange("ToggleQuest");
     }
 
-    // 인벤토리 닫힌 뒤 미니맵모드 토글
-    private void ToggleMinimapModeActual()
+    private void ToggleMinimapMode()
     {
-        // M키: partial <-> full 모드 전환
+        // M 토글
+        // 다른 UI 끄기
+        if (inventoryOn)
+        {
+            inventoryWidget.Close();
+            inventoryOn = false;
+        }
+
         if (questOn)
         {
             questPanel.SetActive(false);
             questOn = false;
         }
 
+        // partial<->full 토글
         if (!fullOn)
         {
             // partial->full
@@ -195,15 +180,16 @@ public class UIManager : MonoBehaviour
     {
         if (minimapCanvas != null)
         {
-            if (!fullOn)
+            minimapCanvas.SetActive(!fullOn);
+            Canvas.ForceUpdateCanvases();
+            minimapCanvas.transform.SetAsLastSibling();
+
+            CanvasGroup cg = minimapCanvas.GetComponent<CanvasGroup>();
+            if (cg != null)
             {
-                // partial
-                minimapCanvas.SetActive(true);
-            }
-            else
-            {
-                // full
-                minimapCanvas.SetActive(false);
+                cg.alpha = 1f;
+                cg.interactable = true;
+                cg.blocksRaycasts = true;
             }
         }
     }
@@ -211,8 +197,6 @@ public class UIManager : MonoBehaviour
     private void LogStateChange(string source)
     {
         // I=inventoryOn, Q=questOn, M=fullOn
-        // fullOn=false -> M=0(partial)
-        // fullOn=true -> M=1(full)
         string currentState = "IQM "
             + (inventoryOn ? "1" : "0")
             + (questOn ? "1" : "0")
@@ -221,15 +205,5 @@ public class UIManager : MonoBehaviour
         string timeStamp = DateTime.Now.ToString("HH:mm:ss.fff");
         Debug.Log("[" + timeStamp + "] " + source + ": " + previousState + " -> " + currentState);
         previousState = currentState;
-    }
-
-    private IEnumerator WaitForInventoryClose(Action onClosed)
-    {
-        // 인벤토리가 완전히 닫힐 때까지 대기 (IsVisible false일 때까지)
-        while (inventoryWidget != null && inventoryWidget.IsVisible)
-        {
-            yield return null;
-        }
-        onClosed?.Invoke();
     }
 }
