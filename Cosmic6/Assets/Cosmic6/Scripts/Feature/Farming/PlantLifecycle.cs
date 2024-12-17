@@ -7,7 +7,7 @@ namespace DevionGames.InventorySystem
     public class PlantLifecycle : MonoBehaviour
     {
         [Header("Time Intervals (in seconds)")]
-        public float TimeInterval = 5f; // 시간 간격
+        private float TimeInterval = 60f; // 시간 간격
 
         private List<Transform> childInstances = new List<Transform>();
 

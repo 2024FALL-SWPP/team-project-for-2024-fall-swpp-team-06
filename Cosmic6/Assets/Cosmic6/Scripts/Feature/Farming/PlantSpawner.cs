@@ -88,7 +88,7 @@ public class PlantSpawner : MonoBehaviour
                 Vector3 randomPosition = GenerateRandomPosition(terrain);
                 if (IsPositionValid(randomPosition, terrain))
                 {
-                    SpawnPlant(randomPosition, terrain);
+                    SpawnPlant(randomPosition, terrain, initialSpawn: true);
                     spawnedCount++;
                 }
             }
@@ -123,10 +123,14 @@ public class PlantSpawner : MonoBehaviour
         }
     }
 
-    void SpawnPlant(Vector3 position, TerrainData terrain)
+    void SpawnPlant(Vector3 position, TerrainData terrain, bool initialSpawn = false)
     {
         // Spawning Plant
         string prefabPath = terrain.prefabPaths[Random.Range(0, terrain.prefabPaths.Count)];
+        if (initialSpawn)
+        {
+            prefabPath = prefabPath.Replace("Assets/Cosmic6/Prefabs/Plants/", "Assets/Cosmic6/Prefabs12DB/");
+        }
         GameObject plantPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
 
         Debug.Log("Spawning Plant: " + position + " " + prefabPath + ": "+plantPrefab);
