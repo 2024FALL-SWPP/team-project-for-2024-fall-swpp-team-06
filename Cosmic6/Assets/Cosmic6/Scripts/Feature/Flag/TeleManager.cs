@@ -61,7 +61,7 @@ public class TeleManager : MonoBehaviour
         if (idx < 4 && idx > 0) { teleRegion1++; }
         else if (idx < 6) { teleRegion2++; }
         else { teleRegion3++; }
-        teleFlags[idx - 1].SetActive(false);
+        Destroy(teleFlags[idx - 1]);
         isTeleFound[idx - 1] = true;
         Debug.Log($"tele{idx} is deleted. {7 - teleNum} teles remain.");
 
