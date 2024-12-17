@@ -20979,7 +20979,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 36751252}
   m_HandleRect: {fileID: 36751251}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -21667,6 +21667,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3862646566450914761, guid: 4741f9ad5f10a43bfbd9eb41d257a10b, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 789812391}
     - target: {fileID: 3862646566450914761, guid: 4741f9ad5f10a43bfbd9eb41d257a10b, type: 3}
       propertyPath: gameManager
       value: 
@@ -47379,12 +47383,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1446a280c69f56c41a373e63effb61ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryWidget: {fileID: 579197059}
-  questPanel: {fileID: 27876070}
-  minimapCamera: {fileID: 652138529}
-  fullmapCamera: {fileID: 1735203207}
-  minimapCanvas: {fileID: 669449440}
   minimapController: {fileID: 669449444}
+  questSystem: {fileID: 1419481176}
+  inventoryWidget: {fileID: 579197059}
+  menuWidget: {fileID: 1401358917}
+  crossHairUI: {fileID: 1846409441}
 --- !u!1001 &793150542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73852,7 +73855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2217017165105714522, guid: 7711700c499322241ad0a6161fccb38f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -36.25
+      value: -35.006435
       objectReference: {fileID: 0}
     - target: {fileID: 2452283189092255581, guid: 7711700c499322241ad0a6161fccb38f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -73876,7 +73879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2452283189092255581, guid: 7711700c499322241ad0a6161fccb38f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -81.04
+      value: -79.79643
       objectReference: {fileID: 0}
     - target: {fileID: 3227985642732245333, guid: 7711700c499322241ad0a6161fccb38f, type: 3}
       propertyPath: m_SizeDelta.y
@@ -81363,6 +81366,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2468943874834602226, guid: 36c8a3dd0336f408cb91a93267d04495, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2694825457942037821, guid: 36c8a3dd0336f408cb91a93267d04495, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -81490,6 +81497,10 @@ PrefabInstance:
     - target: {fileID: 4334433061079700078, guid: 36c8a3dd0336f408cb91a93267d04495, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5359789064716928378, guid: 36c8a3dd0336f408cb91a93267d04495, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5418965829263967180, guid: 36c8a3dd0336f408cb91a93267d04495, type: 3}
       propertyPath: m_AnchorMax.y
@@ -82375,7 +82386,7 @@ MonoBehaviour:
   delegates: []
   name: Menu
   priority: 0
-  m_KeyCode: 27
+  m_KeyCode: 0
   m_EaseType: 28
   m_Duration: 0.7
   m_IgnoreTimeScale: 1
@@ -103548,7 +103559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1756647756
 RectTransform:
   m_ObjectHideFlags: 0
@@ -110507,6 +110518,11 @@ PrefabInstance:
 --- !u!224 &1846409440 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5794042251362857848, guid: a5d29e71dbbef4e8790c675750ba488d, type: 3}
+  m_PrefabInstance: {fileID: 1846409439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1846409441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5794042251362857849, guid: a5d29e71dbbef4e8790c675750ba488d, type: 3}
   m_PrefabInstance: {fileID: 1846409439}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1846875394
