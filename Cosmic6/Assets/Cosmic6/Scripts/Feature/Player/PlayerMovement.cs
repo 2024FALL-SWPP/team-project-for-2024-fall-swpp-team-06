@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = characterController.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -1f;
+            velocity.y = -10f;
         }
 
         if (isGrounded && isJumping)

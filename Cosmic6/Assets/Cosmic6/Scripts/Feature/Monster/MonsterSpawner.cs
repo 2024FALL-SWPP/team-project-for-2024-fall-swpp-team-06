@@ -11,7 +11,7 @@ public class MonsterSpawner : MonoBehaviour
     public TimeManager timeManager;
     //public Transform mainCameraTransform;
     
-    private bool isActive;
+    public bool isActive;
     private GameObject[] monsterTypes;
     
     
@@ -62,6 +62,9 @@ public class MonsterSpawner : MonoBehaviour
 
     void ToggleMonsters(bool activate)
     {
-        
+        foreach (var monsterType in monsterTypes)
+        {
+            monsterType.SetActive(activate);
+        }
     }
 }

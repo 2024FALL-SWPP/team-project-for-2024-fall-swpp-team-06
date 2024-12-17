@@ -37,6 +37,7 @@ public class CameraRaycaster : MonoBehaviour
             if (uiManager.isUIActive)
             {
                 yield return new WaitForSeconds(raycastPeriod);
+                isClicked = false;
                 continue;
             }
             
