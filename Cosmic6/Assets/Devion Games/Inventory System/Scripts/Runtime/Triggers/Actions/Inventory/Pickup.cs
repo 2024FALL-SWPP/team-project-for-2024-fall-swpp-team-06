@@ -24,13 +24,8 @@ namespace DevionGames.InventorySystem
 
         private UnityEvent onTriggered; // 다른 Pickup 트리거용 이벤트
 
-        private PlantLifecycle plantLifeCycle;
-
         public override void OnStart()
         {
-            this.plantLifeCycle = gameObject.GetComponent<PlantLifecycle>();
-            Debug.Log("Plant Life Cycle: " + this.plantLifeCycle);
-
             this.m_ItemCollection = gameObject.GetComponent<ItemCollection>();
             this.m_ItemCollection.onChange.AddListener(delegate () {
                 if (this.m_ItemCollection.IsEmpty && this.m_DestroyWhenEmpty)

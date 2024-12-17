@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class FieldDecayManager : MonoBehaviour
 {
-    public const float DecayInterval = 10f;
+    public const float DecayInterval = 30f;
     // three textures for tilled grid, 2 -> 1 -> 0
     public const int DecayStages = 3;
     private IEnumerator decayRoutine;
