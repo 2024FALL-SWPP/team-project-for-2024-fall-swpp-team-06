@@ -9,7 +9,7 @@ public class MonsterSpawner : MonoBehaviour
     public int regionIndex;
     public LocationTracker locationTracker;
     public TimeManager timeManager;
-    public Transform mainCameraTransform;
+    //public Transform mainCameraTransform;
     
     private bool isActive;
     private GameObject[] monsterTypes;
