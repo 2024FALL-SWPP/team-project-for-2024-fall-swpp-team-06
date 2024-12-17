@@ -26053,7 +26053,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jsonFilePath: Assets/StreamingAssets/default_plants.json
   spawnInterval: 0.05
-  plantsParent: {fileID: 601758433}
+  plantsParents:
+  - {fileID: 853285834}
+  - {fileID: 555775648}
+  - {fileID: 1700129440}
 --- !u!1 &407888097
 GameObject:
   m_ObjectHideFlags: 0
@@ -35087,6 +35090,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 554735732}
   m_CullTransparentMesh: 0
+--- !u!1 &555775648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 555775649}
+  m_Layer: 0
+  m_Name: Region2Plants
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &555775649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555775648}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 601758434}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &556126275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37681,7 +37715,10 @@ Transform:
   m_LocalPosition: {x: 2069.8242, y: 0.48115587, z: -10728.027}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 853285835}
+  - {fileID: 555775649}
+  - {fileID: 1700129441}
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54915,6 +54952,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 850699438}
   m_CullTransparentMesh: 0
+--- !u!1 &853285834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853285835}
+  m_Layer: 0
+  m_Name: Region1Plants
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853285835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853285834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 601758434}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &853441902
 GameObject:
   m_ObjectHideFlags: 0
@@ -67770,6 +67838,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1371657908551431546, guid: cde78844604e44832a8d6705b8af5d56, type: 3}
+      propertyPath: locationTracker
+      value: 
+      objectReference: {fileID: 1646881341}
     - target: {fileID: 1783965461307129500, guid: cde78844604e44832a8d6705b8af5d56, type: 3}
       propertyPath: m_Name
       value: PlantManager
@@ -79227,7 +79299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2217017165105714522, guid: 7711700c499322241ad0a6161fccb38f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -35.006435
+      value: -36.40553
       objectReference: {fileID: 0}
     - target: {fileID: 2452283189092255581, guid: 7711700c499322241ad0a6161fccb38f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -79251,7 +79323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2452283189092255581, guid: 7711700c499322241ad0a6161fccb38f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -79.79643
+      value: -81.195526
       objectReference: {fileID: 0}
     - target: {fileID: 3227985642732245333, guid: 7711700c499322241ad0a6161fccb38f, type: 3}
       propertyPath: m_SizeDelta.y
@@ -104853,6 +104925,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dca1232e653d471ab0047527c92ed2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1646881341 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2529928267110338124, guid: 4741f9ad5f10a43bfbd9eb41d257a10b, type: 3}
+  m_PrefabInstance: {fileID: 365697483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646881318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9772969138b944dba8270a080286e57a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1648096087
 GameObject:
   m_ObjectHideFlags: 0
@@ -108206,6 +108289,37 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!1 &1700129440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1700129441}
+  m_Layer: 0
+  m_Name: Region3Plants
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1700129441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700129440}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 601758434}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1703628099
 GameObject:
   m_ObjectHideFlags: 0
@@ -122336,7 +122450,9 @@ MonoBehaviour:
   terrain1: {fileID: 681696227}
   terrain2: {fileID: 71482760}
   terrain3: {fileID: 117320203}
-  terrains: []
+  terrains1: []
+  terrains2: []
+  terrains3: []
   minDistance: 40
 --- !u!1 &1896534285
 GameObject:
