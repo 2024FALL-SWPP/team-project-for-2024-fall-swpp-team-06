@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 public class PlantSpawner : MonoBehaviour
 {
@@ -15,6 +15,19 @@ public class PlantSpawner : MonoBehaviour
         public Terrain terrain;
     }
 
+    [System.Serializable]
+    public class PlantDataList
+    {
+        public List<PlantData> plants = new List<PlantData>();
+    }
+
+    [System.Serializable]
+    public class PlantData
+    {
+        public string name;
+        public Vector3 position;
+    }
+
     public GameObject terrain1;
     public GameObject terrain2;
     public GameObject terrain3;
@@ -24,8 +37,8 @@ public class PlantSpawner : MonoBehaviour
     private float timeBetweenSpawns = 0.05f;
 
     public List<TerrainData> terrains = new List<TerrainData>();
+    private PlantDataList plantDataList = new PlantDataList();
 
-    
     static List<string> terrain1PrefabPaths = new List<string> {
         "Assets/Cosmic6/Prefabs/Plants/1_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/2_Plant.prefab",
@@ -48,7 +61,6 @@ public class PlantSpawner : MonoBehaviour
         "Assets/Cosmic6/Prefabs/Plants/15_Plant.prefab"
     };
 
-
     public void GenerateTerrains()
     {
         terrains.Clear();
@@ -70,21 +82,18 @@ public class PlantSpawner : MonoBehaviour
                 float sizeX = terrainComponent.terrainData.size.x;
                 float sizeZ = terrainComponent.terrainData.size.z;
 
-                
                 terrains.Add(new TerrainData
                 {
                     spawnArea = new Rect(position.x, position.z, sizeX, sizeZ),
                     prefabPaths = prefabPaths,
                     minPlants = minPlants,
-                    terrain = child.GetComponent<Terrain>()
+                    terrain = terrainComponent
                 });
             }
         }
     }
 
-
     public float minDistance = 40f;
-
     private List<Vector3> spawnedPositions = new List<Vector3>();
 
     void Start()
@@ -100,29 +109,23 @@ public class PlantSpawner : MonoBehaviour
             int spawnedCount = 0;
             while (spawnedCount < terrain.minPlants)
             {
-                Vector3 randomPosition = GenerateRandomPosition(terrain);
-                
-                Vector3 newPosition;
+                Vector3 randomPosition;
                 OverlayData overlayData;
-                
+
                 do
                 {
-                    newPosition = GenerateRandomPosition(terrain);
-                    var (xIndex, zIndex) = FarmingManager.Instance.GlobalToIdx(newPosition.x, newPosition.z);
-            
+                    randomPosition = GenerateRandomPosition(terrain);
+                    var (xIndex, zIndex) = FarmingManager.Instance.GlobalToIdx(randomPosition.x, randomPosition.z);
                     overlayData = FarmingManager.Instance.GetOverlayData(xIndex, zIndex, terrain.terrain);
                 }
-                while (!(IsPositionValid(newPosition, terrain) && overlayData.canFarm));
-                
-                if (IsPositionValid(randomPosition, terrain))
-                {
-                    SpawnPlant(overlayData.position, terrain, initialSpawn: true);
-                    spawnedCount++;
-                }
+                while (!(IsPositionValid(randomPosition, terrain) && overlayData.canFarm));
 
+                SpawnPlant(overlayData.position, terrain, initialSpawn: true);
+                spawnedCount++;
                 yield return null;
             }
         }
+        SavePlantDataToJson("Assets/StreamingAssets/default_plants.json");
     }
 
     Vector3 GenerateRandomPosition(TerrainData terrain)
@@ -132,45 +135,33 @@ public class PlantSpawner : MonoBehaviour
         return new Vector3(x, 0, z);
     }
 
-    public void SubstitutePlant(Vector3 oldPosition, TerrainData terrain)
-    {
-        spawnedPositions.Remove(oldPosition);
-
-        Vector3 newPosition;
-        OverlayData overlayData;
-        int attempts = 0;
-        do
-        {
-            newPosition = GenerateRandomPosition(terrain);
-            var (xIndex, zIndex) = FarmingManager.Instance.GlobalToIdx(newPosition.x, newPosition.z);
-            
-            overlayData = FarmingManager.Instance.GetOverlayData(xIndex, zIndex, terrain.terrain);
-            attempts++;
-        }
-        while (!(IsPositionValid(newPosition, terrain) && overlayData.canFarm));
-
-        if (IsPositionValid(newPosition, terrain) && overlayData.canFarm)
-        {
-            SpawnPlant(overlayData.position, terrain);
-        }
-    }
-
     void SpawnPlant(Vector3 position, TerrainData terrain, bool initialSpawn = false)
     {
-        // Spawning Plant
         string prefabPath = terrain.prefabPaths[Random.Range(0, terrain.prefabPaths.Count)];
         if (initialSpawn)
         {
             prefabPath = prefabPath.Replace("Assets/Cosmic6/Prefabs/Plants/", "Assets/Cosmic6/Prefabs12DB/");
         }
         GameObject plantPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-
-        Debug.Log("Spawning Plant: " + position + " " + prefabPath + ": "+plantPrefab);
-
         if (plantPrefab != null)
         {
             ObjectManager.Instance.SpawnObjectWithName(plantPrefab, plantPrefab.name, position, Quaternion.identity);
             spawnedPositions.Add(position);
+            plantDataList.plants.Add(new PlantData { name = plantPrefab.name, position = position });
+        }
+    }
+
+    void SavePlantDataToJson(string filePath)
+    {
+        if (plantDataList.plants.Count > 0)
+        {
+            string json = JsonUtility.ToJson(plantDataList, true);
+            File.WriteAllText(filePath, json);
+            Debug.Log("Saved plant data to " + filePath);
+        }
+        else
+        {
+            Debug.LogWarning("Plant data list is empty. No data saved.");
         }
     }
 
@@ -185,5 +176,4 @@ public class PlantSpawner : MonoBehaviour
         }
         return true;
     }
-
 }
