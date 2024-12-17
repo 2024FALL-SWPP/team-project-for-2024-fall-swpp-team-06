@@ -15,7 +15,7 @@ public class PlayerStatusController : MonoBehaviour
     public float energy { get; private set; }
 
     public float maxHP { get; private set; } = 100f;
-    public float maxOxygen { get; private set; } = 600f;
+    public float maxOxygen { get; private set; } = 200f;
     public float maxEnergy { get; private set; } = 100f;
 
     private float hpUpdatePeriod = 6f; // in Region 3
@@ -120,14 +120,14 @@ public class PlayerStatusController : MonoBehaviour
 
     public void UpgradeOxygen1()
     {
-        maxOxygen += 200f;
+        maxOxygen += 100f;
         playerStatusUI.UpdateBarValues();
         Debug.Log($"maxOxygen is updated to {maxOxygen}");
     }
 
     public void UpgradeOxygen2()
     {
-        maxOxygen += 400f;
+        maxOxygen += 100f;
         playerStatusUI.UpdateBarValues();
         Debug.Log($"maxOxygen is updated to {maxOxygen}");
     }
