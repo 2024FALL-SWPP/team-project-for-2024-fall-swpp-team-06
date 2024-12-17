@@ -9,6 +9,9 @@ public class ItemGenerator : MonoBehaviour
     {
         "Assets/Cosmic6/Prefabs12DB/삽.prefab",
         "Assets/Cosmic6/Prefabs12DB/1_Plant.prefab",
+        "Assets/Cosmic6/Prefabs12DB/1_Plant.prefab",
+        "Assets/Cosmic6/Prefabs12DB/1_Plant.prefab",
+        "Assets/Cosmic6/Prefabs12DB/2_Plant.prefab",
         "Assets/Cosmic6/Prefabs12DB/2_Plant.prefab"
     };
 
