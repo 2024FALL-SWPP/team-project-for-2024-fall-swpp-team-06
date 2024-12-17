@@ -14,6 +14,12 @@ public class UIManager : MonoBehaviour
     public UIWidget inventoryWidget;
     public UIWidget menuWidget;
     public GameObject crossHairUI;
+    public GameObject telePanel;
+    public GameObject detectionPanel;
+    public GameObject playerStatusUI;
+    public GameObject itemSlot;
+
+    private GameObject[] itemSlotChildren;
 
     private UIIndex currentUIIndex = UIIndex.Inventory;
 
@@ -23,6 +29,17 @@ public class UIManager : MonoBehaviour
         Quest,
         Inventory,
         Setting
+    }
+
+    void Start()
+    {
+        var childCount = itemSlot.transform.childCount;
+        itemSlotChildren = new GameObject[childCount];
+
+        for (int i = 0; i < childCount; i++)
+        {
+            itemSlotChildren[i] = itemSlot.transform.GetChild(i).gameObject;
+        }
     }
     
 
@@ -72,6 +89,7 @@ public class UIManager : MonoBehaviour
         {
             case UIIndex.Map:
                 minimapController.ShowFullMap();
+                ToggleUIForMap(false);
                 break;
             case UIIndex.Quest:
                 questSystem.ToggleActive();
@@ -91,6 +109,7 @@ public class UIManager : MonoBehaviour
         {
             case UIIndex.Map:
                 minimapController.CloseFullMap();
+                ToggleUIForMap(true);
                 break;
             case UIIndex.Quest:
                 questSystem.ToggleActive();
@@ -149,4 +168,17 @@ public class UIManager : MonoBehaviour
             crossHairUI.SetActive(true);
         }
     }
+
+    private void ToggleUIForMap(bool isOn)
+    {
+        telePanel.SetActive(isOn);
+        detectionPanel.SetActive(isOn);
+        playerStatusUI.SetActive(isOn);
+
+        foreach (var child in itemSlotChildren)
+        {
+            child.SetActive(isOn);
+        }
+    }
+    
 }
