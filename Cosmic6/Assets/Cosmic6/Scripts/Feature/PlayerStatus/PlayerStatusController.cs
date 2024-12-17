@@ -87,15 +87,15 @@ public class PlayerStatusController : MonoBehaviour
 
     public void UpdateHP(float hpChange)
     {
-        if (!locationTracker.isBase)
-        {
-            hp = Math.Max(hp + hpChange, 0);
+        if (locationTracker.isBase && hpChange < 0) return;
+        
+        hp = Math.Max(hp + hpChange, 0);
 
-            if (hp == 0)
-            {
-                gameManager.GameOver();
-            }
+        if (hp == 0)
+        {
+            gameManager.GameOver();
         }
+        
     }
 
     public void UpdateEnergy(float energyChange)
