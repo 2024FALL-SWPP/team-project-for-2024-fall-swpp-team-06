@@ -10,6 +10,8 @@ public class OpeningVideoController : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = false;
         videoPlayer.loopPointReached += OnVideoEnd;
     }
 

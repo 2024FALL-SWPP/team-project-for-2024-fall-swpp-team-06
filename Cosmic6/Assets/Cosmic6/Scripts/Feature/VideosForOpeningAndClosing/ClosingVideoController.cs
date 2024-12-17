@@ -7,6 +7,9 @@ public class ClosingVideoController : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = false;
+        
         if (videoPlayer != null)
         {
             videoPlayer.loopPointReached += OnVideoEnd;
