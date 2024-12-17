@@ -10,6 +10,7 @@ public class CameraRaycaster : MonoBehaviour
 {
     private float raycastPeriod = 0.1f;
     private float raycastDistance = 15f;
+    public UIManager uiManager;
     
     //public FarmingManager farmingManager;
     public bool isClicked { get; private set; } = false;
@@ -33,6 +34,12 @@ public class CameraRaycaster : MonoBehaviour
     {
         while (true)
         {
+            if (uiManager.isUIActive)
+            {
+                yield return new WaitForSeconds(raycastPeriod);
+                continue;
+            }
+            
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit,
                     raycastDistance, raycastMask))
             {
