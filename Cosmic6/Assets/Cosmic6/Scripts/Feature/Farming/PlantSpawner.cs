@@ -1,7 +1,7 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
 using UnityEditor;
 
 public class PlantSpawner : MonoBehaviour
@@ -19,8 +19,9 @@ public class PlantSpawner : MonoBehaviour
     public GameObject terrain2;
     public GameObject terrain3;
 
-    private int minPlants = 80;
-
+    private int minPlants = 15;
+    private int spawnNumPeriod = 5;
+    private float timeBetweenSpawns = 0.05f;
 
     public List<TerrainData> terrains = new List<TerrainData>();
 
@@ -69,18 +70,14 @@ public class PlantSpawner : MonoBehaviour
                 float sizeX = terrainComponent.terrainData.size.x;
                 float sizeZ = terrainComponent.terrainData.size.z;
 
-                for (float x = position.x - sizeX / 2; x < position.x + sizeX / 2; x += 1000)
+                
+                terrains.Add(new TerrainData
                 {
-                    for (float z = position.z - sizeZ / 2; z < position.z + sizeZ / 2; z += 1000)
-                    {
-                        terrains.Add(new TerrainData
-                        {
-                            spawnArea = new Rect(x, z, 1000, 1000),
-                            prefabPaths = prefabPaths,
-                            minPlants = minPlants
-                        });
-                    }
-                }
+                    spawnArea = new Rect(position.x, position.z, sizeX, sizeZ),
+                    prefabPaths = prefabPaths,
+                    minPlants = minPlants,
+                    terrain = child.GetComponent<Terrain>()
+                });
             }
         }
     }
@@ -93,10 +90,10 @@ public class PlantSpawner : MonoBehaviour
     void Start()
     {
         GenerateTerrains();
-        InitialRandomSpawn();
+        StartCoroutine(InitialRandomSpawn());
     }
 
-    void InitialRandomSpawn()
+    IEnumerator InitialRandomSpawn()
     {
         foreach (var terrain in terrains)
         {
@@ -104,11 +101,26 @@ public class PlantSpawner : MonoBehaviour
             while (spawnedCount < terrain.minPlants)
             {
                 Vector3 randomPosition = GenerateRandomPosition(terrain);
+                
+                Vector3 newPosition;
+                OverlayData overlayData;
+                
+                do
+                {
+                    newPosition = GenerateRandomPosition(terrain);
+                    var (xIndex, zIndex) = FarmingManager.Instance.GlobalToIdx(newPosition.x, newPosition.z);
+            
+                    overlayData = FarmingManager.Instance.GetOverlayData(xIndex, zIndex, terrain.terrain);
+                }
+                while (!(IsPositionValid(newPosition, terrain) && overlayData.canFarm));
+                
                 if (IsPositionValid(randomPosition, terrain))
                 {
-                    SpawnPlant(randomPosition, terrain, initialSpawn: true);
+                    SpawnPlant(overlayData.position, terrain, initialSpawn: true);
                     spawnedCount++;
                 }
+
+                yield return null;
             }
         }
     }
@@ -130,10 +142,12 @@ public class PlantSpawner : MonoBehaviour
         do
         {
             newPosition = GenerateRandomPosition(terrain);
-            overlayData = FarmingManager.Instance.GetOverlayData((int)newPosition.x, (int)newPosition.z, terrain.terrain);
+            var (xIndex, zIndex) = FarmingManager.Instance.GlobalToIdx(newPosition.x, newPosition.z);
+            
+            overlayData = FarmingManager.Instance.GetOverlayData(xIndex, zIndex, terrain.terrain);
             attempts++;
         }
-        while (!(IsPositionValid(newPosition, terrain) && overlayData.canFarm) && attempts < terrain.minPlants * 2);
+        while (!(IsPositionValid(newPosition, terrain) && overlayData.canFarm));
 
         if (IsPositionValid(newPosition, terrain) && overlayData.canFarm)
         {
