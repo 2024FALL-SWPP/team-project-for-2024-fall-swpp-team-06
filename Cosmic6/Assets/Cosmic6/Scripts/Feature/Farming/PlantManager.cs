@@ -37,7 +37,7 @@ public class PlantManager : MonoBehaviour
     }
 
     // Add plant data
-    public void AddPlant(string name, Vector3 pos, PlantLifecycle lifecycle)
+    public string AddPlant(string name, Vector3 pos, PlantLifecycle lifecycle)
     {
         if (!plantNameCounts.ContainsKey(name))
         {
@@ -49,6 +49,7 @@ public class PlantManager : MonoBehaviour
         PlantData newPlant = new PlantData(uniqueName, pos, lifecycle);
         plantList.Add(newPlant);
         Debug.Log($"식물 추가: {uniqueName}, 위치: {pos}");
+        return uniqueName;
     }
 
     // Check harvest
@@ -62,15 +63,17 @@ public class PlantManager : MonoBehaviour
             {
                 // TODO: Substitute the plant object with Prefab
                 string plantName = plant.plantName.Split("_")[0] + "_" + plant.plantName.Split("_")[1];
-                Debug.Log($"수확 가능한 식물 발견: {plantName}, 위치: {plant.position}");
+                string plantFullName = plant.plantName;
+                Debug.Log($"수확 가능한 식물 발견: {plant.plantName}, 위치: {plant.position}");
 
                 PlantItemData plantItemData = PlantItemLoader.Instance.GetPlantItemData(plantName);
                 GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(plantItemData.seed.prefab_path);
 
-                GameObject plantPrefab = ObjectManager.Instance.SpawnObject(prefab, plant.position, Quaternion.identity);
-                plantPrefab.name = plantName;
+                GameObject plantPrefab = ObjectManager.Instance.SpawnObjectWithName(prefab, plantFullName, plant.position, Quaternion.identity);
                 ItemCollection itemCollection = plantPrefab.GetComponent<ItemCollection>();
-                itemCollection.name = plantName;
+                itemCollection.name = plantFullName;
+
+                Debug.Log("식물 교체 완: " + plantPrefab.name);
 
                 Destroy(plant.plantLifecycle.gameObject);
             }

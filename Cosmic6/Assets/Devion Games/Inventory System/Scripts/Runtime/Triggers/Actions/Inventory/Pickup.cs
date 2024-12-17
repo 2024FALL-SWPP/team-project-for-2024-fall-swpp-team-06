@@ -24,6 +24,8 @@ namespace DevionGames.InventorySystem
 
         private UnityEvent onTriggered; // 다른 Pickup 트리거용 이벤트
 
+        private string plantObjectName;
+
         public override void OnStart()
         {
             this.m_ItemCollection = gameObject.GetComponent<ItemCollection>();
@@ -33,10 +35,13 @@ namespace DevionGames.InventorySystem
                     GameObject.Destroy(gameObject,0.1f);
                 }
             });
+            plantObjectName = gameObject.name;
         }
         
         public override ActionStatus OnUpdate()
         {
+            plantObjectName = gameObject.name;
+
             ActionStatus status = PickupItems();
 
             onTriggered?.Invoke();
@@ -84,9 +89,6 @@ namespace DevionGames.InventorySystem
                         {
                             // Pickup
                             this.m_ItemCollection.Remove(item);
-
-                            Debug.Log("Pickup: " + itemName);
-
                             List<Item> extraItems = GetItemsFromJSON(itemName);
                             foreach (Item extraItem in extraItems){
                                 if (current.StackOrAdd(extraItem))
@@ -95,7 +97,7 @@ namespace DevionGames.InventorySystem
                                 }
                             }
 
-                            GameObject emptyObject = new GameObject("(Log) "+itemName);
+                            GameObject emptyObject = new GameObject("(Log) "+ plantObjectName);
                             ObjectManager.Instance.SpawnObject(emptyObject, Vector3.zero, Quaternion.identity);
 
                             break;

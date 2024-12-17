@@ -23,7 +23,7 @@ namespace DevionGames.InventorySystem
             ActivateOnlyFirstState();
 
             // plantManager에 정보 보내기
-            PlantManager.Instance.AddPlant(
+            gameObject.name = PlantManager.Instance.AddPlant(
                 gameObject.name,
                 gameObject.transform.position,
                 this
