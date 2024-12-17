@@ -66,7 +66,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c021793e5f349888fe0838c2b1c73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeInterval: 5
   plantStatus: Sprout
 --- !u!1001 &908884340965150720
 PrefabInstance:
@@ -99,6 +98,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5409f4ecba5fc45d3bff98e1f7239812, type: 2}
+    - target: {fileID: 4484317763453169746, guid: a59bad194f2254e08823b66d66af14a5, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5488070608499680418, guid: a59bad194f2254e08823b66d66af14a5, type: 3}
       propertyPath: m_RootOrder
       value: 4

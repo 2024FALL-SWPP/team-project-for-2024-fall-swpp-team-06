@@ -32,7 +32,7 @@ public class PlantSpawner : MonoBehaviour
     public GameObject terrain2;
     public GameObject terrain3;
 
-    private int minPlants = 15;
+    private int minPlants = 5;
     private int spawnNumPeriod = 5;
     private float timeBetweenSpawns = 0.05f;
 
