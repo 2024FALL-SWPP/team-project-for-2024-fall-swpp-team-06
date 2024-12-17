@@ -10,6 +10,20 @@ public enum FieldState
     Planted
 }
 
+public struct OverlayData
+{
+    public Vector3 position;
+    public Quaternion rotation;
+    public bool canFarm;
+
+    public OverlayData(Vector3 position, Quaternion rotation, bool canFarm)
+    {
+        this.position = position;
+        this.rotation = rotation;
+        this.canFarm = canFarm;
+    }
+}
+
 
 public class FarmingManager : MonoBehaviour
 {
@@ -27,19 +41,6 @@ public class FarmingManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public struct OverlayData
-    {
-        public Vector3 position;
-        public Quaternion rotation;
-        public bool canFarm;
-
-        public OverlayData(Vector3 position, Quaternion rotation, bool canFarm)
-        {
-            this.position = position;
-            this.rotation = rotation;
-            this.canFarm = canFarm;
-        }
-    }
     
     // fieldStates should be saved & loaded
     private Dictionary<(int, int), FieldState> fieldStates = new Dictionary<(int, int), FieldState>();
@@ -222,7 +223,7 @@ public class FarmingManager : MonoBehaviour
         }
     }
 
-    OverlayData GetOverlayData(int x, int z, Terrain terrain)
+    public OverlayData GetOverlayData(int x, int z, Terrain terrain)
     {
         float terrainSizeX = terrain.terrainData.size.x;
         float terrainSizeZ = terrain.terrainData.size.z;
@@ -293,7 +294,7 @@ public class FarmingManager : MonoBehaviour
     
     
     
-    float GetHeightGlobal(float localX, float localZ, Terrain terrain)
+    public float GetHeightGlobal(float localX, float localZ, Terrain terrain)
     {
         TerrainData terrainData = terrain.terrainData;
         
