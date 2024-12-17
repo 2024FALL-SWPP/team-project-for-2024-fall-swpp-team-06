@@ -15,20 +15,30 @@ public class PlantSpawner : MonoBehaviour
         public Terrain terrain;
     }
 
-    static List<string> rect1PrefabPaths = new List<string> {
+    public GameObject terrain1;
+    public GameObject terrain2;
+    public GameObject terrain3;
+
+    private int minPlants = 80;
+
+
+    public List<TerrainData> terrains = new List<TerrainData>();
+
+    
+    static List<string> terrain1PrefabPaths = new List<string> {
         "Assets/Cosmic6/Prefabs/Plants/1_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/2_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/3_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/4_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/5_Plant.prefab",
     };
-    static List<string> rect2PrefabPaths = new List<string> {
+    static List<string> terrain2PrefabPaths = new List<string> {
         "Assets/Cosmic6/Prefabs/Plants/6_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/7_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/11_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/12_Plant.prefab",
     };
-    static List<string> rect3PrefabPaths = new List<string> {
+    static List<string> terrain3PrefabPaths = new List<string> {
         "Assets/Cosmic6/Prefabs/Plants/8_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/9_Plant.prefab",
         "Assets/Cosmic6/Prefabs/Plants/10_Plant.prefab",
@@ -37,37 +47,44 @@ public class PlantSpawner : MonoBehaviour
         "Assets/Cosmic6/Prefabs/Plants/15_Plant.prefab"
     };
 
-    public List<TerrainData> terrains = new List<TerrainData>
+
+    public void GenerateTerrains()
     {
-        // Rect 1: Split into 1000x1000 squares
-        new TerrainData { spawnArea = new Rect(-4500, -7500, 1000, 1000), prefabPaths = rect1PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(-3500, -7500, 1000, 1000), prefabPaths = rect1PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(-2500, -7500, 1000, 1000), prefabPaths = rect1PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(-1500, -7500, 1000, 1000), prefabPaths = rect1PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(-4500, -6500, 1000, 1000), prefabPaths = rect1PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(-3500, -6500, 1000, 1000), prefabPaths = rect1PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(-2500, -6500, 1000, 1000), prefabPaths = rect1PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(-1500, -6500, 1000, 1000), prefabPaths = rect1PrefabPaths, minPlants = 500 },
+        terrains.Clear();
+        ProcessTerrain(terrain1, terrain1PrefabPaths);
+        ProcessTerrain(terrain2, terrain2PrefabPaths);
+        ProcessTerrain(terrain3, terrain3PrefabPaths);
+    }
 
-        // Rect 2: Split into 1000x1000 squares
-        new TerrainData { spawnArea = new Rect(-500, -11500, 1000, 1000), prefabPaths = rect2PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(500, -11500, 1000, 1000), prefabPaths = rect2PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(-500, -10500, 1000, 1000), prefabPaths = rect2PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(500, -10500, 1000, 1000), prefabPaths = rect2PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(-500, -9500, 1000, 1000), prefabPaths = rect2PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(500, -9500, 1000, 1000), prefabPaths = rect2PrefabPaths, minPlants = 500 },
+    void ProcessTerrain(GameObject terrainObject, List<string> prefabPaths)
+    {
+        if (terrainObject == null) return;
 
-        // Rect 3: Split into 1000x1000 squares
-        new TerrainData { spawnArea = new Rect(2500, -14500, 1000, 1000), prefabPaths = rect3PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(3500, -14500, 1000, 1000), prefabPaths = rect3PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(4500, -14500, 1000, 1000), prefabPaths = rect3PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(2500, -13500, 1000, 1000), prefabPaths = rect3PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(3500, -13500, 1000, 1000), prefabPaths = rect3PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(4500, -13500, 1000, 1000), prefabPaths = rect3PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(2500, -12500, 1000, 1000), prefabPaths = rect3PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(3500, -12500, 1000, 1000), prefabPaths = rect3PrefabPaths, minPlants = 500 },
-        new TerrainData { spawnArea = new Rect(4500, -12500, 1000, 1000), prefabPaths = rect3PrefabPaths, minPlants = 500 }
-    };
+        foreach (Transform child in terrainObject.transform)
+        {
+            Terrain terrainComponent = child.GetComponent<Terrain>();
+            if (terrainComponent != null)
+            {
+                Vector3 position = child.position;
+                float sizeX = terrainComponent.terrainData.size.x;
+                float sizeZ = terrainComponent.terrainData.size.z;
+
+                for (float x = position.x - sizeX / 2; x < position.x + sizeX / 2; x += 1000)
+                {
+                    for (float z = position.z - sizeZ / 2; z < position.z + sizeZ / 2; z += 1000)
+                    {
+                        terrains.Add(new TerrainData
+                        {
+                            spawnArea = new Rect(x, z, 1000, 1000),
+                            prefabPaths = prefabPaths,
+                            minPlants = minPlants
+                        });
+                    }
+                }
+            }
+        }
+    }
+
 
     public float minDistance = 40f;
 
@@ -75,6 +92,7 @@ public class PlantSpawner : MonoBehaviour
 
     void Start()
     {
+        GenerateTerrains();
         InitialRandomSpawn();
     }
 

@@ -2152,7 +2152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c021793e5f349888fe0838c2b1c73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeInterval: 5
   plantStatus: Sprout
 --- !u!114 &4990142434838352007
 MonoBehaviour:
@@ -2167,7 +2166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delegates: []
-  useDistance: 1.2
+  useDistance: 5
   triggerType: 9
   key: 102
   actionTemplate: {fileID: 11400000, guid: b0a891f94aa057f4ca31fdd098bcf769, type: 2}
