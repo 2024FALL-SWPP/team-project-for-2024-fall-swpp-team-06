@@ -21752,6 +21752,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3862646566450914761, guid: 4741f9ad5f10a43bfbd9eb41d257a10b, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 789812391}
+    - target: {fileID: 3862646566450914761, guid: 4741f9ad5f10a43bfbd9eb41d257a10b, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 789812390}
@@ -47463,12 +47467,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1446a280c69f56c41a373e63effb61ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryWidget: {fileID: 579197059}
-  questPanel: {fileID: 27876070}
-  minimapCamera: {fileID: 652138529}
-  fullmapCamera: {fileID: 1735203207}
-  minimapCanvas: {fileID: 669449440}
   minimapController: {fileID: 669449444}
+  questSystem: {fileID: 1419481176}
+  inventoryWidget: {fileID: 579197059}
+  menuWidget: {fileID: 1401358917}
+  crossHairUI: {fileID: 1368101619}
 --- !u!1001 &793150542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80056,6 +80059,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366440752}
   m_CullTransparentMesh: 0
+--- !u!1 &1368101619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5794042251362857849, guid: a5d29e71dbbef4e8790c675750ba488d, type: 3}
+  m_PrefabInstance: {fileID: 1846409439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1369081450
 GameObject:
   m_ObjectHideFlags: 0
