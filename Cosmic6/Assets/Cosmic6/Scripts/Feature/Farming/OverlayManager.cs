@@ -30,7 +30,7 @@ public class OverlayManager : MonoBehaviour
         pools[1].SetActive(false);
     }
 
-    public void ChangeOverlay(FarmingManager.OverlayData overlayData)
+    public void ChangeOverlay(OverlayData overlayData)
     {
         if (overlayData.canFarm)
         {
