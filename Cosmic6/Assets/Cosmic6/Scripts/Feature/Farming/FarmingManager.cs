@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DevionGames.InventorySystem;
+using UnityEngine.UI;
 
 public enum FieldState
 {
@@ -48,6 +49,7 @@ public class FarmingManager : MonoBehaviour
     private FieldDecayManager fieldDecayManager;
     public CameraRaycaster cameraRaycaster;
 
+    public Image hoeImage;
     public float gridSize { get; private set; } = 1000 / 1024f;
     public bool isFarmingMode = false;
 
@@ -156,6 +158,7 @@ public class FarmingManager : MonoBehaviour
             if (!isOverlayInvisible)
             {
                 isOverlayInvisible = true;
+                hoeImage.enabled = false;
                 overlayManager.SetOverlayInvisible();
             }
             
@@ -183,19 +186,25 @@ public class FarmingManager : MonoBehaviour
                     currentZ = z;
                     isOverlayInvisible = false;
                 }
-            
-                if (overlayData.canFarm && isClicked)
+
+                if (overlayData.canFarm)
                 {
-                    if (GetFieldState(x, z) == FieldState.NotTilled)
+                    hoeImage.enabled = true;
+
+                    if (isClicked)
                     {
-                        var fieldState = fieldDecayManager.Tile(x, z, hitTerrain);
-                        SetFieldState(x, z, fieldState);
+                        if (GetFieldState(x, z) == FieldState.NotTilled)
+                        {
+                            var fieldState = fieldDecayManager.Tile(x, z, hitTerrain);
+                            SetFieldState(x, z, fieldState);
+                        }
                     }
                 }
             }
             else
             {
                 isOverlayInvisible = true;
+                hoeImage.enabled = false;
                 overlayManager.SetOverlayInvisible();
 
                 if (isPlantingMode && state == FieldState.Tilled && isClicked)
@@ -219,6 +228,7 @@ public class FarmingManager : MonoBehaviour
         else
         {
             isOverlayInvisible = true;
+            hoeImage.enabled = false;
             overlayManager.SetOverlayInvisible();
         }
     }
