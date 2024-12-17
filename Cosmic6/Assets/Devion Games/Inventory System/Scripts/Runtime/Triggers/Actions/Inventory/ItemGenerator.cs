@@ -5,10 +5,11 @@ using UnityEditor;
 
 public class ItemGenerator : MonoBehaviour
 {
-    public List<string> initialPrefabPaths = new List<string>
+    private List<string> initialPrefabPaths = new List<string>
     {
         "Assets/Cosmic6/Prefabs12DB/삽.prefab",
-        "Assets/Cosmic6/Prefabs12DB/산소통.prefab"
+        "Assets/Cosmic6/Prefabs12DB/1_Plant.prefab",
+        "Assets/Cosmic6/Prefabs12DB/2_Plant.prefab"
     };
 
     // Start is called before the first frame update
