@@ -13,6 +13,20 @@ public enum FieldState
 
 public class FarmingManager : MonoBehaviour
 {
+
+        public static FarmingManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
+
     public struct OverlayData
     {
         public Vector3 position;
@@ -35,7 +49,6 @@ public class FarmingManager : MonoBehaviour
 
     public float gridSize { get; private set; } = 1000 / 1024f;
     public bool isFarmingMode = false;
-    private bool isStop = true;
 
     private const float xOffset = -4000f;
     private const float zOffset = -5000f;
@@ -55,9 +68,6 @@ public class FarmingManager : MonoBehaviour
     public float angleThresholdDeg = 15f;
     private float normalThreshold;
     
-    private float checkRate = 0.15f;
-
-    private bool isClicked = false;
     private (int, int) clickedIndices;
 
     // equip seed
@@ -88,8 +98,8 @@ public class FarmingManager : MonoBehaviour
         isPlantingMode = false;
         isTilingMode = false;
     }
-
-    void ExecutePlanting(Vector3 position)
+    
+    void ExecutePlanting(Vector3 worldPosition)
     {
         // Position만 정하면 Instantiation + Hand에서 숫자 줄어들도록 하는 메서드
         if (isPlantingMode && plant)
@@ -97,31 +107,23 @@ public class FarmingManager : MonoBehaviour
             ObjectManager.Instance.SpawnObjectWithName(
                 plant,
                 plant.name,
-                new Vector3(),
+                worldPosition,
                 Quaternion.identity
             );
             handManager.UseItem(1);
         }
     }
-
+    
     void Update()
     {
         if (handManager.holdItems.Count > 0)
         {
             Item item = handManager.holdItems[0];
             isTilingMode = item.name == "Shovel(Clone)";
-            isPlantingMode = item.name.Contains("_Plant");
-
-            // 식물 심는 방법 예시 (테스트용으로 PlantOne 변수 사용 -> 지워도 됩니다)
+            isPlantingMode = item.Prefab.name.Contains("_Plant");
             if (isPlantingMode)
             {
                 plant = item.OverridePrefab;
-                if(plantOne)
-                {
-                    ExecutePlanting(new Vector3());
-                    plantOne = false;
-                }
-
             }
             else
             {
@@ -135,120 +137,14 @@ public class FarmingManager : MonoBehaviour
             plant = null;
         }
     }
-
-
-    /*
-    void Update()
-    {
-        if (!isFarmingMode && !isStop)
-        {
-            StopCoroutine("FarmingRoutine");
-            isStop = true;
-        }
-
-        if (isFarmingMode && isStop)
-        {
-            StartCoroutine("FarmingRoutine");
-            isStop = false;
-        }
-
-        if (!isClicked && Input.GetMouseButtonDown(0))
-        {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit,
-                    overlayManager.overlayRange, terrainMask | collisionMask))
-            {
-                if (hit.collider.tag.StartsWith("Terrain"))
-                {
-                    var (x, z) = GlobalToIdx(hit.point.x, hit.point.z);
-                    if (GetFieldState(x, z) == FieldState.NotTilled)
-                    {
-                        isClicked = true;
-                        clickedIndices = (x, z);
-                    }
-
-                }
-            }
-        }
-    }
-
-    IEnumerator FarmingRoutine()
-    {
-        while (true)
-        {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit,
-                    overlayManager.overlayRange, terrainMask | collisionMask))
-            {
-                if (hit.collider.tag.StartsWith("Terrain"))
-                {
-                    Vector3 hitPoint = hit.point;
-                    Terrain hitTerrain = hit.collider.GetComponent<Terrain>();
-
-                    var (x, z) = GlobalToIdx(hitPoint.x, hitPoint.z);
-
-                    FieldState state = GetFieldState(x, z);
-
-                    if (state == FieldState.NotTilled)
-                    {
-                        OverlayData overlayData = GetOverlayData(x, z, hitTerrain);
-
-                        if (isOverlayInvisible || x != currentX || z != currentZ)
-                        {
-                            overlayManager.ChangeOverlay(overlayData);
-                            currentX = x;
-                            currentZ = z;
-                            isOverlayInvisible = false;
-                        }
-
-                        // TODO: check if equipping shovel
-                        if (overlayData.canFarm && isClicked)
-                        {
-                            if (GetFieldState(clickedIndices.Item1, clickedIndices.Item2) == FieldState.NotTilled)
-                            {
-                                if (fieldDecayManager.Tile(x, z, hitTerrain))
-                                {
-                                    print("tiling");
-                                    AddTilledField(x, z);
-                                }
-                            }
-                            isClicked = false;
-                        }
-                    }
-                    else
-                    {
-                        isOverlayInvisible = true;
-                        overlayManager.SetOverlayInvisible();
-
-                        if (state == FieldState.Tilled)
-                        {
-                            // Player Inventory -> If Equip Plant -> Plant
-                        }
-                        else if (state == FieldState.Planted)
-                        {
-                            // if clicked -> Harvest
-                        }
-                    }
-                }
-                else
-                {
-                    isOverlayInvisible = true;
-                    overlayManager.SetOverlayInvisible();
-                }
-            }
-            else
-            {
-                isOverlayInvisible = true;
-                overlayManager.SetOverlayInvisible();
-            }
-
-            yield return new WaitForSeconds(checkRate);
-        }
-    }*/
-
+    
     public void Harvest(float globalX, float globalZ)
     {
         var (xIndex, zIndex) = GlobalToIdx(globalX, globalZ);
         
+        var fieldState = fieldDecayManager.Harvest(xIndex, zIndex);
         
+        SetFieldState(xIndex, zIndex, fieldState);
         
     }
 
@@ -289,14 +185,10 @@ public class FarmingManager : MonoBehaviour
             
                 if (overlayData.canFarm && isClicked)
                 {
-                    if (GetFieldState(clickedIndices.Item1, clickedIndices.Item2) == FieldState.NotTilled)
+                    if (GetFieldState(x, z) == FieldState.NotTilled)
                     {
-                        /*
-                        if (fieldDecayManager.Tile(x, z, hitTerrain))
-                        {
-                            print("tiling");
-                            AddTilledField(x, z);
-                        }*/
+                        var fieldState = fieldDecayManager.Tile(x, z, hitTerrain);
+                        SetFieldState(x, z, fieldState);
                     }
                 }
             }
@@ -306,13 +198,18 @@ public class FarmingManager : MonoBehaviour
                 overlayManager.SetOverlayInvisible();
 
                 if (isPlantingMode && state == FieldState.Tilled && isClicked)
-                {
-                    /*
-                    if (fieldDecayManager.Plant(x, z))
-                    {
-                        print("planting");
-                        SetFieldState(x, z, true);
-                    }*/
+                {                    
+                    var fieldState = fieldDecayManager.Plant(x, z);
+                    
+                    var (globalX, globalZ) = (hitPoint.x, hitPoint.z);
+                    var (localX, localZ) = (globalX - hitTerrain.transform.position.x,
+                        globalZ - hitTerrain.transform.position.z);
+                    
+                    var y = GetHeightGlobal(localX, localZ, hitTerrain);
+                    
+                    ExecutePlanting(new (globalX, y, globalZ));
+                    Debug.Log("Planted on" + globalX + " " + globalZ);
+                    SetFieldState(x, z, fieldState);
                 }
             }
         }
@@ -418,14 +315,15 @@ public class FarmingManager : MonoBehaviour
         return FieldState.NotTilled;
     }
     
-    public bool SetFieldState(int x, int z, bool isPlanted)
+    public bool SetFieldState(int x, int z, FieldState state)
     {
-        if (!fieldStates.ContainsKey((x, z)))
+        if (state != FieldState.NotTilled)
         {
-            return false;
+            fieldStates[(x, z)] = state;
+        } else {
+            fieldStates.Remove((x, z));
         }
-
-        fieldStates[(x, z)] = isPlanted ? FieldState.Planted : FieldState.Tilled;
+        
         return true;
     }
 
