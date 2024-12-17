@@ -71,15 +71,27 @@ public class MonsterController : MonoBehaviour
     public float patrolSpeed = 3f;
     
     // TODO: control parameters of navmesh agent
-    void Start()
+    
+
+    void Awake()
     {
         target = player.transform;
         targetCollider = player.GetComponent<CapsuleCollider>();
         playerStatusController = player.GetComponent<PlayerStatusController>();
-
-        ChangeFov(true);
+        
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+    }
+    
+    
+    void OnEnable()
+    {
+        // initialize
+        _hasTarget = false;
+        isAttackHit = false;
+        currentState = State.Idle;
+        ChangeFov(true);
+        
         Initialize();
     }
 
