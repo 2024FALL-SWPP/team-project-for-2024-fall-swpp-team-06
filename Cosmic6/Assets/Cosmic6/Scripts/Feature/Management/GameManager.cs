@@ -47,7 +47,8 @@ public class GameManager : MonoBehaviour
     IEnumerator GameClearCoroutine()
     {
         // show ending scene
-        yield return new WaitForSeconds(gameOverDuration);
+        Debug.Log("Game Clear!");
+        yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene("Closing"); // nextSceneName은 확장자 없이 Map 이런식으로만 해주면 됨. 단 해당 씬을 File>Build Settings>Scenes in Build에 등록해주어야 정상 동작
     }
 }

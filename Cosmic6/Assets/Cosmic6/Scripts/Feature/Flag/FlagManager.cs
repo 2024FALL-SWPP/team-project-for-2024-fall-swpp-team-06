@@ -18,6 +18,7 @@ public class FlagManager : MonoBehaviour
     public CameraRaycaster cameraRaycaster;
     public PlayerStatusController playerStatusController;
     public QuestSystem questSystem;
+    public GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +123,7 @@ public class FlagManager : MonoBehaviour
                     questSystem.UpdateQuestProgress(variableName, 1);
                     Debug.Log($"Quest progress updated for {variableName}");
                 }
+                gameManager.GameClear();
             }
         }
     }
