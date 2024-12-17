@@ -1,205 +1,152 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
-using System;
 using DevionGames.UIWidgets;
 
 public class UIManager : MonoBehaviour
 {
+
+    public MinimapController minimapController;
+
+    public bool isUIActive { get; private set; } = true;
+    public QuestSystem questSystem;
     public UIWidget inventoryWidget;
-    public GameObject questPanel;
-    public GameObject minimapCamera;
-    public GameObject fullmapCamera;
-    public GameObject minimapCanvas;
+    public UIWidget menuWidget;
+    public GameObject crossHairUI;
 
-    public MinimapController minimapController; // MinimapController 참조
+    private UIIndex currentUIIndex = UIIndex.Inventory;
 
-    private bool inventoryOn = false;
-    private bool questOn = false;
-    private bool fullOn = false; 
-
-    private string previousState = "IQM 000";
-
-    void Awake()
+    private enum UIIndex
     {
-        if (inventoryWidget != null)
-        {
-            WidgetInputHandler.UnregisterInput(KeyCode.I, inventoryWidget);
-        }
+        Map,
+        Quest,
+        Inventory,
+        Setting
     }
+    
 
-    void Start()
-    {
-        if (minimapCamera != null) minimapCamera.SetActive(true);
-        if (fullmapCamera != null) fullmapCamera.SetActive(false);
-        if (questPanel != null) questPanel.SetActive(false);
-
-        inventoryOn = false;
-        questOn = false;
-        fullOn = false;
-
-        UpdateMinimapCanvasState();
-        LogStateChange("Start");
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ToggleInventory();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ToggleQuest();
-        }
-
         if (Input.GetKeyDown(KeyCode.M))
         {
-            ToggleMinimapMode();
+            ProcessNormalUIInput(UIIndex.Map);
         }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ProcessNormalUIInput(UIIndex.Quest);
+        }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            ProcessNormalUIInput(UIIndex.Inventory);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isUIActive)
+            {
+                DeactivateUI(currentUIIndex);
+                isUIActive = false;
+
+                if (currentUIIndex != UIIndex.Setting)
+                {
+                    ActivateUI(UIIndex.Setting);
+                    currentUIIndex = UIIndex.Setting;
+                    isUIActive = true;
+                }
+            }
+            else
+            {
+                ActivateUI(UIIndex.Setting);
+                currentUIIndex = UIIndex.Setting;
+                isUIActive = true;
+            }
+        }
+
+        UpdateUIState();
     }
 
-    public void CloseInventoryFromButton()
+    void ActivateUI(UIIndex uiIndex)
     {
-        if (inventoryOn && inventoryWidget != null)
+        switch (uiIndex)
         {
-            inventoryWidget.Close();
-            inventoryOn = false;
-            LogStateChange("CloseInventoryFromButton");
-        }
-    }
-
-    private void ToggleInventory()
-    {
-        if (!inventoryOn)
-        {
-            if (questOn)
-            {
-                questPanel.SetActive(false);
-                questOn = false;
-            }
-
-            if (fullOn)
-            {
-                // full->partial
-                fullOn = false;
-                fullmapCamera.SetActive(false);
-                minimapCamera.SetActive(true);
-                if (minimapController != null)
-                    minimapController.CloseFullMap();
-            }
-
-            if (inventoryWidget != null) inventoryWidget.Show();
-            inventoryOn = true;
-        }
-        else
-        {
-            if (inventoryWidget != null) inventoryWidget.Close();
-            inventoryOn = false;
-        }
-
-        UpdateMinimapCanvasState();
-        LogStateChange("ToggleInventory");
-    }
-
-    private void ToggleQuest()
-    {
-        if (!questOn)
-        {
-            if (inventoryOn)
-            {
-                inventoryWidget.Close();
-                inventoryOn = false;
-            }
-
-            if (fullOn)
-            {
-                // full->partial
-                fullOn = false;
-                fullmapCamera.SetActive(false);
-                minimapCamera.SetActive(true);
-                if (minimapController != null)
-                    minimapController.CloseFullMap();
-            }
-
-            questPanel.SetActive(true);
-            questOn = true;
-        }
-        else
-        {
-            questPanel.SetActive(false);
-            questOn = false;
-        }
-
-        UpdateMinimapCanvasState();
-        LogStateChange("ToggleQuest");
-    }
-
-    private void ToggleMinimapMode()
-    {
-        if (inventoryOn)
-        {
-            inventoryWidget.Close();
-            inventoryOn = false;
-        }
-
-        if (questOn)
-        {
-            questPanel.SetActive(false);
-            questOn = false;
-        }
-
-        if (!fullOn)
-        {
-            // partial->full
-            fullOn = true;
-            minimapCamera.SetActive(false);
-            fullmapCamera.SetActive(true);
-
-            if (minimapController != null)
+            case UIIndex.Map:
                 minimapController.ShowFullMap();
+                break;
+            case UIIndex.Quest:
+                questSystem.ToggleActive();
+                break;
+            case UIIndex.Inventory:
+                inventoryWidget.Show();
+                break;
+            default:
+                menuWidget.Toggle();
+                break;
+        }
+    }
+
+    void DeactivateUI(UIIndex uiIndex)
+    {
+        switch (uiIndex)
+        {
+            case UIIndex.Map:
+                minimapController.CloseFullMap();
+                break;
+            case UIIndex.Quest:
+                questSystem.ToggleActive();
+                break;
+            case UIIndex.Inventory:
+                inventoryWidget.Close();
+                break;
+            default:
+                menuWidget.Toggle();
+                break;
+        }
+    }
+
+    private void ProcessNormalUIInput(UIIndex uiIndex)
+    {
+        if (isUIActive)
+        {
+            if (currentUIIndex == UIIndex.Setting)
+            {
+                return;
+            }
+
+            DeactivateUI(currentUIIndex);
+            
+            if (currentUIIndex != uiIndex)
+            {
+                ActivateUI(uiIndex);
+                currentUIIndex = uiIndex;
+            }
+            else
+            {
+                isUIActive = false;
+            }
         }
         else
         {
-            // full->partial
-            fullOn = false;
-            fullmapCamera.SetActive(false);
-            minimapCamera.SetActive(true);
-
-            if (minimapController != null)
-                minimapController.CloseFullMap();
+            isUIActive = true;
+            ActivateUI(uiIndex);
+            currentUIIndex = uiIndex;
+            
         }
-
-        UpdateMinimapCanvasState();
-        LogStateChange("ToggleMinimapMode");
     }
 
-    private void UpdateMinimapCanvasState()
+    private void UpdateUIState()
     {
-        if (minimapCanvas != null)
+        if (isUIActive)
         {
-            minimapCanvas.SetActive(!fullOn);
-            Canvas.ForceUpdateCanvases();
-            minimapCanvas.transform.SetAsLastSibling();
-
-            CanvasGroup cg = minimapCanvas.GetComponent<CanvasGroup>();
-            if (cg != null)
-            {
-                cg.alpha = 1f;
-                cg.interactable = true;
-                cg.blocksRaycasts = true;
-            }
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            crossHairUI.SetActive(false);
         }
-    }
-
-    private void LogStateChange(string source)
-    {
-        string currentState = "IQM "
-            + (inventoryOn ? "1" : "0")
-            + (questOn ? "1" : "0")
-            + (fullOn ? "1" : "0");
-
-        string timeStamp = DateTime.Now.ToString("HH:mm:ss.fff");
-        Debug.Log("[" + timeStamp + "] " + source + ": " + previousState + " -> " + currentState);
-        previousState = currentState;
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            crossHairUI.SetActive(true);
+        }
     }
 }
