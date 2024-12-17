@@ -255,7 +255,7 @@ namespace DevionGames.InventorySystem
                 RemoveItems(true);
                 value.Initialize();
                 this.m_Collection = value;
-              
+                /*
                 CurrencySlot[] currencySlots = GetSlots<CurrencySlot>();
 
                 for (int i = 0; i < currencySlots.Length; i++) {
@@ -267,7 +267,7 @@ namespace DevionGames.InventorySystem
                         currencySlots[i].ObservedItem = currency;
                         currency.Slots.Add(currencySlots[i]);
                     }
-                }
+                }*/
 
                 for(int i=0; i < this.m_Collection.Count; i++)
                 {

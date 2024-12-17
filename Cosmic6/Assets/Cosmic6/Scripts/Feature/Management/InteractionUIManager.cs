@@ -19,6 +19,8 @@ public class InteractionUIManager : MonoBehaviour
         mouseImage = transform.GetChild(0).GetComponent<Image>();
         interactionText = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         cameraRaycaster.OnRaycastHit += ProcessRaycast;
+        mouseImage.enabled = false;
+        interactionText.enabled = false;
     }
 
     // Update is called once per frame
