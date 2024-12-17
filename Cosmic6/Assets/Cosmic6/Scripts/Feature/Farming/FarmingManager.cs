@@ -54,7 +54,7 @@ public class FarmingManager : MonoBehaviour
     private const float zOffset = -5000f;
     
     // currently detect default only
-    private LayerMask collisionMask = 1 << 0;
+    private LayerMask collisionMask = 1 << 0 | 1 << 3;
     private LayerMask terrainMask = 1 << 8;
 
     private int terrainLayerIndex = 8;
@@ -201,7 +201,9 @@ public class FarmingManager : MonoBehaviour
                 {                    
                     var fieldState = fieldDecayManager.Plant(x, z);
                     
-                    var (globalX, globalZ) = (hitPoint.x, hitPoint.z);
+                    var globalCornerPos = IndexToGlobal(x, z);
+                    var (globalX, globalZ) = (globalCornerPos.Item1 + gridSize / 2,
+                        globalCornerPos.Item2 + gridSize / 2);
                     var (localX, localZ) = (globalX - hitTerrain.transform.position.x,
                         globalZ - hitTerrain.transform.position.z);
                     
