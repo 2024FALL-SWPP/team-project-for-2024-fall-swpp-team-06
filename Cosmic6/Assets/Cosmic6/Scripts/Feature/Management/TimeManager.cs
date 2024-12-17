@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public float dayPeriod { get; private set; } = 60 * 20;
+    public float dayPeriod { get; private set; } = 60 * 10;
     public float currentTime { get; private set; } = 300;
     public float dayStartTime { get; private set; }
     public float nightStartTime { get; private set; }

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System;
 using DevionGames.InventorySystem;
 
 public class PlantLoader : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlantLoader : MonoBehaviour
     public class PlantData
     {
         public string name;
+        public int terrainIndex;
         public Vector3 position;
     }
 
@@ -21,9 +23,10 @@ public class PlantLoader : MonoBehaviour
 
     public string jsonFilePath = "Assets/StreamingAssets/default_plants.json";
     public float spawnInterval = 0.05f;
+    public event Action OnPlantsLoaded;
 
     private PlantDataList loadedPlantData;
-    public GameObject plantsParent;
+    public GameObject[] plantsParents;
 
     void Start()
     {
@@ -57,11 +60,12 @@ public class PlantLoader : MonoBehaviour
         foreach (PlantData plantData in loadedPlantData.plants)
         {
             string prefabPath = "Assets/Cosmic6/Prefabs12DB/" + plantData.name + ".prefab";
+            print(plantData.terrainIndex);
             GameObject plantPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (plantPrefab != null)
             {
                 GameObject spawnedPlant = ObjectManager.Instance.SpawnObjectWithName(plantPrefab, plantData.name, plantData.position, Quaternion.identity);
-                spawnedPlant.transform.SetParent(plantsParent.transform);
+                spawnedPlant.transform.SetParent(plantsParents[plantData.terrainIndex].transform);
                 Debug.Log("Spawned: " + plantData.name + " at " + plantData.position);
             }
             else
@@ -70,6 +74,8 @@ public class PlantLoader : MonoBehaviour
             }
             yield return new WaitForSeconds(spawnInterval);
         }
+        OnPlantsLoaded?.Invoke();
         Debug.Log("Finished spawning all plants.");
+        
     }
 }

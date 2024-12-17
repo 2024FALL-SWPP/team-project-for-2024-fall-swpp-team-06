@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEditor;
 using System.Collections.Generic;
 using DevionGames.InventorySystem;
+using System;
 
 public class PlantManager : MonoBehaviour
 {
@@ -19,14 +20,24 @@ public class PlantManager : MonoBehaviour
             plantLifecycle = lifecycle;
         }
     }
-
+    
+    public LocationTracker locationTracker;
+    private PlantLoader plantLoader;
     private List<PlantData> plantList = new List<PlantData>();
     private Dictionary<string, int> plantNameCounts = new Dictionary<string, int>();
+    private int currentIndex;
+    private float checkRate = 0.1f;
 
     public static PlantManager Instance;
+    
 
     private void Awake()
     {
+        plantLoader = GetComponent<PlantLoader>();
+        
+        plantLoader.OnPlantsLoaded += StartTrackingLocation;
+        currentIndex = locationTracker.currentRegionIndex;
+        
         if (Instance == null)
         {
             Instance = this;
@@ -50,6 +61,35 @@ public class PlantManager : MonoBehaviour
         plantList.Add(newPlant);
         Debug.Log($"식물 추가: {uniqueName}, 위치: {pos}");
         return uniqueName;
+    }
+
+    public void StartTrackingLocation()
+    {
+        for (int i = 0; i < plantLoader.plantsParents.Length; i++)
+        {
+            if (i != currentIndex)
+            {
+                plantLoader.plantsParents[i].SetActive(false);
+            }
+        }
+        
+        StartCoroutine(TrackingLocation());
+    }
+
+    IEnumerator TrackingLocation()
+    {
+        while (true)
+        {
+            if (Math.Min(locationTracker.currentRegionIndex, 2) != currentIndex)
+            {
+                plantLoader.plantsParents[currentIndex].SetActive(false);
+                currentIndex = Math.Min(locationTracker.currentRegionIndex, 2);
+                plantLoader.plantsParents[currentIndex].SetActive(true);
+            }
+            
+            
+            yield return new WaitForSeconds(checkRate);
+        }
     }
 
     // Check harvest
