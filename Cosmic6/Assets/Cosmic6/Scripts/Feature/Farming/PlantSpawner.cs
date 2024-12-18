@@ -44,25 +44,25 @@ public class PlantSpawner : MonoBehaviour
     private PlantDataList plantDataList = new PlantDataList();
 
     static List<string> terrain1PrefabPaths = new List<string> {
-        "Assets/Cosmic6/Prefabs/Plants/1_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/2_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/3_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/4_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/5_Plant.prefab",
+        "Assets/Cosmic6/Prefabs/Plants/1_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/2_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/3_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/4_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/5_Plant",
     };
     static List<string> terrain2PrefabPaths = new List<string> {
-        "Assets/Cosmic6/Prefabs/Plants/6_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/7_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/11_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/12_Plant.prefab",
+        "Assets/Cosmic6/Prefabs/Plants/6_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/7_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/11_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/12_Plant",
     };
     static List<string> terrain3PrefabPaths = new List<string> {
-        "Assets/Cosmic6/Prefabs/Plants/8_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/9_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/10_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/13_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/14_Plant.prefab",
-        "Assets/Cosmic6/Prefabs/Plants/15_Plant.prefab"
+        "Assets/Cosmic6/Prefabs/Plants/8_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/9_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/10_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/13_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/14_Plant",
+        "Assets/Cosmic6/Prefabs/Plants/15_Plant"
     };
 
     public void GenerateTerrains()
@@ -190,7 +190,7 @@ public class PlantSpawner : MonoBehaviour
         {
             prefabPath = prefabPath.Replace("Assets/Cosmic6/Prefabs/Plants/", "Assets/Cosmic6/Prefabs12DB/");
         }
-        GameObject plantPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+        GameObject plantPrefab = Resources.Load<GameObject>(prefabPath);
         if (plantPrefab != null)
         {
             ObjectManager.Instance.SpawnObjectWithName(plantPrefab, plantPrefab.name, position, Quaternion.identity);

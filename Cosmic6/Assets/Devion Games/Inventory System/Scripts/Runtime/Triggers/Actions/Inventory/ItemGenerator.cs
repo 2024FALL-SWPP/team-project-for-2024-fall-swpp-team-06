@@ -7,12 +7,12 @@ public class ItemGenerator : MonoBehaviour
 {
     private List<string> initialPrefabPaths = new List<string>
     {
-        "Assets/Cosmic6/Prefabs12DB/삽.prefab",
-        "Assets/Cosmic6/Prefabs12DB/1_Plant.prefab",
-        "Assets/Cosmic6/Prefabs12DB/1_Plant.prefab",
-        "Assets/Cosmic6/Prefabs12DB/1_Plant.prefab",
-        "Assets/Cosmic6/Prefabs12DB/2_Plant.prefab",
-        "Assets/Cosmic6/Prefabs12DB/2_Plant.prefab"
+        "Assets/Cosmic6/Prefabs12DB/shovel",
+        "Assets/Cosmic6/Prefabs12DB/1_Plant",
+        "Assets/Cosmic6/Prefabs12DB/1_Plant",
+        "Assets/Cosmic6/Prefabs12DB/1_Plant",
+        "Assets/Cosmic6/Prefabs12DB/2_Plant",
+        "Assets/Cosmic6/Prefabs12DB/2_Plant"
     };
 
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class ItemGenerator : MonoBehaviour
 
     public void AddItemFromPrefab(string prefabPath)
     {
-        GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+        GameObject prefab = Resources.Load<GameObject>(prefabPath);
         if (prefab != null)
         {
             ObjectManager.Instance.SpawnObject(prefab, new Vector3(), Quaternion.identity);

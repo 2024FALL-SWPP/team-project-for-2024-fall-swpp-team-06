@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 
 [System.Serializable]
 public class PlantItemData

@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     public GameObject playerStatusUI;
     public GameObject itemSlot;
     public GameObject helmetImage;
+    public GameObject mouseImage;
+    public GameObject hoeImage;
 
     private GameObject[] itemSlotChildren;
 
@@ -161,12 +163,16 @@ public class UIManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             crossHairUI.SetActive(false);
+            mouseImage.SetActive(false);
+            hoeImage.SetActive(false);
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             crossHairUI.SetActive(true);
+            mouseImage.SetActive(true);
+            hoeImage.SetActive(true);
         }
     }
 

@@ -59,9 +59,9 @@ public class PlantLoader : MonoBehaviour
     {
         foreach (PlantData plantData in loadedPlantData.plants)
         {
-            string prefabPath = "Assets/Cosmic6/Prefabs12DB/" + plantData.name + ".prefab";
+            string prefabPath = "Assets/Cosmic6/Prefabs12DB/" + plantData.name;
             print(plantData.terrainIndex);
-            GameObject plantPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            GameObject plantPrefab = Resources.Load<GameObject>(prefabPath);
             if (plantPrefab != null)
             {
                 GameObject spawnedPlant = ObjectManager.Instance.SpawnObjectWithName(plantPrefab, plantData.name, plantData.position, Quaternion.identity);

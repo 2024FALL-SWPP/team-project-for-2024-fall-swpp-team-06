@@ -12,7 +12,7 @@ public class LocationTracker : MonoBehaviour
     private Vector3[] baseLocations = { new (-1815, 0, -8600), new (22, 0, -9369), new (3240, 0, -10998)};
 
     public Vector3[] respawnLocations { get; private set; } =
-        { new(-1980, 1.65f, -8580), new(-1801.42f, -0.02f, -8694.16f), new(8.6f, 0.65f, -9526f), new(3171.5f, 0f, -10929.1f) };
+        { new(-1928, 7, -8473), new(-1801.42f, -0.02f, -8694.16f), new(8.6f, 0.65f, -9526f), new(3171.5f, 0f, -10929.1f) };
     private float[] baseRadiusSqs = { 140*140, 150*150, 140*140 };
     public bool isBase { get; private set; } = false;
     public BaseManager baseManager;
