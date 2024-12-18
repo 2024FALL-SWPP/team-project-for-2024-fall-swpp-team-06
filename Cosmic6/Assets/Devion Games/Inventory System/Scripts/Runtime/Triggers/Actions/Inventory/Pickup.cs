@@ -160,7 +160,7 @@ namespace DevionGames.InventorySystem
             List<Item> items = new List<Item>();
 
             // Prefab 로드
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath); // UnityEditor.AssetDatabase 사용
+            GameObject prefab = Resources.Load<GameObject>(prefabPath); // UnityEditor.AssetDatabase 사용
             if (prefab == null)
             {
                 Debug.LogError($"Prefab not found at path: {prefabPath}");

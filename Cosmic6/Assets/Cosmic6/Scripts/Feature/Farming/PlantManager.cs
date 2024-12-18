@@ -108,7 +108,7 @@ public class PlantManager : MonoBehaviour
                 Debug.Log($"수확 가능한 식물 발견: {plant.plantName}, 위치: {plant.position}");
 
                 PlantItemData plantItemData = PlantItemLoader.Instance.GetPlantItemData(plantName);
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(plantItemData.seed.prefab_path);
+                GameObject prefab = Resources.Load<GameObject>(plantItemData.seed.prefab_path);
 
                 GameObject plantPrefab = ObjectManager.Instance.SpawnObjectWithName(prefab, plantFullName, plant.position, Quaternion.identity);
                 ItemCollection itemCollection = plantPrefab.GetComponent<ItemCollection>();
