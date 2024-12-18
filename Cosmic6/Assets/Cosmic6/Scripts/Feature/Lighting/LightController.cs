@@ -12,7 +12,7 @@ public class LightController : MonoBehaviour
     private float noonSkyTintHue = 80 / 360f;
     // public float currentTime = 0f;
 
-    private float lightControlPeriod = 0.4f;
+    private float lightControlPeriod = 0.2f;
 
     private Light lightProperty;
     

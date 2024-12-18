@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject detectionPanel;
     public GameObject playerStatusUI;
     public GameObject itemSlot;
+    public GameObject helmetImage;
 
     private GameObject[] itemSlotChildren;
 
@@ -174,6 +175,7 @@ public class UIManager : MonoBehaviour
         telePanel.SetActive(isOn);
         detectionPanel.SetActive(isOn);
         playerStatusUI.SetActive(isOn);
+        helmetImage.SetActive(isOn);
 
         foreach (var child in itemSlotChildren)
         {
