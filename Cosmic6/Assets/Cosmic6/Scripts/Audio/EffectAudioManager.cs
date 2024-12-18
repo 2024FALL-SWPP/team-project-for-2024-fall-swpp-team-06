@@ -45,7 +45,7 @@ public class EffectAudioManager : MonoBehaviour
         effectAudioSource.Play();
     }
 
-    void TeleFoundSoundPlay()
+    public void TeleFoundSoundPlay()
     {
         effectAudioSource.clip = teleFindAudio;
         effectAudioSource.Play();
@@ -62,5 +62,5 @@ public class EffectAudioManager : MonoBehaviour
         effectAudioSource.clip = tilingAudio;
         effectAudioSource.Play();
     }
-    
 }
+
