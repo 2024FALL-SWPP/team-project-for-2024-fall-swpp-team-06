@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 public class FlagManager : MonoBehaviour
 {
     public bool[] isFlagRegistered { get; private set; } = { false, false, false, false, false };
@@ -19,6 +21,8 @@ public class FlagManager : MonoBehaviour
     public PlayerStatusController playerStatusController;
     public QuestSystem questSystem;
     public GameManager gameManager;
+
+    public Action OnFlagFound;
     // Start is called before the first frame update
     void Start()
     {
@@ -97,6 +101,7 @@ public class FlagManager : MonoBehaviour
         {
             if (isClicked)
             {
+                OnFlagFound?.Invoke();
                 var collisionName = hit.collider.gameObject.name;
                 var idxChar = hit.collider.gameObject.name[collisionName.Length - 1];
                 flagIndex = int.Parse(idxChar.ToString());
