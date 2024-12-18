@@ -149,6 +149,7 @@ public class PlantManager : MonoBehaviour
         {
             if (obj.name.Contains("(Log)"))
             {
+                OnHarvesting?.Invoke();
                 string cleanedName = obj.name.Replace("(Log) ", "");
                 RemovePlant(cleanedName);
                 Debug.Log($"오브젝트 제거: {obj.name}");

@@ -8,6 +8,8 @@ public class EffectAudioManager : MonoBehaviour
     private GameManager gameManager;
     private BaseManager baseManager;
     private TeleManager teleManager;
+    private FlagManager flagManager;
+    public PlantManager plantManager;
 
     public GameObject EffectAudioSource;
     private AudioSource effectAudioSource;
@@ -25,7 +27,10 @@ public class EffectAudioManager : MonoBehaviour
         gameManager = GetComponent<GameManager>();
         baseManager = GetComponent<BaseManager>();
         teleManager = GetComponent<TeleManager>();
+        flagManager = GetComponent<FlagManager>();
 
+        flagManager.OnFlagFound += TeleFoundSoundPlay;
+        plantManager.OnHarvesting += HarvestingSoundPlay;
         gameManager.OnGameOver += GameoverSoundPlay;
         baseManager.OnBaseRegistered += BaseRegisterSoundPlay;
         teleManager.OnTeleFound += TeleFoundSoundPlay;
