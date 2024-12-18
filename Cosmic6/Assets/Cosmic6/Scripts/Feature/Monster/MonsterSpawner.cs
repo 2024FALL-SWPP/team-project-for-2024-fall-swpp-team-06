@@ -36,13 +36,19 @@ public class MonsterSpawner : MonoBehaviour
         {
             if (locationTracker.currentRegionIndex == regionIndex)
             {
-                ToggleMonsters(true);
-                isActive = true;
-            }
-            else if (isNocturnal && timeManager.isNight)
-            {
-                ToggleMonsters(true);
-                isActive = true;
+                if (isNocturnal)
+                {
+                    if (timeManager.isNight)
+                    {
+                        ToggleMonsters(true);
+                        isActive = true;
+                    }
+                }
+                else
+                {
+                    ToggleMonsters(true);
+                    isActive = true;
+                }
             }
         }
         else
