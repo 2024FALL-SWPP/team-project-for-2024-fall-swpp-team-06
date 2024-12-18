@@ -81,6 +81,18 @@ public class MonsterController : MonoBehaviour
         
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        
+        
+        for (int i = 0; i < attackParts.Count; i++)
+        {
+            var part = attackParts[i];
+            _attackColliders.Add(part.GetComponent<BoxCollider>());
+            AttackCollisionController attackCollider = part.GetComponent<AttackCollisionController>();
+
+            _attackIndexDictionary[part] = i;
+            
+            attackCollider.OnHit += HandleHit;
+        }
     }
     
     
@@ -104,22 +116,9 @@ public class MonsterController : MonoBehaviour
     void Initialize()
     {
         // TODO: player = target.gameObject.GetComponent<PlayerController>();
-
-        for (int i = 0; i < attackParts.Count; i++)
-        {
-            var part = attackParts[i];
-            _attackColliders.Add(part.GetComponent<BoxCollider>());
-            AttackCollisionController attackCollider = part.GetComponent<AttackCollisionController>();
-
-            _attackIndexDictionary[part] = i;
-            
-            attackCollider.OnHit += HandleHit;
-        }
         
         NavMeshHit hit;
-        NavMesh.SamplePosition(transform.position, out hit, 2.0f, NavMesh.AllAreas);
         
-        agent.Warp(hit.position);
         currentState = State.Idle;
         StartCoroutine(StateRoutine());
     }
@@ -355,7 +354,7 @@ public class MonsterController : MonoBehaviour
             _attackColliders[attackIndex].enabled = false;
             isAttackHit = false;
 
-            int numCheck = Mathf.RoundToInt((attackCoolDown - attackAnimationLengths[attackIndex]) / checkRate);
+            int numCheck = Math.Max(Mathf.RoundToInt((attackCoolDown - attackAnimationLengths[attackIndex]) / checkRate), 1);
 
             for (int i = 0; i < numCheck; i++)
             {

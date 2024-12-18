@@ -84,7 +84,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1038215826213686593
 Transform:
   m_ObjectHideFlags: 0
@@ -212,13 +212,13 @@ MonoBehaviour:
   fovVerticalAttacking: 240
   chaseRange: 45
   attackRange: 5
-  patrolCenterPoint: {x: -2500, y: 0, z: -7500}
+  patrolCenterPoint: {x: 4500, y: 0, z: -11500}
   patrolAreaRadius: 500
   distanceLowerBound: 15
   distanceUpperBound: 30
-  investigateSpeed: 4.5
-  chaseSpeed: 6
-  patrolSpeed: 3
+  investigateSpeed: 13.5
+  chaseSpeed: 18
+  patrolSpeed: 9
 --- !u!1 &470418714593744563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,6 +2021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 831722533694871818}
   - component: {fileID: 1736767791}
+  - component: {fileID: 3031194688496134780}
   m_Layer: 0
   m_Name: Bone.005_L.004
   m_TagString: Untagged
@@ -2060,6 +2061,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.08, y: 0.22, z: 0.08}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3031194688496134780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3917869796040856224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab3f0a0d06404e8a88e1451fe4989f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3960740188364790917
 GameObject:
   m_ObjectHideFlags: 0
@@ -2604,6 +2617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 147828974437283298}
   - component: {fileID: 284201039}
+  - component: {fileID: 4210598135024684583}
   m_Layer: 0
   m_Name: Bone.017
   m_TagString: Untagged
@@ -2639,6 +2653,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.13, y: 0.13, z: 0.1}
   m_Center: {x: 0.02, y: -0.02, z: 0}
+--- !u!114 &4210598135024684583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579466972771275331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab3f0a0d06404e8a88e1451fe4989f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5733529801960006896
 GameObject:
   m_ObjectHideFlags: 0

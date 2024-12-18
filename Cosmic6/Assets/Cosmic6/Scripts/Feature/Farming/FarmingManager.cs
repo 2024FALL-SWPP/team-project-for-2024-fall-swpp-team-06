@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DevionGames.InventorySystem;
 using UnityEngine.UI;
+using System;
 
 public enum FieldState
 {
@@ -52,6 +53,8 @@ public class FarmingManager : MonoBehaviour
     public Image hoeImage;
     public float gridSize { get; private set; } = 1000 / 1024f;
     public bool isFarmingMode = false;
+    public Action OnTiling;
+    public Action OnHarvesting;
 
     private const float xOffset = -4000f;
     private const float zOffset = -5000f;
@@ -148,6 +151,7 @@ public class FarmingManager : MonoBehaviour
         var fieldState = fieldDecayManager.Harvest(xIndex, zIndex);
         
         SetFieldState(xIndex, zIndex, fieldState);
+        OnHarvesting?.Invoke();
         
     }
 
@@ -196,6 +200,8 @@ public class FarmingManager : MonoBehaviour
                         if (GetFieldState(x, z) == FieldState.NotTilled)
                         {
                             var fieldState = fieldDecayManager.Tile(x, z, hitTerrain);
+                            if (fieldState == FieldState.Tilled)
+                                OnTiling?.Invoke();
                             SetFieldState(x, z, fieldState);
                         }
                     }

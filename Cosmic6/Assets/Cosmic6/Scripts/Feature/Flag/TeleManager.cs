@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TeleManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class TeleManager : MonoBehaviour
     public int teleRegion1 = 0;
     public int teleRegion2 = 0;
     public int teleRegion3 = 0;
+
+    public Action OnTeleFound;
 
     // clickable
     private int teleLayerIndex = 3;
@@ -46,6 +49,7 @@ public class TeleManager : MonoBehaviour
         {
             if (isClicked)
             {
+                OnTeleFound?.Invoke();
                 var collisionName = hit.collider.gameObject.name;
                 var idxChar = hit.collider.gameObject.name[collisionName.Length - 1];
                 int idx = int.Parse(idxChar.ToString());
