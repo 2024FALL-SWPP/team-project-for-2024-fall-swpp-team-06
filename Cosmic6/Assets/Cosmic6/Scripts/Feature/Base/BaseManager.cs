@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 using UnityEngine.Serialization;
 
 public class BaseManager : MonoBehaviour
@@ -17,6 +18,8 @@ public class BaseManager : MonoBehaviour
     
     // clickable
     private int baseLayerIndex = 3;
+    
+    public Action OnBaseRegistered;
     
     public CameraRaycaster cameraRaycaster;
     public LocationTracker locationTracker;
@@ -68,6 +71,7 @@ public class BaseManager : MonoBehaviour
             if (isClicked && !isBaseRegistered[currentBase])
             {
                 isBaseRegistered[currentBase] = true;
+                OnBaseRegistered?.Invoke();
                 bases[currentBase].layer = 0;
                 print("Base" + currentBase + "registered");
                 mapComponents[currentBase].SetActive(true);

@@ -20,7 +20,8 @@ public class PlantManager : MonoBehaviour
             plantLifecycle = lifecycle;
         }
     }
-    
+
+    public Action OnHarvesting;
     public LocationTracker locationTracker;
     private PlantLoader plantLoader;
     private List<PlantData> plantList = new List<PlantData>();

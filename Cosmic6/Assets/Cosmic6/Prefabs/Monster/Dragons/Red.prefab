@@ -1377,6 +1377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4527098047306654427}
   - component: {fileID: 1005878826}
+  - component: {fileID: 5814649115279486807}
   m_Layer: 0
   m_Name: R_Middle02
   m_TagString: Untagged
@@ -1413,6 +1414,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 280, y: 100, z: 150}
   m_Center: {x: 30, y: 0, z: 0}
+--- !u!114 &5814649115279486807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527098047306883621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab3f0a0d06404e8a88e1451fe4989f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4527098047306884081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,6 +1471,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4527098047306655149}
   - component: {fileID: 1197877308}
+  - component: {fileID: 8527005769985869170}
   m_Layer: 0
   m_Name: Jaw03
   m_TagString: Untagged
@@ -1493,6 +1507,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 240, y: 210, z: 210}
   m_Center: {x: 30, y: -30, z: 0}
+--- !u!114 &8527005769985869170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527098047306884663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab3f0a0d06404e8a88e1451fe4989f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4527098047306884677
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,13 +2243,14 @@ GameObject:
   - component: {fileID: 887868248}
   - component: {fileID: 1477499163}
   - component: {fileID: 1477499166}
+  - component: {fileID: 886519925}
   m_Layer: 9
   m_Name: Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4527098047306658713
 Transform:
   m_ObjectHideFlags: 0
@@ -2298,13 +2325,13 @@ MonoBehaviour:
   fovVerticalAttacking: 300
   chaseRange: 80
   attackRange: 12
-  patrolCenterPoint: {x: 0, y: 0, z: 0}
+  patrolCenterPoint: {x: 2500, y: 0, z: -11500}
   patrolAreaRadius: 500
   distanceLowerBound: 20
   distanceUpperBound: 35
-  investigateSpeed: 6
-  chaseSpeed: 8
-  patrolSpeed: 4
+  investigateSpeed: 18
+  chaseSpeed: 24
+  patrolSpeed: 12
 --- !u!54 &1477499163
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2335,6 +2362,28 @@ CapsuleCollider:
   m_Height: 4
   m_Direction: 2
   m_Center: {x: 0, y: 1.6, z: 0}
+--- !u!195 &886519925
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527098047306910401}
+  m_Enabled: 1
+  m_AgentTypeID: -1923039037
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4527098047306911539
 GameObject:
   m_ObjectHideFlags: 0

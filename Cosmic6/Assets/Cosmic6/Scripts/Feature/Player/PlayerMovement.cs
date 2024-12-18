@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private float characterControllerHeight = 0.84f;
     private Animator animator;
     private bool isJumping = false;
+    public float currentSpeed { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -57,12 +58,23 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("Vertical", moveZ);
 
             float speed = isGrounded ? groundedSpeed : groundedSpeed * airMovementFactor;
-
+            
+            
             displacement = transform.right * moveX + transform.forward * moveZ;
-            characterController.Move(speed * Time.deltaTime * displacement);
+            var displacementNorm = displacement.magnitude;
+
+            currentSpeed = Mathf.Min(1, displacementNorm);
+
+            var movement = displacementNorm == 0
+                ? Vector3.zero
+                : speed * Time.deltaTime * Mathf.Min(1f, displacementNorm) / displacementNorm * displacement;
+                                                       
+
+            characterController.Move(movement);
         }
         else
         {
+            currentSpeed = 0;
             animator.SetFloat("Horizontal", 0);
             animator.SetFloat("Vertical", 0);
         }

@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.volume = 0.15f;
         audioSource.playOnAwake = false;
         audioSource.loop = false; // loop를 끄고, 곡 끝날 때 다음 곡으로 넘어가도록
     }
