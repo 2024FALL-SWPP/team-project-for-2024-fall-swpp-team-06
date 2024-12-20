@@ -175,12 +175,13 @@ public class FarmingManager : MonoBehaviour
     {
         if (!isHit || (!isTilingMode && !isPlantingMode))
         {
+            mouseImage.enabled = false;
+            interactionText.enabled = false;
+            
             if (!isOverlayInvisible)
             {
                 isOverlayInvisible = true;
                 hoeImage.enabled = false;
-                mouseImage.enabled = false;
-                interactionText.enabled = false;
                 overlayManager.SetOverlayInvisible();
             }
             
