@@ -189,7 +189,6 @@ public class FarmingManager : MonoBehaviour
         
         if (hit.collider.gameObject.layer == terrainLayerIndex)
         {
-            print("Terrain hit");
             Vector3 hitPoint = hit.point;
             Terrain hitTerrain = hit.collider.GetComponent<Terrain>();
         

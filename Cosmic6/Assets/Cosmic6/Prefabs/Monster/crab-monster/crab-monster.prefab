@@ -3919,7 +3919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8748079910490604977
 Transform:
   m_ObjectHideFlags: 0
@@ -4049,11 +4049,11 @@ MonoBehaviour:
   attackRange: 5
   patrolCenterPoint: {x: -2500, y: 0, z: -7500}
   patrolAreaRadius: 500
-  distanceLowerBound: 5
-  distanceUpperBound: 15
-  investigateSpeed: 4
-  chaseSpeed: 4.8
-  patrolSpeed: 3
+  distanceLowerBound: 10
+  distanceUpperBound: 30
+  investigateSpeed: 12
+  chaseSpeed: 15
+  patrolSpeed: 9
 --- !u!1 &8748079910490315219
 GameObject:
   m_ObjectHideFlags: 0

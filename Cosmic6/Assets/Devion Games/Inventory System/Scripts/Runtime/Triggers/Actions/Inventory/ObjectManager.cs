@@ -20,14 +20,14 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        Debug.Log("Object successfully instantiated!");
+        //Debug.Log("Object successfully instantiated!");
 
         return Instantiate(prefab, position, rotation);
     }
 
     public GameObject SpawnObjectWithName(GameObject prefab, string prefabName, Vector3 position, Quaternion rotation)
     {
-        Debug.Log("Object successfully instantiated!");
+        //Debug.Log("Object successfully instantiated!");
 
         GameObject generatedPrefab = Instantiate(prefab, position, rotation);
         generatedPrefab.name = prefabName;

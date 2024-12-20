@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver = false;
     public bool IsGameClear = false;
     public bool IsGameStart = true;
+    
+    private readonly (int, int) targetAspect = (16, 9);
 
     public float gameOverDuration { get; private set; } = 6f;
     public float gameStartDuration { get; private set; } = 10.5f;
@@ -21,11 +23,26 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        SetAspectRatio();
+        
         if (IsGameStart)
         {
             OnGameStart?.Invoke();
             StartCoroutine(GameStartCoroutine());
         }
+    }
+
+    public void SetAspectRatio()
+    {
+        var width = Screen.width;
+        var height = Screen.height;
+
+        var unit = width / targetAspect.Item1;
+
+        width = targetAspect.Item1 * unit;
+        height = targetAspect.Item2 * unit;
+        
+        Screen.SetResolution(width, height, true);
     }
 
     IEnumerator GameStartCoroutine()

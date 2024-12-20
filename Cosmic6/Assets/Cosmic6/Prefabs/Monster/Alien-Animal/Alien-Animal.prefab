@@ -159,7 +159,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: -8
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!136 &712345779229750516
@@ -214,8 +214,8 @@ MonoBehaviour:
   attackRange: 5
   patrolCenterPoint: {x: 4500, y: 0, z: -11500}
   patrolAreaRadius: 500
-  distanceLowerBound: 15
-  distanceUpperBound: 30
+  distanceLowerBound: 20
+  distanceUpperBound: 45
   investigateSpeed: 13.5
   chaseSpeed: 18
   patrolSpeed: 9
