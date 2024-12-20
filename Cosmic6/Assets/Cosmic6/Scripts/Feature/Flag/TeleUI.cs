@@ -11,10 +11,12 @@ public class TeleUI : MonoBehaviour
     public TeleManager telemanager;
     public GameObject detectionPanel;
     public GameObject telenumPanel;
-    public TMP_Text detectionText; 
+    public TMP_Text detectionText;
     public TMP_Text numText_1;
     public TMP_Text numText_2;
     public TMP_Text numText_3;
+    public GameObject[] numTextObjects;
+    private TMP_Text[] numTexts;
 
     private int[] totalnums={3, 2, 2};
     private string[] texts={"", "", ""};
@@ -25,10 +27,18 @@ public class TeleUI : MonoBehaviour
         detectionPanel.SetActive(true);
         detectionText.text = "";
         telenumPanel.SetActive(true);
-        numText_1.text = "";
-        numText_2.text = "";
-        numText_3.text = "";
         
+        numTexts = new TMP_Text[numTextObjects.Length];
+
+        for (int i = 0; i < numTextObjects.Length; i++)
+        {
+            numTexts[i] = numTextObjects[i].GetComponent<TMP_Text>();
+            if (i != 0)
+            {
+                numTextObjects[i].SetActive(false);
+            }
+        }
+        UpdateTeleProgress();
     }
 
     // Update is called once per frame
@@ -36,49 +46,32 @@ public class TeleUI : MonoBehaviour
     {
         if (teledetector != null && teledetector.detected)
         {
-            detectionText.text = "DETECTED!";
+            detectionText.text = "감지됨!";
+            detectionText.color = Color.red;
         }
         else
         {
-            detectionText.text = "";
+            detectionText.text = "작동 중...";
+            detectionText.color = Color.white;
         }
+    }
 
-        if (basemanager!=null)
-        {   
-            for(int i = 0; i < 3; i++)
+    public void UpdateTeleProgress()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            if(basemanager.isBaseRegistered[i])
             {
-                if(basemanager.isBaseRegistered[i])
-                {
-                    switch(i)
-                    {
-                        case 0:
-                            texts[i] = $"Region{i+1} : {telemanager.teleRegion1} / {totalnums[i]}";
-                            break;
-                        case 1:
-                            texts[i] = $"Region{i+1} : {telemanager.teleRegion2} / {totalnums[i]}";
-                            break;
-                        case 2:
-                            texts[i] = $"Region{i+1} : {telemanager.teleRegion3} / {totalnums[i]}";
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    texts[i] = "*******";
-                }
+                numTexts[i].fontSize = 25;
+                numTextObjects[i].SetActive(true);
+                texts[i] = $"지역{i+1} - {telemanager.teleRegion1}/{totalnums[i]}";
             }
-
-            numText_1.text=texts[0];
-            numText_2.text=texts[1];
-            numText_3.text=texts[2];
-        }
-        else
-        {
-            numText_1.text = "";
-            numText_2.text = "";
-            numText_3.text = "";
+            else
+            {
+                texts[i] = "*******";
+            }
+            
+            numTexts[i].text=texts[i];
         }
     }
 }

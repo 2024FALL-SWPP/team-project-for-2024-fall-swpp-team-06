@@ -8,15 +8,30 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public event Action OnGameOver;
+    public event Action OnGameStart;
+    
     public bool IsGameOver = false;
     public bool IsGameClear = false;
+    public bool IsGameStart = true;
 
     public float gameOverDuration { get; private set; } = 6f;
+    public float gameStartDuration { get; private set; } = 10.5f;
     public float gameOverAnimationDuration { get; private set; } = 2.5f;
+    public float gameStartAnimationDuration { get; private set; } = 9.767f;
 
     void Start()
     {
+        if (IsGameStart)
+        {
+            OnGameStart?.Invoke();
+            StartCoroutine(GameStartCoroutine());
+        }
+    }
 
+    IEnumerator GameStartCoroutine()
+    {
+        yield return new WaitForSeconds(gameStartDuration);
+        IsGameStart = false;
     }
 
     // Update is called once per frame

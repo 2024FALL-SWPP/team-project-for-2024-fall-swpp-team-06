@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 public class BaseManager : MonoBehaviour
 {
     public bool[] isBaseRegistered { get; private set; } = { false, false, false };
+    public TeleUI teleUI;
     public GameObject[] mapComponents;
     public GameObject[] safeZoneOverlays;
     public GameObject[] bases;
@@ -73,6 +74,7 @@ public class BaseManager : MonoBehaviour
                 isBaseRegistered[currentBase] = true;
                 OnBaseRegistered?.Invoke();
                 bases[currentBase].layer = 0;
+                teleUI.UpdateTeleProgress();
                 print("Base" + currentBase + "registered");
                 mapComponents[currentBase].SetActive(true);
                 safeZoneOverlays[currentBase].SetActive(true);

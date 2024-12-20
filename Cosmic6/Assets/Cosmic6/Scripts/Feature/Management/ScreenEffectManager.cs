@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,18 @@ public class ScreenEffectManager : MonoBehaviour
     private float fadeDuration;
     
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         darkScreen = GetComponent<Image>();
         gameManager.OnGameOver += GameOver;
+        gameManager.OnGameStart += GameStart;
         instantMovement.OnTeleport += Teleport;
         fadeDuration = gameManager.gameOverAnimationDuration * 4 / 5;
+    }
+
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -30,6 +37,26 @@ public class ScreenEffectManager : MonoBehaviour
         StartCoroutine(FadeScreen());
     }
 
+    IEnumerator HalfFadeScreen()
+    {
+        darkScreen.enabled = true;
+        var timer = 0f;
+
+        while (timer < 4)
+        {
+            darkScreen.color = new(0, 0, 0, Mathf.Lerp(1f, 0f, timer / 4));
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        darkScreen.enabled = false;
+    }
+
+    void GameStart()
+    {
+        StartCoroutine(HalfFadeScreen());
+    }
+    
     IEnumerator FadeScreen()
     {
         darkScreen.enabled = true;
@@ -56,6 +83,10 @@ public class ScreenEffectManager : MonoBehaviour
 
         darkScreen.enabled = false;
     }
+    
+    
+    
+    
     void Teleport()
     {
         StartCoroutine(FadeTeleportScreen());

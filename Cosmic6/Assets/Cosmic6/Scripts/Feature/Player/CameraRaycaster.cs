@@ -36,6 +36,8 @@ public class CameraRaycaster : MonoBehaviour
         {
             if (uiManager.isUIActive)
             {
+                OnRaycastHit?.Invoke(false, default, false);
+                
                 yield return new WaitForSeconds(raycastPeriod);
                 isClicked = false;
                 continue;

@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class QuestSystem : MonoBehaviour
 {
+
+    public GameManager gameManager;
     public GameObject questPanel;
     public GameObject questItemPrefab; 
-    public Transform questListContainer; 
+    public Transform questListContainer;
 
     private Queue<Quest> questQueue;
     private List<Quest> activeQuests;
@@ -15,7 +19,9 @@ public class QuestSystem : MonoBehaviour
     public GameObject questclearPrefab;
     public Transform questclearParent;
 
+    public GameObject questPopupPrefab;
     public GameObject popupPrefab;
+    
     public Transform popupParent;
     public float popupDuration = 5f;
     public float verticalSpacing = 60f;
@@ -27,37 +33,52 @@ public class QuestSystem : MonoBehaviour
         {
             "Base1", new List<Quest>
             {
-                new Quest("Flag Exploration 1", "Find the first flag", "Flag1", 1)
+                new Quest("지역1 탐사", "지도(M)에 표시된 탐사 포인트를 찾아가자.", "Flag1", default, 1)
             }
         },
         {
             "Base2", new List<Quest>
             {
-                new Quest("Flag Exploration 2", "Find the second flag", "Flag2", 1),
-                new Quest("Flag Exploration 3", "Find the third flag", "Flag3", 1)
+                new Quest("지역2 탐사 - 1", "지도(M)에 표시된 탐사 포인트를 찾아가자.", "Flag2", "고용량 산소통", 1),
+                new Quest("지역2 탐사 - 2", "지도(M)에 표시된 탐사 포인트를 찾아가자.", "Flag3", "순간이동기", 1)
             }
         },
         {
             "Base3", new List<Quest>
             {
-                new Quest("Flag Exploration 4", "Find the fourth flag", "Flag4", 1),
-                new Quest("Flag Exploration 5", "Find the fifth flag", "Flag5", 1)
+                new Quest("지역3 탐사 - 1", "지도(M)에 표시된 탐사 포인트를 찾아가자.", "Flag4", "방열복", 1),
+                new Quest("지역3 탐사 - 2", "지도(M)에 표시된 탐사 포인트를 찾아가자.", "Flag5", "초고용량 산소통", 1)
             }
         },
         {
             "EscapeFlag", new List<Quest>
             {
-                new Quest("Escape spot activated", "Find the escape flag", "Escape Flag", 1)
+                new Quest("외계행성 탈출", "지도(M)에 표시된 탈출 포인트를 찾아가자.", "Escape Flag", default, 1)
             }
         }
     };
 
-
-    void Start()
+    void Awake()
     {
         questPanel.SetActive(false);
         activeQuests = new List<Quest>();
+        gameManager.OnGameStart += GameStart;
+    }
+
+    void GameStart()
+    {
+        StartCoroutine(GameStartCoroutine());
+    }
+
+    IEnumerator GameStartCoroutine()
+    {
+        yield return new WaitForSeconds(gameManager.gameStartAnimationDuration);
         InitializeQuests();
+    }
+    
+    void Start()
+    {
+        
     }
 
     public void ToggleActive()
@@ -73,7 +94,7 @@ public class QuestSystem : MonoBehaviour
     {
         questQueue = new Queue<Quest>();
 
-        questQueue.Enqueue(new Quest("Contact Earth", "Search for all the communication equipment", "Tele", 7));
+        questQueue.Enqueue(new Quest("통신장비 수집", "외계행성 탈출을 위해 지구에 연락을 취해야 한다. 모든 통신장비를 찾자.", "Tele", default,  7));
 
         for (int i = 0; i < 1; i++)
         {
@@ -81,7 +102,7 @@ public class QuestSystem : MonoBehaviour
             {
                 Quest quest = questQueue.Dequeue();
                 AddQuest(quest);
-                ShowPopup(quest);
+                ShowQuestPopup(quest);
             }
         }
     }
@@ -100,7 +121,7 @@ public class QuestSystem : MonoBehaviour
         TMP_Text contentText = questItem.transform.Find("Content").Find("Text").GetComponent<TMP_Text>();
 
         titleText.text = quest.title;
-        contentText.text = $"{quest.description} (Progress: {quest.currentValue}/{quest.targetValue})";
+        contentText.text = $"{quest.description} (진행: {quest.currentValue}/{quest.targetValue})";
 
         questItem.name = $"Quest_{quest.title}";
     }
@@ -115,7 +136,8 @@ public class QuestSystem : MonoBehaviour
             Quest quest = activeQuests.Find(q => q.title == questTitle);
             if (quest != null)
             {
-                contentText.text = $"{quest.description} (Progress: {quest.currentValue}/{quest.targetValue})";
+                if (quest.targetValue != 1)
+                    contentText.text = $"{quest.description} (진행: {quest.currentValue}/{quest.targetValue})";
             }
         }
     }
@@ -155,13 +177,14 @@ public class QuestSystem : MonoBehaviour
             return;
         }
 
+        var baseIndex = baseName[baseName.Length - 1] - '0';
+        
         foreach (var quest in baseQuests[baseName])
         {
-
             if (!activeQuests.Exists(q => q.title == quest.title))
             {
                 AddQuest(quest);
-                ShowPopup(quest);
+                ShowQuestPopup(quest);
             }
         }
 
@@ -198,22 +221,29 @@ public class QuestSystem : MonoBehaviour
         }
     }
 
-    public void ShowPopup(Quest quest)
+    public void ShowPopup(string text)
     {
-        if (popupPrefab != null)
+        GameObject popupInstance = Instantiate(popupPrefab, popupParent);
+        
+        
+    }
+
+    public void ShowQuestPopup(Quest quest)
+    {
+        if (questPopupPrefab != null)
         {
             GameObject popupInstance;
             if (popupParent != null)
             {
-                popupInstance = Instantiate(popupPrefab, popupParent);
+                popupInstance = Instantiate(questPopupPrefab, popupParent);
             }
             else
             {
-                popupInstance = Instantiate(popupPrefab);
+                popupInstance = Instantiate(questPopupPrefab);
             }
 
-            TMP_Text titleText = popupInstance.transform.Find("Title").GetComponent<TMP_Text>();
-            TMP_Text contentText = popupInstance.transform.Find("Content").GetComponent<TMP_Text>();
+            TMP_Text titleText = popupInstance.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+            TMP_Text contentText = popupInstance.transform.GetChild(1).GetComponent<TMP_Text>();
 
             titleText.text = quest.title;
             contentText.text = quest.description;
@@ -223,8 +253,8 @@ public class QuestSystem : MonoBehaviour
             popupInstance.name = $"Popup_{quest.title}";
 
             activePopups.Add(popupInstance);
-            UpdatePopupPositions();
-            StartCoroutine(RemovePopupAfterDelay(popupInstance));
+            //UpdatePopupPositions();
+            StartCoroutine(RemovePopupAfterDelay(popupInstance, true));
     
         }
     }
@@ -238,16 +268,54 @@ public class QuestSystem : MonoBehaviour
         }
     }
 
-    private IEnumerator RemovePopupAfterDelay(GameObject popupInstance)
+    private IEnumerator RemovePopupAfterDelay(GameObject popupInstance, bool isQuest, float duration=5f)
     {
-        yield return new WaitForSeconds(popupDuration);
+        yield return FadePopup(popupInstance, isQuest, true);
+        yield return new WaitForSeconds(duration - 1f);
+        yield return FadePopup(popupInstance, isQuest, false);
 
         if (activePopups.Contains(popupInstance))
         {
             activePopups.Remove(popupInstance);
             Destroy(popupInstance);
 
-            UpdatePopupPositions();
+            //UpdatePopupPositions();
+        }
+    }
+
+    private IEnumerator FadePopup(GameObject popupInstance, bool isQuest, bool isOn, float duration = 0.5f)
+    {
+        float timer = 0;
+        Image background = popupInstance.GetComponent<Image>();
+        
+        Color backgroundColor = background.color;
+        Image title = isQuest ? popupInstance.transform.GetChild(0).GetComponent<Image>() : default;
+        Color titleColor = isQuest ? title.color : default;
+
+        TMP_Text titleText =
+            isQuest ? popupInstance.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>() : default;
+        TMP_Text contentText = isQuest ? popupInstance.transform.GetChild(1).GetComponent<TMP_Text>() :
+            popupInstance.transform.GetChild(0).GetComponent<TMP_Text>();
+        
+        while (timer < duration)
+        {
+            timer += 0.02f;
+            var textColor = Color.Lerp(isOn ? Color.clear : Color.white, isOn ? Color.white : Color.clear,
+                timer / duration);
+            
+            
+            if (isQuest)
+            {
+                title.color = new(titleColor.r, titleColor.g, titleColor.b,
+                    Mathf.Lerp(isOn ? 0 : titleColor.a, isOn ? titleColor.a : 0, timer / duration));
+                titleText.color = textColor;
+            }
+            
+            background.color = new(backgroundColor.r, backgroundColor.g, backgroundColor.b,
+                Mathf.Lerp(isOn ? 0 : backgroundColor.a, isOn ? backgroundColor.a : 0, timer / duration));
+            contentText.color = textColor;
+            
+            yield return new WaitForSeconds(0.02f);
         }
     }
 }

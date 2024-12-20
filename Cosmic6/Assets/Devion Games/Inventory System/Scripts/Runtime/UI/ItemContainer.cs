@@ -302,12 +302,12 @@ namespace DevionGames.InventorySystem
 
         protected override void OnAwake()
         {
-            if (this.m_SlotPrefab != null){
-                this.m_SlotPrefab.SetActive(false);
-            }
             RefreshSlots();
             RegisterCallbacks();
             this.Collection = GetComponent<ItemCollection>();
+            if (this.m_SlotPrefab != null){
+                this.m_SlotPrefab.SetActive(false);
+            }
         }
 
         public override void Show()

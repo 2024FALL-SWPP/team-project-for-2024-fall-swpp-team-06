@@ -47,7 +47,7 @@ namespace DevionGames.UIWidgets{
         protected float m_Width = 300f;
         protected List<StringPairSlot> m_SlotCache;
 
-        protected bool _updatePosition;
+        protected bool _updatePosition = true;
 
         protected override void OnStart()
         {
@@ -95,7 +95,7 @@ namespace DevionGames.UIWidgets{
         {
             base.Show();
             UpdatePosition();
-            _updatePosition = true;
+            //_updatePosition = true;
             m_CanvasGroup.interactable = false;
             m_CanvasGroup.blocksRaycasts = false;
         }
@@ -175,7 +175,7 @@ namespace DevionGames.UIWidgets{
         public override void Close()
         {
             base.Close();
-            _updatePosition = false;
+            //_updatePosition = false;
         }
 
         protected virtual StringPairSlot CreateSlot()

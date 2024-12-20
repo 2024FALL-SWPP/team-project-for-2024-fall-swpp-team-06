@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public QuestSystem questSystem;
     public UIWidget inventoryWidget;
     public UIWidget menuWidget;
+    public GameObject triggerTooltip;
     public GameObject crossHairUI;
     public GameObject telePanel;
     public GameObject detectionPanel;
@@ -43,6 +44,10 @@ public class UIManager : MonoBehaviour
         {
             itemSlotChildren[i] = itemSlot.transform.GetChild(i).gameObject;
         }
+        
+        isUIActive = false;
+        UpdateUIState();
+        inventoryWidget.Close();
     }
     
 
@@ -165,6 +170,9 @@ public class UIManager : MonoBehaviour
             crossHairUI.SetActive(false);
             mouseImage.SetActive(false);
             hoeImage.SetActive(false);
+
+            
+            triggerTooltip.SetActive(false);
         }
         else
         {
@@ -173,6 +181,8 @@ public class UIManager : MonoBehaviour
             crossHairUI.SetActive(true);
             mouseImage.SetActive(true);
             hoeImage.SetActive(true);
+            
+            triggerTooltip.SetActive(true);
         }
     }
 

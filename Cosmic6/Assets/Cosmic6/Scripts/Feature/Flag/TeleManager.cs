@@ -8,6 +8,7 @@ public class TeleManager : MonoBehaviour
 {
     public GameObject[] teleFlags;
     public GameObject escapeFlag;
+    public TeleUI teleUI;
     string[] validNames = { "Tele1", "Tele2", "Tele3", "Tele4", "Tele5", "Tele6", "Tele7" };
 
     public bool[] isTeleFound { get; private set; } = { false, false, false, false, false, false, false };
@@ -62,6 +63,8 @@ public class TeleManager : MonoBehaviour
     {
         teleNum++;
         questSystem.UpdateQuestProgress("Tele", 1);
+        teleUI.UpdateTeleProgress();
+        
         if (idx < 4 && idx > 0) { teleRegion1++; }
         else if (idx < 6) { teleRegion2++; }
         else { teleRegion3++; }

@@ -6,7 +6,7 @@ public class Quest_EscapeFlag : Quest
     private GameManager gameManager;
 
     public Quest_EscapeFlag(string title, string description)
-        : base(title, description, "Escape Flag", 1)
+        : base(title, description, "Escape Flag", default,1)
     {
     }
 
