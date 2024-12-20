@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
 
     public GameObject player;
     private Transform playerTransform;
+    private PlayerMovement playerMovement;
 
     public Transform headRigTransform;
     private Quaternion headRigRotation = Quaternion.Euler(-94, 90, 0);
@@ -22,7 +23,7 @@ public class CameraController : MonoBehaviour
     public Transform headTransform;
     private Vector3 headPosition = new(0, -0.17f, -0.03f);
 
-    private float xRotation = 0f;
+    private float xRotation = -10f;
 
     // UI 관련
     public GameObject inventoryGameObject;
@@ -49,12 +50,20 @@ public class CameraController : MonoBehaviour
     {
         gameManager.OnGameOver += GameOver;
         playerTransform = player.transform;
-        
+        playerMovement = player.GetComponent<PlayerMovement>();
+
+        if (gameManager.IsGameStart)
+        {
+            transform.SetParent(headRigTransform, true);
+            transform.localRotation = headRigRotation;
+
+            StartCoroutine(GameStartCoroutine());
+        }
     }
 
     void Update()
     {
-        if (gameManager.IsGameOver) return;
+        if (gameManager.IsGameOver || gameManager.IsGameStart) return;
         
         // minimapCamera가 비활성화일 때 minimapActive = true
 
@@ -94,18 +103,38 @@ public class CameraController : MonoBehaviour
 */
     void GameOver()
     {
-        StartCoroutine(GameOverCoroutine());
+        StartCoroutine(HeadAnimationCoroutine(gameManager.gameOverAnimationDuration));
     }
 
-    IEnumerator GameOverCoroutine()
+    IEnumerator GameStartCoroutine()
+    {
+        yield return new WaitForSeconds(gameManager.gameStartAnimationDuration);
+        playerMovement.GameStartTrigger();
+        transform.SetParent(headTransform, true);
+        transform.localPosition = headPosition;
+        
+        var duration = gameManager.gameStartDuration - gameManager.gameStartAnimationDuration;
+        var timer = 0f;
+        var startLocalRot = transform.localRotation;
+        var endLocalRot = Quaternion.Euler(80, 0, 0);
+            
+        while (timer < duration)
+        {
+            transform.localRotation = Quaternion.Slerp(startLocalRot, endLocalRot, timer / duration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator HeadAnimationCoroutine(float duration)
     {
         transform.SetParent(headRigTransform, true);
         transform.localRotation = headRigRotation;
 
-        yield return new WaitForSeconds(gameManager.gameOverAnimationDuration);
+        yield return new WaitForSeconds(duration);
 
         transform.SetParent(headTransform, true);
         transform.localPosition = headPosition;
-        transform.localRotation = Quaternion.Euler(90 + xRotation, 0, 0f);
+        transform.localRotation = Quaternion.Euler(90, 0, 0f);
     }
 }

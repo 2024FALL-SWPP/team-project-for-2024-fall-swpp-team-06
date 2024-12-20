@@ -26,6 +26,7 @@ public class MinimapController : MonoBehaviour
         {
             icon.gameObject.SetActive(false);
         }
+        SetBaseIconScale(new Vector3(10, 10, 1));
     }
 
     void Update()
@@ -70,8 +71,8 @@ public class MinimapController : MonoBehaviour
         );
 
         isFullMap = false;
-        playerIcon.transform.localScale = new Vector3(12.5f, 12.5f, 1f);
-        SetBaseIconScale(new Vector3(3, 3, 1));
+        playerIcon.transform.localScale = new Vector3(18f, 18f, 1f);
+        SetBaseIconScale(new Vector3(10, 10, 1));
     }
 
     private void SetBaseIconScale(Vector3 desiredWorldScale)

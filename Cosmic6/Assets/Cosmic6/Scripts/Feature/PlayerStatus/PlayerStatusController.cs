@@ -50,7 +50,7 @@ public class PlayerStatusController : MonoBehaviour
             UpdateHP(-hp);
         }
         
-        if (gameManager.IsGameOver) return;
+        if (gameManager.IsGameOver || gameManager.IsGameStart) return;
         
         if (locationTracker.currentRegionIndex == 2 && !timeManager.isNight)
         {

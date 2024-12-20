@@ -42,11 +42,11 @@ public class InteractionUIManager : MonoBehaviour
         {
             if (hit.collider.gameObject.tag.StartsWith("Base"))
             {
-                interactionText.text = "Register Base";
+                interactionText.text = "거점 등록하기";
             }
             else
             {
-                interactionText.text = "Interact";
+                interactionText.text = "상호작용하기";
             }
             
             mouseImage.enabled = true;

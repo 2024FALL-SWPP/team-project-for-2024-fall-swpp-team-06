@@ -7,7 +7,7 @@ public class ItemGenerator : MonoBehaviour
 {
     private List<string> initialPrefabPaths = new List<string>
     {
-        "Assets/Cosmic6/Prefabs12DB/shovel",
+        "Assets/Cosmic6/Prefabs12DB/삽",
         "Assets/Cosmic6/Prefabs12DB/1_Plant",
         "Assets/Cosmic6/Prefabs12DB/1_Plant",
         "Assets/Cosmic6/Prefabs12DB/1_Plant",

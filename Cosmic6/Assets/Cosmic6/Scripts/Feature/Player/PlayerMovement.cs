@@ -22,20 +22,29 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private bool isJumping = false;
     public float currentSpeed { get; private set; }
+    private Vector3 startPos;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         locationTracker = GetComponent<LocationTracker>();
         gameManager.OnGameOver += GameOver;
+        gameManager.OnGameStart += GameStart;
         instantMovement.OnTeleport += Teleport;
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+    }
+    
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gameManager.IsGameStart) return;
+        
         isGrounded = characterController.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
@@ -97,6 +106,51 @@ public class PlayerMovement : MonoBehaviour
         int idx = Random.Range(0, 2);
         animator.SetTrigger(idx == 0 ? "DyeTrig" : "DyeBackwardsTrig");
         StartCoroutine(GameOverCoroutine());
+    }
+
+    void GameStart()
+    {
+        animator.speed = 0.5f;
+        animator.SetTrigger("StartTrig");
+        StartCoroutine(GameStartCoroutine());
+    }
+    
+    IEnumerator GameStartCoroutine()
+    {
+        characterController.enabled = false;
+        startPos = transform.position;
+        float changeSpeed = 0.1f;
+        float timer = 0;
+        float acceleration = 0.15f * 5 / gameManager.gameOverAnimationDuration;
+
+        yield return new WaitForSeconds(3f);
+        animator.speed = 1f;
+
+        while (timer < 1.3f)
+        {
+            timer += Time.deltaTime;
+            transform.Translate(Vector3.up * changeSpeed * Time.deltaTime);
+            changeSpeed += acceleration * Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1.85f);
+        
+        while (timer < 2.3f)
+        {
+            timer += Time.deltaTime;
+            transform.Translate(Vector3.up * changeSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(gameManager.gameStartDuration);
+    }
+
+    public void GameStartTrigger()
+    {
+        StopCoroutine("GameStartCoroutine");
+        transform.position = startPos;
+        characterController.enabled = true;
     }
 
     IEnumerator GameOverCoroutine()

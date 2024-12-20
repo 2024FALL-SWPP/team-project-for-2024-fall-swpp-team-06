@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -195,7 +196,7 @@ namespace DevionGames.InventorySystem
                 {
                     StopCoroutine(this.m_DelayTooltipCoroutine);
                 }
-                this.m_DelayTooltipCoroutine = StartCoroutine(DelayTooltip(0.3f));
+                this.m_DelayTooltipCoroutine = StartCoroutine(DelayTooltip(0f));
             }
         }
 
@@ -508,6 +509,11 @@ namespace DevionGames.InventorySystem
             } else if(IsCooldown && !IsEmpty){
                 InventoryManager.Notifications.inCooldown.Show(ObservedItem.DisplayName, (cooldownDuration - (Time.time - cooldownInitTime)).ToString("f2"));
             }
+        }
+
+        public void OnDisable()
+        {
+            CloseTooltip();
         }
 
         //Can we use the item
