@@ -35,7 +35,7 @@ public class Quest_Flag2 : Quest
     private FlagManager flagManager;
 
     public Quest_Flag2(string title, string description)
-        : base(title, description, "Flag2", default, 1)
+        : base(title, description, "Flag2", default, QuestType.Exploration, 1)
     {
     }
 

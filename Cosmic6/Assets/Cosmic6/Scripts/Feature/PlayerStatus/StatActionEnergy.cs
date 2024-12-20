@@ -21,7 +21,7 @@ namespace DevionGames.InventorySystem.ItemActions
                 return ActionStatus.Failure;
             }
 
-            playerStatus.UpdateEnergy(m_Amount);
+            playerStatus.UpdateEnergy(m_Amount, true);
             Debug.Log($"Energy를 {m_Amount}만큼 변경했습니다.");
             return ActionStatus.Success;
         }

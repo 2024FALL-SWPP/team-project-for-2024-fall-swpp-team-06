@@ -9,6 +9,9 @@ public class PlayerStatusController : MonoBehaviour
     public LocationTracker locationTracker;
     public TimeManager timeManager;
     public PlayerStatusUI playerStatusUI;
+
+    public Action<int> Tutorial1Complete;
+    private bool isStart;
     
     public float hp { get; private set; }
     public float oxygen { get; private set; }
@@ -36,10 +39,11 @@ public class PlayerStatusController : MonoBehaviour
     void Start()
     {
         // save & load -> from json
-        hp = maxHP;
+        hp = 50;
         oxygen = maxOxygen;
-        energy = maxEnergy;
+        energy = 50;
         gameManager.OnGameOver += GameOver;
+        isStart = gameManager.IsGameStart;
 
     }
 
@@ -86,7 +90,7 @@ public class PlayerStatusController : MonoBehaviour
         if (energyUpdateTimer > energyUpdatePeriod)
         {
             energyUpdateTimer -= energyUpdatePeriod;
-            UpdateEnergy(-energyUpdateAmount);
+            UpdateEnergy(-energyUpdateAmount, false);
         }
     }
 
@@ -103,9 +107,15 @@ public class PlayerStatusController : MonoBehaviour
         
     }
 
-    public void UpdateEnergy(float energyChange)
+    public void UpdateEnergy(float energyChange, bool isUsingItem)
     {
         energy = Math.Max(energy + energyChange, 0);
+
+        if (isStart && isUsingItem)
+        {
+            Tutorial1Complete?.Invoke(0);
+            isStart = false;
+        }
 
         if (energy == 0)
         {

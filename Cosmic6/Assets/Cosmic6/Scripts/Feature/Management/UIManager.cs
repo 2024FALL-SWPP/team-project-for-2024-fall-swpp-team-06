@@ -22,6 +22,9 @@ public class UIManager : MonoBehaviour
     public GameObject helmetImage;
     public GameObject mouseImage;
     public GameObject hoeImage;
+    public GameManager gameManager;
+    public GameObject teleportPanel;
+    private InstantMovement instantMovement;
 
     private GameObject[] itemSlotChildren;
 
@@ -44,6 +47,7 @@ public class UIManager : MonoBehaviour
         {
             itemSlotChildren[i] = itemSlot.transform.GetChild(i).gameObject;
         }
+        instantMovement = GetComponent<InstantMovement>();
         
         isUIActive = false;
         UpdateUIState();
@@ -54,6 +58,9 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameManager.IsGameOver || gameManager.IsGameStart)
+            return;
+        
         if (Input.GetKeyDown(KeyCode.M))
         {
             ProcessNormalUIInput(UIIndex.Map);
@@ -170,8 +177,8 @@ public class UIManager : MonoBehaviour
             crossHairUI.SetActive(false);
             mouseImage.SetActive(false);
             hoeImage.SetActive(false);
-
-            
+            instantMovement.enabled = false;
+            teleportPanel.SetActive(false);
             triggerTooltip.SetActive(false);
         }
         else
@@ -181,7 +188,7 @@ public class UIManager : MonoBehaviour
             crossHairUI.SetActive(true);
             mouseImage.SetActive(true);
             hoeImage.SetActive(true);
-            
+            instantMovement.enabled = true;
             triggerTooltip.SetActive(true);
         }
     }

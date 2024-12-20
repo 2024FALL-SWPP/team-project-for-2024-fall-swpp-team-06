@@ -366,7 +366,7 @@ public class FieldDecayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        farmingManager = GetComponent<FarmingManager>();
+        farmingManager = FarmingManager.Instance;
         gridSize = farmingManager.gridSize;
         decayRoutine = DecayRoutine();
         StartCoroutine(decayRoutine);

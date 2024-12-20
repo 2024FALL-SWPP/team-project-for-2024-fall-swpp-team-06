@@ -15,7 +15,12 @@ public class BaseManager : MonoBehaviour
     
     string[] validTags = { "Base1", "Base2", "Base3" };
 
+    public Action<int> Tutorial2Complete;
+
     private int currentBase = 0;
+    
+    private GameManager gameManager;
+    private bool isStart;
     
     // clickable
     private int baseLayerIndex = 3;
@@ -32,6 +37,8 @@ public class BaseManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GetComponent<GameManager>();
+        isStart = gameManager.IsGameStart;
         cameraRaycaster.OnRaycastHit += ProcessRaycast;
 
         for (int i = 0; i < 3; i++)
@@ -71,15 +78,18 @@ public class BaseManager : MonoBehaviour
             
             if (isClicked && !isBaseRegistered[currentBase])
             {
+                if (isStart)
+                {
+                    Tutorial2Complete?.Invoke(1);
+                    isStart = false;
+                }
+                
                 isBaseRegistered[currentBase] = true;
                 OnBaseRegistered?.Invoke();
                 bases[currentBase].layer = 0;
-                teleUI.UpdateTeleProgress();
                 print("Base" + currentBase + "registered");
-                mapComponents[currentBase].SetActive(true);
                 safeZoneOverlays[currentBase].SetActive(true);
-                flagManager.UpdateMinimap();
-                minimapController.UpdateMinimap();
+                StartCoroutine(UpdateBaseCoroutine(currentBase));
 
                 if (questSystem != null)
                 {
@@ -96,5 +106,15 @@ public class BaseManager : MonoBehaviour
         {
             safeZoneOverlays[currentBase].SetActive(false);
         }*/
+    }
+
+    IEnumerator UpdateBaseCoroutine(int baseIndex)
+    {
+        yield return new WaitForSeconds(8.5f);
+        
+        mapComponents[baseIndex].SetActive(true);
+        flagManager.UpdateMinimap();
+        minimapController.UpdateMinimap();
+        teleUI.UpdateTeleProgress();
     }
 }

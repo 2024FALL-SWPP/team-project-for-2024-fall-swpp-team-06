@@ -13,7 +13,7 @@ public class OverlayManager : MonoBehaviour
 
     private void Start()
     {
-        farmingManager = GetComponent<FarmingManager>();
+        farmingManager = FarmingManager.Instance;
         gridSize = farmingManager.gridSize;
         
         for (int i = 0; i < pools.Count; i++)
