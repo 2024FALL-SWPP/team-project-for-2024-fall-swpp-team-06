@@ -67,7 +67,7 @@ public class InstantMovement : MonoBehaviour
             {
                 currentBaseIndex = i;
                 teleportPopupUI.SetActive(true);
-                teleportInstructions.text = $"Press 'T'\nto teleport\nother bases.";
+                teleportInstructions.text = $"T를 눌러 순간이동하기";
                 break;
             }
             else
@@ -95,8 +95,8 @@ public class InstantMovement : MonoBehaviour
             }
         }
 
-        teleportInstructions.text = $"Currently near base {currentBaseIndex + 1}.\n" +
-            $"Choose a teleport destination: {destinations}";
+        teleportInstructions.text = $"현재 위치: 거점 {currentBaseIndex + 1}\n" +
+            $"숫자를 눌러 순간이동하기: {destinations}";
 
         StartCoroutine(WaitForTeleportInput());
     }

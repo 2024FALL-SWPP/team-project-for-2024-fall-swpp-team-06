@@ -4,6 +4,7 @@ using UnityEngine;
 using DevionGames.InventorySystem;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public enum FieldState
 {
@@ -30,7 +31,7 @@ public struct OverlayData
 public class FarmingManager : MonoBehaviour
 {
 
-        public static FarmingManager Instance;
+    public static FarmingManager Instance;
 
     private void Awake()
     {
@@ -43,6 +44,8 @@ public class FarmingManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    public GameManager gameManager;
+    private bool isStart;
     
     // fieldStates should be saved & loaded
     private Dictionary<(int, int), FieldState> fieldStates = new Dictionary<(int, int), FieldState>();
@@ -51,10 +54,14 @@ public class FarmingManager : MonoBehaviour
     public CameraRaycaster cameraRaycaster;
 
     public Image hoeImage;
+    public Image mouseImage;
+    public TextMeshProUGUI interactionText;
+    
     public float gridSize { get; private set; } = 1000 / 1024f;
     public bool isFarmingMode = false;
     public Action OnTiling;
     public Action OnHarvesting;
+    public Action<int> Tutorial3Complete;
 
     private const float xOffset = -4000f;
     private const float zOffset = -5000f;
@@ -94,6 +101,8 @@ public class FarmingManager : MonoBehaviour
 
     void Start()
     {
+        isStart = gameManager.IsGameStart;
+        
         // load fieldStates
         normalThreshold = Mathf.Cos(Mathf.Deg2Rad * angleThresholdDeg);
         overlayManager = GetComponent<OverlayManager>();
@@ -151,8 +160,15 @@ public class FarmingManager : MonoBehaviour
         var fieldState = fieldDecayManager.Harvest(xIndex, zIndex);
         
         SetFieldState(xIndex, zIndex, fieldState);
-        OnHarvesting?.Invoke();
-        
+        if (fieldState == FieldState.Tilled)
+        {
+            OnHarvesting?.Invoke();
+            if (isStart)
+            {
+                Tutorial3Complete?.Invoke(2);
+                isStart = false;
+            }
+        }
     }
 
     public void ProcessRaycast(bool isHit, RaycastHit hit, bool isClicked)
@@ -163,6 +179,8 @@ public class FarmingManager : MonoBehaviour
             {
                 isOverlayInvisible = true;
                 hoeImage.enabled = false;
+                mouseImage.enabled = false;
+                interactionText.enabled = false;
                 overlayManager.SetOverlayInvisible();
             }
             
@@ -181,6 +199,8 @@ public class FarmingManager : MonoBehaviour
 
             if (isTilingMode && state == FieldState.NotTilled)
             {
+                mouseImage.enabled = false;
+                interactionText.enabled = false;
                 OverlayData overlayData = GetOverlayData(x, z, hitTerrain);
             
                 if (isOverlayInvisible || x != currentX || z != currentZ)
@@ -213,21 +233,33 @@ public class FarmingManager : MonoBehaviour
                 hoeImage.enabled = false;
                 overlayManager.SetOverlayInvisible();
 
-                if (isPlantingMode && state == FieldState.Tilled && isClicked)
-                {                    
-                    var fieldState = fieldDecayManager.Plant(x, z);
+                if (isPlantingMode && state == FieldState.Tilled)
+                {
+                    mouseImage.enabled = true;
+                    interactionText.text = "심기";
+                    interactionText.enabled = true;
+
+                    if (isClicked)
+                    {
+                        var fieldState = fieldDecayManager.Plant(x, z);
                     
-                    var globalCornerPos = IndexToGlobal(x, z);
-                    var (globalX, globalZ) = (globalCornerPos.Item1 + gridSize / 2,
-                        globalCornerPos.Item2 + gridSize / 2);
-                    var (localX, localZ) = (globalX - hitTerrain.transform.position.x,
-                        globalZ - hitTerrain.transform.position.z);
+                        var globalCornerPos = IndexToGlobal(x, z);
+                        var (globalX, globalZ) = (globalCornerPos.Item1 + gridSize / 2,
+                            globalCornerPos.Item2 + gridSize / 2);
+                        var (localX, localZ) = (globalX - hitTerrain.transform.position.x,
+                            globalZ - hitTerrain.transform.position.z);
                     
-                    var y = GetHeightGlobal(localX, localZ, hitTerrain);
+                        var y = GetHeightGlobal(localX, localZ, hitTerrain);
                     
-                    ExecutePlanting(new (globalX, y, globalZ));
-                    Debug.Log("Planted on" + globalX + " " + globalZ);
-                    SetFieldState(x, z, fieldState);
+                        ExecutePlanting(new (globalX, y, globalZ));
+                        Debug.Log("Planted on" + globalX + " " + globalZ);
+                        SetFieldState(x, z, fieldState);
+                    }
+                }
+                else
+                {
+                    mouseImage.enabled = false;
+                    interactionText.enabled = false;
                 }
             }
         }
@@ -235,6 +267,8 @@ public class FarmingManager : MonoBehaviour
         {
             isOverlayInvisible = true;
             hoeImage.enabled = false;
+            mouseImage.enabled = false;
+            interactionText.enabled = false;
             overlayManager.SetOverlayInvisible();
         }
     }
