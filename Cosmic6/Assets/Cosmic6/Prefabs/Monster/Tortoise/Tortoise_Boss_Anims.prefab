@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 863118526}
   - component: {fileID: 1101133661}
   - component: {fileID: 1101133662}
-  - component: {fileID: 1938757848}
+  - component: {fileID: 1101133663}
   m_Layer: 9
   m_Name: Tortoise_Boss_Anims
   m_TagString: Untagged
@@ -226,10 +226,10 @@ MonoBehaviour:
   fovVerticalAttacking: 240
   chaseRange: 40
   attackRange: 12
-  patrolCenterPoint: {x: 6500, y: 0, z: -13500}
+  patrolCenterPoint: {x: 6500, y: 0, z: -14500}
   patrolAreaRadius: 500
-  distanceLowerBound: 5
-  distanceUpperBound: 15
+  distanceLowerBound: 15
+  distanceUpperBound: 25
   investigateSpeed: 7
   chaseSpeed: 11
   patrolSpeed: 5
@@ -263,7 +263,7 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!195 &1938757848
+--- !u!195 &1101133663
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

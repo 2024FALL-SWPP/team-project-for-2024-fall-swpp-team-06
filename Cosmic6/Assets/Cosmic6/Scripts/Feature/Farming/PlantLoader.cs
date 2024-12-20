@@ -21,7 +21,8 @@ public class PlantLoader : MonoBehaviour
         public List<PlantData> plants;
     }
 
-    public string jsonFilePath = "Assets/StreamingAssets/default_plants.json";
+    private string jsonFileName = "default_plants.json";
+    private string jsonFilePath;
     public float spawnInterval = 0.05f;
     public event Action OnPlantsLoaded;
 
@@ -30,7 +31,9 @@ public class PlantLoader : MonoBehaviour
 
     void Start()
     {
+        jsonFilePath = Path.Combine(Application.streamingAssetsPath, jsonFileName);
         LoadPlantData();
+        
         if (loadedPlantData != null && loadedPlantData.plants.Count > 0)
         {
             StartCoroutine(SpawnPlantsCoroutine());
@@ -60,13 +63,13 @@ public class PlantLoader : MonoBehaviour
         foreach (PlantData plantData in loadedPlantData.plants)
         {
             string prefabPath = "Assets/Cosmic6/Prefabs12DB/" + plantData.name;
-            print(plantData.terrainIndex);
+            //print(plantData.terrainIndex);
             GameObject plantPrefab = Resources.Load<GameObject>(prefabPath);
             if (plantPrefab != null)
             {
                 GameObject spawnedPlant = ObjectManager.Instance.SpawnObjectWithName(plantPrefab, plantData.name, plantData.position, Quaternion.identity);
                 spawnedPlant.transform.SetParent(plantsParents[plantData.terrainIndex].transform);
-                Debug.Log("Spawned: " + plantData.name + " at " + plantData.position);
+                //Debug.Log("Spawned: " + plantData.name + " at " + plantData.position);
             }
             else
             {

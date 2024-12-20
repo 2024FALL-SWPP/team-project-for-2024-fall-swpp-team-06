@@ -15,6 +15,8 @@ public class MonsterController : MonoBehaviour
     
     [Header("State Settings")]
     public State currentState;
+    private bool initialized = false;
+    private IEnumerator stateRoutine = null;
 
     [Header("Attack Settings")]
     public List<GameObject> attackParts;
@@ -93,6 +95,8 @@ public class MonsterController : MonoBehaviour
             
             attackCollider.OnHit += HandleHit;
         }
+
+        initialized = false;
     }
     
     
@@ -101,14 +105,28 @@ public class MonsterController : MonoBehaviour
         // initialize
         _hasTarget = false;
         isAttackHit = false;
-        currentState = State.Idle;
         ChangeFov(true);
-        
-        Initialize();
+
+        initialized = false;
+    }
+
+    void OnDisable()
+    {
+        if (stateRoutine != null)
+        {
+            StopCoroutine(stateRoutine);
+            stateRoutine = null;
+        }
     }
 
     void Update()
     {
+        if (!initialized)
+        {
+            Initialize();
+            initialized = true;
+        }
+        
         float currentSpeed = agent.velocity.magnitude;
         animator.SetFloat("Speed", currentSpeed / chaseSpeed);
     }
@@ -116,11 +134,10 @@ public class MonsterController : MonoBehaviour
     void Initialize()
     {
         // TODO: player = target.gameObject.GetComponent<PlayerController>();
-        
-        NavMeshHit hit;
-        
         currentState = State.Idle;
-        StartCoroutine(StateRoutine());
+        agent.enabled = true;
+        stateRoutine = StateRoutine();
+        StartCoroutine(stateRoutine);
     }
 
     IEnumerator StateRoutine()
@@ -151,7 +168,6 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator Idle(float idleTime)
     {
-        print("Idle");
 
         if (Random.Range(0, 10) <= 7)
         {
@@ -179,7 +195,6 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator Patrol(Vector3 destination, float speed)
     {
-        print("Patrol");
         agent.speed = speed;
         
         if (Random.Range(0, 10) <= 7)
@@ -233,7 +248,6 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator Chase()
     {
-        print("Chase");
         ChangeFov(false);
         agent.speed = chaseSpeed;
         
@@ -277,7 +291,6 @@ public class MonsterController : MonoBehaviour
     // Coroutine in Idle & Patrol state
     IEnumerator LookAround()
     {
-        print("LookAround");
         // TODO: add head rotation or animation; forward direction -> head forward direction
         
         while (true)
@@ -334,7 +347,6 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator Attack()
     {
-        print("Attack");
 
         float checkRate = 0.5f;
         
@@ -378,7 +390,6 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator Investigate()
     {
-        print("Investigate");
         ChangeFov(false);
         
         animator.SetBool("LookAroundAggressive_b", true);

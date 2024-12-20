@@ -295,14 +295,12 @@ public class FieldDecayManager : MonoBehaviour
         // if the targetDecayData should be deleted, ChangeTexture without yield return makes inconsistency.
         if (targetDecayData.decayStage == -1)
         {
-            print(idx);
             farmingManager.RemoveFieldState(targetDecayData.x, targetDecayData.z);
             yield return ChangeTexture(targetDecayData);
             fieldMap.Remove((targetDecayData.x, targetDecayData.z));
         }
         else
         {
-            print(idx);
             targetDecayData.decayTime = DecayInterval + currentTime;
             decayQueue[targetDecayData] = idx;
             StartCoroutine(ChangeTexture(targetDecayData));
@@ -311,7 +309,6 @@ public class FieldDecayManager : MonoBehaviour
 
     IEnumerator ChangeTexture(FieldDecayData decayData)
     {
-        print("stage: " + decayData.decayStage);
         var x = decayData.x;
         var z = decayData.z;
         var fieldInfo = fieldMap[(x, z)];
@@ -352,8 +349,7 @@ public class FieldDecayManager : MonoBehaviour
             {
                 for (int k = 0; k < terrainData.alphamapLayers; k++)
                 {
-                    newAlphamaps[i, j, k] = (k == fieldInfo.targetTextureIndex) ? ratio : (1 - ratio) * originalAlphamaps[i, j, k];
-                    print("newAlphamaps" + i + ", " + j + ", " + k + ": " + newAlphamaps[i, j, k]);
+                    newAlphamaps[i, j, k] = (k == terrainData.alphamapLayers - 1) ? ratio : (1 - ratio) * originalAlphamaps[i, j, k];
                 }
             }
         }

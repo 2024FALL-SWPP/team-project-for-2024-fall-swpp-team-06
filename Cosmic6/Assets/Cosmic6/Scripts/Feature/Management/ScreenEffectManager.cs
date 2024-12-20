@@ -40,7 +40,10 @@ public class ScreenEffectManager : MonoBehaviour
     IEnumerator HalfFadeScreen()
     {
         darkScreen.enabled = true;
+        darkScreen.color = Color.black;
         var timer = 0f;
+
+        yield return new WaitForSeconds(1f);
 
         while (timer < 4)
         {
