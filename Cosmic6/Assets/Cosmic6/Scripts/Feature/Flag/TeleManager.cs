@@ -14,9 +14,7 @@ public class TeleManager : MonoBehaviour
     public bool[] isTeleFound { get; private set; } = { false, false, false, false, false, false, false };
 
     private int teleNum = 0;
-    public int teleRegion1 = 0;
-    public int teleRegion2 = 0;
-    public int teleRegion3 = 0;
+    public int[] teleRegion={0, 0, 0};
 
     public Action OnTeleFound;
 
@@ -65,9 +63,9 @@ public class TeleManager : MonoBehaviour
         questSystem.UpdateQuestProgress("Tele", 1);
         teleUI.UpdateTeleProgress();
         
-        if (idx < 4 && idx > 0) { teleRegion1++; }
-        else if (idx < 6) { teleRegion2++; }
-        else { teleRegion3++; }
+        if (idx < 4 && idx > 0) { teleRegion[0]++; }
+        else if (idx < 6) { teleRegion[1]++; }
+        else { teleRegion[2]++; }
         Destroy(teleFlags[idx - 1]);
         isTeleFound[idx - 1] = true;
         Debug.Log($"tele{idx} is deleted. {7 - teleNum} teles remain.");

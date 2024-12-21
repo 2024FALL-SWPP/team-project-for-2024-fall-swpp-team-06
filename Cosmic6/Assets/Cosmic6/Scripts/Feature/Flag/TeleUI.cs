@@ -54,6 +54,7 @@ public class TeleUI : MonoBehaviour
             detectionText.text = "작동 중...";
             detectionText.color = Color.white;
         }
+        UpdateTeleProgress();
     }
 
     public void UpdateTeleProgress()
@@ -64,7 +65,7 @@ public class TeleUI : MonoBehaviour
             {
                 numTexts[i].fontSize = 25;
                 numTextObjects[i].SetActive(true);
-                texts[i] = $"지역{i+1} - {telemanager.teleRegion1}/{totalnums[i]}";
+                texts[i] = $"지역{i+1} - {telemanager.teleRegion[i]}/{totalnums[i]}";
             }
             else
             {
