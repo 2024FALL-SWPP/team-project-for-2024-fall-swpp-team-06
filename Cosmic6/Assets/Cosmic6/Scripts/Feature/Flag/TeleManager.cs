@@ -61,13 +61,13 @@ public class TeleManager : MonoBehaviour
     {
         teleNum++;
         questSystem.UpdateQuestProgress("Tele", 1);
-        teleUI.UpdateTeleProgress();
         
         if (idx < 4 && idx > 0) { teleRegion[0]++; }
         else if (idx < 6) { teleRegion[1]++; }
         else { teleRegion[2]++; }
         Destroy(teleFlags[idx - 1]);
         isTeleFound[idx - 1] = true;
+        teleUI.UpdateTeleProgress();
         Debug.Log($"tele{idx} is deleted. {7 - teleNum} teles remain.");
 
         if (teleNum == 7)
