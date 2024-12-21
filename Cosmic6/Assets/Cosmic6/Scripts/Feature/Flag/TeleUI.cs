@@ -12,11 +12,10 @@ public class TeleUI : MonoBehaviour
     public GameObject detectionPanel;
     public GameObject telenumPanel;
     public TMP_Text detectionText;
-    public TMP_Text numText_1;
-    public TMP_Text numText_2;
-    public TMP_Text numText_3;
     public GameObject[] numTextObjects;
+    public GameObject starTextObject;
     private TMP_Text[] numTexts;
+    private TMP_Text starText;
 
     private int[] totalnums={3, 2, 2};
     private string[] texts={"", "", ""};
@@ -29,11 +28,12 @@ public class TeleUI : MonoBehaviour
         telenumPanel.SetActive(true);
         
         numTexts = new TMP_Text[numTextObjects.Length];
+        starText = starTextObject.GetComponent<TMP_Text>();
 
         for (int i = 0; i < numTextObjects.Length; i++)
         {
             numTexts[i] = numTextObjects[i].GetComponent<TMP_Text>();
-            if (i != 0)
+            //if (i != 0)
             {
                 numTextObjects[i].SetActive(false);
             }
@@ -54,7 +54,7 @@ public class TeleUI : MonoBehaviour
             detectionText.text = "작동 중...";
             detectionText.color = Color.white;
         }
-        UpdateTeleProgress();
+        //UpdateTeleProgress();
     }
 
     public void UpdateTeleProgress()
@@ -63,6 +63,7 @@ public class TeleUI : MonoBehaviour
         {
             if(basemanager.isBaseRegistered[i])
             {
+                starTextObject.SetActive(false);
                 numTexts[i].fontSize = 25;
                 numTextObjects[i].SetActive(true);
                 texts[i] = $"지역{i+1} - {telemanager.teleRegion[i]}/{totalnums[i]}";
