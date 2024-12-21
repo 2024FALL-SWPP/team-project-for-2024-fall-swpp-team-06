@@ -98,9 +98,9 @@ public class PlayerStatusController : MonoBehaviour
     {
         if (locationTracker.isBase && hpChange < 0) return;
         
-        hp = Math.Max(hp + hpChange, 0);
+        hp = Math.Clamp(hp + hpChange, 0, maxHP);
 
-        if (hp == 0)
+        if (hp <= 0)
         {
             gameManager.GameOver();
         }
@@ -109,7 +109,7 @@ public class PlayerStatusController : MonoBehaviour
 
     public void UpdateEnergy(float energyChange, bool isUsingItem)
     {
-        energy = Math.Max(energy + energyChange, 0);
+        energy = Math.Clamp(energy + energyChange, 0, maxEnergy);
 
         if (isStart && isUsingItem)
         {
@@ -117,7 +117,7 @@ public class PlayerStatusController : MonoBehaviour
             isStart = false;
         }
 
-        if (energy == 0)
+        if (energy <= 0)
         {
             gameManager.GameOver();
         }
@@ -125,9 +125,9 @@ public class PlayerStatusController : MonoBehaviour
 
     public void UpdateOxygen(float oxygenChange)
     {
-        oxygen = Math.Max(oxygen + oxygenChange, 0);
+        oxygen = Math.Clamp(oxygen + oxygenChange, 0, maxOxygen);
 
-        if (oxygen == 0)
+        if (oxygen <= 0)
         {
             gameManager.GameOver();
         }
